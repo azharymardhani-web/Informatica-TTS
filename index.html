@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFORMATIKA TTS CHALLENGE | Media Pembelajaran Informatika MTs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            dark: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; color: black !important; }
+        }
+        .print-only { display: none; }
+        .tts-cell {
+            width: 44px;
+            height: 44px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            caret-color: transparent;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @media(max-width: 640px) {
+            .tts-cell { width: 36px; height: 36px; font-size: 0.9rem; }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes correctGlow {
+            0% { background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(52, 211, 153, 0.2)); transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+            50% { background: linear-gradient(135deg, rgba(16, 185, 129, 0.5), rgba(52, 211, 153, 0.4)); transform: scale(1.06); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+            100% { background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(52, 211, 153, 0.2)); transform: scale(1); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+        }
+        .animate-correct { animation: correctGlow 0.6s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-full flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 text-white shadow-lg sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div id="headerLogo" class="flex items-center space-x-3 cursor-pointer group" onclick="router.navigate('home')">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur group-hover:bg-white/20 transition">
+                    <i class="fa-solid fa-puzzle-piece text-brand-300 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-sm sm:text-base tracking-tight flex items-center gap-2">
+                        INFORMATIKA TTS <span class="text-xs bg-emerald-500 text-white px-2 py-0.5 rounded-full font-medium shadow-sm">Kumer & KBC (7, 8, 9)</span>
+                    </h1>
+                    <p class="text-[11px] text-brand-200" id="headerSchoolSub">MTs Negeri 14 Jakarta • Azhary Mardhani, S.Kom.</p>
+                </div>
+            </div>
+            <nav id="headerNav" class="flex items-center space-x-1 sm:space-x-3">
+                <button onclick="router.navigate('home')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-house"></i> <span class="hidden md:inline">Beranda</span>
+                </button>
+                <button onclick="router.navigate('leaderboard')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition flex items-center gap-1.5 text-amber-300">
+                    <i class="fa-solid fa-trophy"></i> <span class="hidden md:inline">Klasemen</span>
+                </button>
+                <button onclick="router.navigate('howToPlay')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-question"></i> <span class="hidden md:inline">Cara Bermain</span>
+                </button>
+                <button onclick="router.navigate('teacherLogin')" class="px-3 py-2 rounded-lg text-sm font-medium bg-brand-600/50 hover:bg-brand-600 border border-brand-500/50 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-chalkboard-user"></i> <span class="hidden sm:inline">Guru/Admin</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app" class="flex-grow flex flex-col max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <!-- Dynamic Views rendered via JS Router -->
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-sm mt-auto no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold shadow-md">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-200">INFORMATIKA TTS CHALLENGE</p>
+                    <p class="text-xs text-slate-500">Kurikulum Merdeka 1 Tahun Ajaran (Kelas 7, 8, 9) • Berbasis KBC</p>
+                </div>
+            </div>
+            <div class="text-center md:text-right text-xs text-slate-500">
+                <p id="footerSchoolIdent">MTs Negeri 14 Jakarta • Guru: Azhary Mardhani, S.Kom.</p>
+                <p class="mt-1">© 2026 Seluruh hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3v19W60OQ5qfKYELEvmmkKaO-Gf6zHgs",
+            authDomain: "informatica-class.firebaseapp.com",
+            projectId: "informatica-class",
+            storageBucket: "informatica-class.firebasestorage.app",
+            messagingSenderId: "352869091816",
+            appId: "1:352869091816:web:071dd0f08870da932bbc5d",
+            measurementId: "G-DJBTVS9RMY"
+        };
+
+        let app, db, auth, userId = null;
+
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            
+            const initAuth = async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (authErr) {
+                    console.warn("Custom token sign-in failed, falling back to anonymous auth:", authErr);
+                    await signInAnonymously(auth);
+                }
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                initCloudSync();
+            };
+            initAuth();
+        } catch (e) {
+            console.warn("Firebase initialization fallback:", e);
+        }
+
+        const GRADE_MATERIALS = {
+            7: [
+                "Semua Materi",
+                "Berpikir Komputasional untuk penyelesaian Masalah",
+                "Pengolahan data",
+                "Literasi Informasi",
+                "Keseimbangan hidup di dunia digital",
+                "Perkakas Teknologi informasi dan komunikasi"
+            ],
+            8: [
+                "Semua Materi",
+                "Analisis Data",
+                "Berpikir Komputasional",
+                "Algoritma pemrograman",
+                "Jejak Bermedia digital",
+                "Pemanfaatan Perangkat Digital"
+            ],
+            9: [
+                "Semua Materi",
+                "Informatika SMP",
+                "Berpikir Komputasional",
+                "Teknologi Informasi dan komunikasi",
+                "Sistem Komputer",
+                "Jaringan Komputer dan Internet",
+                "Analisis data",
+                "Algoritma dan Pemrograman",
+                "Dampak Sosial Informatika",
+                "Praktik lintas Bidang informatika"
+            ]
+        };
+
+        function generateMassiveQuestionBank() {
+            const DICT = {
+                7: [
+                    ["ALGORITMA|Langkah-langkah sistematis untuk menyelesaikan suatu masalah", "DEKOMPOSISI|Teknik memecah masalah besar menjadi bagian-bagian yang lebih kecil", "POLA|Menemukan kesamaan bentuk dalam berbagai masalah", "ABSTRAKSI|Mengabaikan detail yang tidak penting dan fokus pada hal utama", "LOGIKA|Dasar penalaran dalam berpikir komputasional", "FLOWCHART|Diagram alir untuk menggambarkan jalannya algoritma", "PSEUDOCODE|Kode semu yang menyerupai bahasa pemrograman", "MASALAH|Sesuatu yang harus dicari solusinya dalam komputasi", "SOLUSI|Hasil akhir dari pemecahan masalah algoritma", "SISTEMATIS|Cara kerja yang berurutan dan teratur", "INSTRUKSI|Perintah dasar yang diberikan kepada sistem komputer", "KODING|Proses menulis kode program komputer", "PROGRAM|Kumpulan instruksi yang dapat dieksekusi oleh mesin", "KOMPUTER|Mesin elektronik yang memproses data menjadi informasi", "BERPIKIR|Aktivitas kognitif untuk memecahkan masalah", "KRITIS|Kemampuan menganalisis informasi secara logis dan mendalam", "NALAR|Proses berpikir logis untuk menarik kesimpulan", "STRUKTUR|Susunan bagian-bagian program menjadi satu kesatuan", "BAGAN|Gambar rancangan atau skema visual", "PROSES|Urutan pelaksanaan atau kejadian dalam CPU"],
+                    ["DATA|Kumpulan fakta mentah", "TABEL|Susunan data dalam baris dan kolom", "BARIS|Susunan sel horizontal di Excel", "KOLOM|Susunan sel vertikal di Excel", "SEL|Pertemuan baris dan kolom", "EXCEL|Aplikasi pengolah angka Microsoft", "FILTER|Menyaring data tertentu", "SORTIR|Mengurutkan data", "GRAF|Representasi visual data", "ANGKA|Tipe data numerik", "RUMUS|Persamaan matematika di Excel", "RATA|Nilai rata-rata (Average)", "JUMLAH|Total nilai (Sum)", "MAKSIMAL|Nilai tertinggi (Max)", "MINIMAL|Nilai terendah (Min)", "TIPE|Jenis klasifikasi data", "TEKS|Tipe data string/karakter", "FORMAT|Bentuk susunan data", "RENTANG|Kumpulan sel (Range)", "SPREADSHEET|Lembar kerja pengolah angka"],
+                    ["HOAKS|Berita bohong", "FAKTA|Informasi yang benar dan nyata", "SUMBER|Asal mula informasi", "VALID|Sah dan dapat dipercaya", "OPINI|Pendapat seseorang", "BERITA|Informasi kejadian terkini", "PORTAL|Situs penyedia layanan berita", "JURNAL|Publikasi karya ilmiah", "PLAGIAT|Menjiplak karya orang lain", "KUTIPAN|Mengambil kalimat dari sumber lain", "SEARCH|Mencari informasi di internet", "BROWSER|Perangkat lunak penjelajah web", "KEYWORD|Kata kunci pencarian", "URL|Alamat suatu halaman web", "DOMAIN|Nama unik pengenal situs web", "GOOGLE|Mesin pencari paling populer", "SITUS|Kumpulan halaman web", "MESIN|Program pencari (Engine)", "CARI|Tindakan menemukan informasi", "HALAMAN|Satu bagian dari website"],
+                    ["SCREEN|Layar monitor", "TIME|Waktu penggunaan layar", "ERGONOMI|Ilmu kenyamanan kerja", "POSTUR|Posisi tubuh saat menggunakan komputer", "RADIASI|Pancaran gelombang dari layar", "MATA|Organ penglihatan", "ISTIRAHAT|Jeda dari aktivitas layar", "SEHAT|Kondisi tubuh bebas penyakit", "KECANDUAN|Ketergantungan pada gadget", "DETOKS|Berhenti sementara dari digital", "PRIVASI|Data pribadi yang rahasia", "AMAN|Terlindungi dari bahaya siber", "PASSWORD|Kata sandi pengaman akun", "NETIKET|Etika dan kesopanan berinternet", "ETIKA|Norma kesopanan", "SOPAN|Sikap menghargai orang lain", "SIBER|Dunia maya (Cyber)", "BULLYING|Perundungan di dunia maya", "JEJAK|Rekam jejak digital", "DIGITAL|Bentuk teknologi elektronik"],
+                    ["HARDWARE|Perangkat keras komputer", "SOFTWARE|Perangkat lunak komputer", "MOUSE|Perangkat penunjuk (pointer)", "KEYBOARD|Papan ketik", "MONITOR|Layar penampil output", "CPU|Otak pemroses utama komputer", "PRINTER|Pencetak dokumen ke kertas", "SCANNER|Pemindai dokumen fisik", "FLASHDISK|Penyimpanan data portabel", "MEMORI|Penyimpanan data sementara/permanen", "SISTEM|Kumpulan komponen yang terintegrasi", "OPERASI|Sistem yang mengelola hardware (OS)", "WORD|Aplikasi pengolah kata", "FOLDER|Tempat menyimpan kumpulan file", "FILE|Berkas digital", "COPY|Menyalin data", "PASTE|Menempelkan data salinan", "SAVE|Menyimpan dokumen", "OPEN|Membuka dokumen", "DELETE|Menghapus data"]
+                ],
+                8: [
+                    ["SPREADSHEET|Lembar kerja pengolah angka", "CHART|Grafik visual data", "GRAFIK|Representasi gambar dari data", "VLOOKUP|Fungsi pencarian data vertikal", "HLOOKUP|Fungsi pencarian data horizontal", "PIVOT|Tabel ringkasan data dinamis", "RANGE|Rentang kumpulan sel", "FORMULA|Persamaan atau rumus", "FUNGSI|Rumus bawaan aplikasi (Function)", "ABSOLUT|Referensi sel yang dikunci ($)", "RELATIF|Referensi sel yang bisa berubah saat disalin", "STATISTIK|Cabang ilmu pengolahan data", "VISUAL|Sesuatu yang dapat dilihat", "TREN|Kecenderungan arah data", "PERSENTASE|Nilai per seratus", "LAPORAN|Hasil akhir penyajian data", "SEL|Unit terkecil di lembar kerja", "WORKSHEET|Lembar kerja individu", "CELL|Istilah bahasa inggris untuk Sel", "VALUE|Nilai yang ada di dalam sel"],
+                    ["PROPOSISI|Pernyataan yang bernilai benar atau salah", "KONJUNGSI|Logika AND (Dan)", "DISJUNGSI|Logika OR (Atau)", "IMPLIKASI|Logika JIKA MAKA", "DEDUKTIF|Penarikan kesimpulan dari umum ke khusus", "INDUKTIF|Penarikan kesimpulan dari khusus ke umum", "SILOGISME|Penarikan kesimpulan dari dua premis", "TAUTOLOGI|Pernyataan yang selalu bernilai benar", "GERBANG|Rangkaian logika dasar", "LOGIKA|Dasar penalaran matematis", "AND|Gerbang logika yang butuh dua input benar", "OR|Gerbang logika yang butuh satu input benar", "NOT|Gerbang logika pembalik (Inverter)", "BENAR|Nilai kebenaran True", "SALAH|Nilai kebenaran False", "PREMIS|Pernyataan dasar pendukung argumen", "KESIMPULAN|Hasil akhir dari penalaran", "ARGUMEN|Kumpulan premis yang logis", "VALID|Sah dan logis", "INVALID|Tidak sah atau tidak logis"],
+                    ["PYTHON|Bahasa pemrograman tingkat tinggi populer", "VARIABEL|Tempat menyimpan nilai sementara", "LOOPING|Perulangan instruksi blok kode", "IF|Struktur kontrol percabangan", "ELSE|Kondisi alternatif percabangan", "ARRAY|Kumpulan data berjenis sama", "SINTAKS|Aturan tata bahasa penulisan kode", "ERROR|Kesalahan pada program", "OUTPUT|Keluaran program", "INPUT|Masukan data ke program", "PRINT|Perintah menampilkan output di layar", "STRING|Tipe data teks", "INTEGER|Tipe data bilangan bulat", "FLOAT|Tipe data bilangan desimal", "BOOLEAN|Tipe data benar/salah", "KONDISI|Syarat berjalannya sebuah blok kode", "ITERASI|Proses perulangan", "BLOK|Kumpulan baris kode dalam fungsi", "KODE|Teks instruksi program", "BUG|Kecacatan atau error tersembunyi"],
+                    ["FOOTPRINT|Jejak digital", "ANONIM|Tanpa identitas", "CYBERBULLY|Perundungan siber", "PHISHING|Penipuan memancing data login", "SCAM|Skema penipuan online", "ENKRIPSI|Mengubah data menjadi kode rahasia", "DEKRIPSI|Mengembalikan kode rahasia menjadi data", "OTP|Kode sandi sekali pakai", "BIOMETRIK|Pengamanan via sidik jari/wajah", "MALWARE|Perangkat lunak berbahaya", "VIRUS|Program perusak yang menggandakan diri", "TROJAN|Malware yang menyamar sebagai aplikasi asli", "SPAM|Pesan sampah massal", "HACKER|Peretas sistem", "CRACKER|Peretas dengan niat jahat", "PRIVASI|Kerahasiaan data diri", "PUBLIK|Terbuka untuk umum", "SETTING|Pengaturan konfigurasi", "AKUN|Profil pengguna (Account)", "SANDI|Kata rahasia (Password)"],
+                    ["CLOUD|Penyimpanan awan", "GDRIVE|Layanan cloud buatan Google", "CANVA|Aplikasi desain grafis online", "KOLABORASI|Kerja sama dalam proyek", "SINKRON|Menyamakan data antar perangkat", "BACKUP|Mencadangkan data agar tidak hilang", "UPDATE|Memperbarui versi aplikasi perangkat lunak", "UPGRADE|Meningkatkan kemampuan hardware", "BANDWIDTH|Kapasitas maksimal transmisi jaringan", "ROUTER|Perangkat pengarah jalur jaringan", "WIFI|Jaringan nirkabel lokal", "HOTSPOT|Titik akses penyedia WiFi", "TETHERING|Berbagi koneksi internet via HP", "BLUETOOTH|Koneksi nirkabel jarak dekat", "SHARE|Membagikan data online", "DRIVE|Tempat menyimpan file virtual", "DOCS|Aplikasi pengolah kata kolaboratif online", "MEET|Aplikasi rapat virtual", "ZOOM|Platform video konferensi populer", "ONLINE|Status terhubung ke internet"]
+                ],
+                9: [
+                    ["INFORMATIKA|Ilmu tentang komputer dan komputasi", "KOMPUTASI|Penghitungan menggunakan komputer", "DIGITAL|Sistem berbasis sinyal elektronik diskrit", "SAINS|Ilmu pengetahuan", "TEKNOLOGI|Penerapan ilmu untuk memecahkan masalah", "INFORMASI|Data yang telah diproses bermakna", "ABAD|Kurun waktu seratus tahun", "INDUSTRI|Kegiatan produksi", "TRANSFORMASI|Perubahan bentuk atau sifat mendasar", "KONSEP|Ide atau gagasan abstrak", "TEORI|Prinsip dasar sebuah ilmu", "PRAKTIK|Pelaksanaan teori di dunia nyata", "SISTEM|Kesatuan elemen yang saling terhubung", "MESIN|Alat mekanik atau elektronik", "CERDAS|Kemampuan AI meniru pikiran manusia", "DATA|Fakta mentah", "JARINGAN|Kumpulan node yang terhubung", "SOSIAL|Berkenaan dengan interaksi masyarakat", "DAMPAK|Pengaruh dari penerapan suatu hal", "MASA|Waktu ke depan (Masa Depan)"],
+                    ["GRAF|Struktur data yang terdiri dari node dan edge", "TREE|Struktur data pohon", "NODE|Titik dalam graf atau pohon", "EDGE|Garis penghubung antar node", "ROOT|Node akar pada sebuah pohon", "LEAF|Node daun (terbawah)", "SEARCH|Algoritma pencarian data", "SORT|Algoritma pengurutan data", "BINARY|Pencarian/pohon biner", "LINEAR|Pencarian berurutan satu per satu", "BUBBLE|Metode sort dengan menukar berdekatan (Gelembung)", "INSERTION|Metode sort dengan cara menyisipkan (Sisipan)", "SELECTION|Metode sort dengan memilih nilai terkecil (Seleksi)", "MERGE|Metode sort dengan menggabungkan", "QUICK|Metode sort super cepat", "GRAPH|Istilah inggris untuk Graf", "VERTEX|Istilah lain untuk Node dalam graf", "PATH|Jalur lintasan antar node", "CYCLE|Jalur lintasan yang kembali ke awal", "NEIGHBOR|Node tetangga yang terhubung langsung"],
+                    ["BLOG|Situs jurnal atau catatan pribadi (Weblog)", "VLOG|Blog berbasis video", "CMS|Sistem manajemen konten web (Content Management System)", "HTML|Bahasa markah penentu struktur web", "WEB|Halaman informasi di internet", "HOSTING|Tempat menyimpan file website di server", "DOMAIN|Nama alamat unik website", "SERVER|Komputer pelayan penyedia jaringan", "KLIEN|Komputer pengguna jaringan", "INTERAKSI|Komunikasi dua arah", "CSS|Bahasa pengatur gaya atau desain web", "JAVASCRIPT|Bahasa untuk membuat fungsi interaktif web", "DESAIN|Rancangan tata visual", "LAYOUT|Tata letak halaman struktur web", "RESPONSIF|Desain yang otomatis menyesuaikan ukuran layar", "STATIS|Web yang isinya tetap tidak berubah otomatis", "DINAMIS|Web yang isinya bisa berubah sesuai database", "PORTAL|Situs penyedia berbagai tautan layanan utama", "FORUM|Tempat diskusi interaktif online", "WIKI|Situs ensiklopedia yang dapat diedit publik"],
+                    ["MOTHERBOARD|Papan sirkuit utama penempatan komputer", "RAM|Memori penyimpanan sementara kecepatan tinggi", "ROM|Memori baca-saja permanen", "BIOS|Sistem input output dasar yang diakses saat booting", "ALU|Unit pemroses aritmatika dan logika pada prosesor", "CU|Unit kontrol pengatur lalu lintas data pada CPU", "REGISTER|Memori super cepat di dalam inti CPU", "CACHE|Memori perantara penjembatan CPU dan RAM", "SSD|Media penyimpanan modern tanpa piringan bergerak (Solid State)", "HDD|Media penyimpanan jadul berbasis piringan magnetik", "PROSESOR|Otak utama dari sistem komputer (CPU)", "VGA|Kartu pemroses penampil grafis layar", "SOUND|Pemroses output suara", "CARD|Kartu ekspansi fisik tambahan", "PORT|Colokan untuk menghubungkan perangkat luar", "USB|Standar colokan konektor universal modern", "HDMI|Port kabel untuk transfer kualitas audio dan video HD", "POWER|Sumber daya tegangan listrik", "SUPPLY|Unit catu daya penyedia listrik ke motherboard (PSU)", "COOLING|Sistem kipas pendingin komputer"],
+                    ["LAN|Jaringan area lokal", "WAN|Jaringan area luas (dunia)", "MAN|Jaringan area setingkat kota", "INTERNET|Jaringan global seluruh dunia", "INTRANET|Jaringan privat terbatas dalam sebuah organisasi", "TOPOLOGI|Bentuk rancangan arsitektur jaringan", "STAR|Topologi berbentuk bintang dengan pusat switch", "BUS|Topologi dengan satu kabel utama lurus", "RING|Topologi berbentuk cincin melingkar", "IP|Protokol internet untuk pengalamatan", "ADDRESS|Alamat unik di jaringan", "MAC|Alamat fisik perangkat keras (Hardware Address)", "PROTOKOL|Aturan komunikasi standar jaringan", "TCP|Protokol kontrol transmisi yang andal", "UDP|Protokol datagram pengguna yang cepat", "DNS|Sistem penamaan yang menerjemahkan domain menjadi IP", "DHCP|Pemberi IP otomatis pada jaringan", "ROUTING|Proses mengarahkan rute paket data antar jaringan", "SWITCH|Pembagi sinyal jaringan cerdas", "HUB|Pembagi sinyal jaringan pasif jadul"],
+                    ["SCRAPING|Pengambilan spesifik data web", "CRAWLING|Penjelajahan data web otomatis", "VISUAL|Bentuk gambar atau grafik", "OUTLIER|Data yang menyimpang sangat jauh", "DATASET|Kumpulan baris data untuk dianalisis", "SAMPEL|Sebagian porsi dari populasi besar", "POPULASI|Keseluruhan objek data yang diamati", "DISTRIBUSI|Sebaran variasi data", "MEAN|Nilai rata-rata seluruh data", "MEDIAN|Nilai paling tengah dari data", "MODUS|Data yang paling sering muncul", "REGRESI|Analisis hubungan prediktif variabel", "KORELASI|Tingkat keterkaitan antar variabel independen", "KLUSTER|Pengelompokan data", "KLASIFIKASI|Pemberian kategori atau label pada data", "TREN|Kecenderungan pola data jangka panjang", "PREDIKSI|Perkiraan nilai masa depan", "POLA|Bentuk perulangan data konstan", "GRAFIK|Gambar representasi penyajian data", "DIAGRAM|Skema garis atau batang untuk visualisasi"],
+                    ["FUNGSI|Blok kode yang mengembalikan sebuah nilai", "PROSEDUR|Blok kode tugas tanpa nilai kembalian", "PARAMETER|Variabel penerima masukan pada fungsi", "ARGUMEN|Nilai aktual yang dikirim ke fungsi", "REKURSIF|Fungsi yang memanggil dirinya sendiri", "MODUL|Kumpulan fungsi dalam satu file terpisah", "LIBRARY|Kumpulan modul fungsi siap pakai", "DEBUG|Proses menelusuri, mencari dan memperbaiki error", "COMPILER|Penerjemah seluruh kode langsung ke bahasa mesin", "INTERPRETER|Penerjemah pengeksekusi kode per baris", "CLASS|Cetak biru kerangka sebuah objek", "OBJECT|Instansiasi wujud dari sebuah class", "METHOD|Fungsi aksi di dalam class", "ATRIBUT|Variabel sifat di dalam class", "INHERIT|Pewarisan sifat dari class induk (Inheritance)", "ENKAPSULASI|Pembungkusan pelindung data dalam class", "POLIMORF|Satu nama fungsi dengan banyak bentuk tindakan", "PAKET|Folder berisi banyak modul program (Package)", "IMPORT|Memasukkan library ke dalam kode", "EXPORT|Mengeluarkan modul fungsi ke luar"],
+                    ["HAKI|Hak atas kepemilikan kekayaan intelektual", "PATEN|Hak eksklusif atas suatu ide penemuan", "MEREK|Logo, simbol, atau nama dagang komersial (Brand)", "LISENSI|Izin hak penggunaan karya", "OPEN|Terbuka publik", "SOURCE|Kode sumber asli program komputer", "FREEWARE|Software yang sepenuhnya digratiskan", "SHAREWARE|Software uji coba terbatas", "EWASTE|Limbah sisa rongsokan elektronik", "ERGONOMI|Ilmu kenyamanan interaksi manusia dan alat kerja", "ETIKA|Norma tata krama baik dan buruk", "MORAL|Ajaran tentang perbuatan yang pantas", "HUKUM|Aturan resmi dari pemerintah yang mengikat", "UUITE|Undang-undang informasi elektronik yang berlaku di RI", "SIBER|Ruang dunia maya", "CYBERLAW|Hukum tata aturan dunia maya", "PRIVASI|Hak keamanan kerahasiaan data", "KONTEN|Isi informasi digital yang disajikan", "KREATOR|Pencipta pembuat konten", "ROYALTI|Uang kompensasi atas penggunaan karya"],
+                    ["PROYEK|Tugas besar komprehensif yang terstruktur", "ARTEFAK|Hasil produk karya cipta komputasional", "MAKET|Bentuk tiruan fisik skala kecil", "PROTOTYPE|Model draf awal dari sebuah sistem", "PRESENTASI|Penyajian dan penjelasan hasil kerja proyek", "LAPORAN|Dokumen tulisan tertulis hasil proyek", "DESAIN|Rancangan visual arsitektur karya", "UJI|Testing kelayakan program", "EVALUASI|Penilaian keefektifan hasil", "KOLABORASI|Kerja sama dalam mencapai tujuan tim", "TIM|Kelompok kolaborasi kerja", "PERAN|Tugas spesifik anggota dalam sebuah kelompok", "TUGAS|Pekerjaan rincian yang harus diselesaikan", "JADWAL|Rencana tenggat waktu pelaksanaan kerja", "GANTT|Bagan visual penjadwalan jadwal proyek", "CHART|Grafik atau bagan diagram", "SCRUM|Metode kerangka manajemen proyek berjalan cepat", "AGILE|Metodologi pengembangan inovasi secara fleksibel", "SPRINT|Fase periode pengerjaan singkat di Scrum", "REVIEW|Tinjauan umpan balik hasil pekerjaan"]
+                ]
+            };
+
+            let questions = [];
+
+            [7, 8, 9].forEach(grade => {
+                let mats = GRADE_MATERIALS[grade].filter(m => m !== "Semua Materi");
+                mats.forEach((mat, mIdx) => {
+                    let terms = DICT[grade][mIdx];
+                    if (!terms) return;
+
+                    for (let i = 0; i < 50; i++) {
+                        let termStr = terms[i % terms.length];
+                        let [jawaban, clue] = termStr.split('|');
+                        let keyNum = String(i+1).padStart(3, '0');
+                        jawaban = jawaban.replace(/[^A-Z]/gi, '').toUpperCase();
+
+                        questions.push({
+                            id: `IF${grade}-${mIdx+1}-${keyNum}`,
+                            kelas: grade,
+                            bab: 2,
+                            materi: mat,
+                            pertanyaan: clue,
+                            jawaban: jawaban,
+                            penjelasan: `Materi ${mat}: ${jawaban} adalah ${clue.toLowerCase()}. Konsep ini merupakan bagian mendasar pada Kurikulum Merdeka Fase MTs/SMP.`,
+                            kesulitan: i % 3 === 0 ? "Sulit" : i % 2 === 0 ? "Sedang" : "Mudah",
+                            arah: i % 2 === 0 ? "menurun" : "mendatar"
+                        });
+                    }
+                });
+            });
+
+            return questions;
+        }
+
+        const DEFAULT_QUESTIONS = generateMassiveQuestionBank();
+
+        const State = {
+            currentView: 'home',
+            activeAdminTab: 'soal',
+            activeLeaderboardFilter: 'ALL',
+            adminQuestionPage: 1,
+            adminRowsPerPage: 10,
+            settings: { schoolName: "MTs Negeri 14 Jakarta", teacherName: "Azhary Mardhani, S.Kom." },
+            gameConfig: { studentName: '', studentClass: 'VII-A', studentNo: '' },
+            activeGame: null,
+            timerInterval: null,
+            remainingSeconds: 600,
+            score: 0,
+            hintsUsed: 0,
+            answersState: {},
+            startTime: null,
+            endTime: null,
+            currentUser: null,
+            cloudQuestions: [],
+            cloudResults: [],
+            cloudTokens: [],
+            cloudUsers: [],
+            availableClasses: {
+                7: ['VII-A', 'VII-B', 'VII-C', 'VII-D', 'VII-E', 'VII-F', 'VII-G'],
+                8: ['VIII-A', 'VIII-B', 'VIII-C', 'VIII-D', 'VIII-E', 'VIII-F', 'VIII-G', 'VIII-H'],
+                9: ['IX-A', 'IX-B', 'IX-C', 'IX-D', 'IX-E']
+            }
+        };
+
+        function initCloudSync() {
+            if (!db || !userId) return;
+            try {
+                const qRef = collection(db, 'artifacts', appId, 'public', 'data', 'questions');
+                onSnapshot(qRef, (snapshot) => {
+                    let items = [];
+                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+                    if (items.length > 0) {
+                        State.cloudQuestions = items;
+                    } else {
+                        DEFAULT_QUESTIONS.slice(0, 100).forEach(async (q) => {
+                            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', q.id), q);
+                        });
+                        State.cloudQuestions = DEFAULT_QUESTIONS;
+                    }
+                    if (State.currentView === 'teacherDashboard') renderApp();
+                }, (err) => console.debug(err));
+
+                const rRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
+                onSnapshot(rRef, (snapshot) => {
+                    let items = [];
+                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+                    State.cloudResults = items;
+                    if (State.currentView === 'leaderboard' || State.currentView === 'teacherDashboard') renderApp();
+                }, (err) => console.debug(err));
+
+                const tRef = collection(db, 'artifacts', appId, 'public', 'data', 'tokens');
+                onSnapshot(tRef, (snapshot) => {
+                    let items = [];
+                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+                    if (items.length > 0) {
+                        State.cloudTokens = items;
+                    } else {
+                        const defaultTokens = [
+                            { token: 'IFMT7B2A', kelas: 7, materi: 'Berpikir Komputasional untuk penyelesaian Masalah', soalCount: 10, timer: 10, title: 'Challenge TIK Kumer Kelas 7 A' },
+                            { token: 'IFMT8B2B', kelas: 8, materi: 'Analisis Data', soalCount: 10, timer: 10, title: 'Challenge TIK Kumer Kelas 8 B' },
+                            { token: 'IFMT9C2A', kelas: 9, materi: 'Berpikir Komputasional', soalCount: 10, timer: 12, title: 'Challenge TIK Kumer Kelas 9 A' }
+                        ];
+                        defaultTokens.forEach(async (t) => {
+                            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tokens', t.token), t);
+                        });
+                        State.cloudTokens = defaultTokens;
+                    }
+                    if (State.currentView === 'setup' || State.currentView === 'teacherDashboard') renderApp();
+                }, (err) => console.debug(err));
+
+                const uRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
+                onSnapshot(uRef, (snapshot) => {
+                    let items = [];
+                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+                    if (items.length > 0) {
+                        State.cloudUsers = items;
+                    } else {
+                        const defaultUsers = [
+                            { username: 'admin', password: 'admin123', role: 'admin', name: 'Administrator' },
+                            { username: 'informatika', password: 'guru123', role: 'teacher', name: 'Guru Informatika MTs' }
+                        ];
+                        defaultUsers.forEach(async (u) => {
+                            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', u.username), u);
+                        });
+                        State.cloudUsers = defaultUsers;
+                    }
+                }, (err) => console.debug(err));
+
+            } catch (e) {
+                console.warn("Cloud sync warning:", e);
+            }
+        }
+
+        function getActiveQuestions() {
+            return State.cloudQuestions.length > 0 ? State.cloudQuestions : DEFAULT_QUESTIONS;
+        }
+
+        function getActiveResults() {
+            return State.cloudResults;
+        }
+
+        function getActiveTokens() {
+            return State.cloudTokens;
+        }
+
+        function getActiveUsers() {
+            return State.cloudUsers;
+        }
+
+        const router = {
+            navigate: function(viewName) {
+                if (State.currentView === 'game' && viewName !== 'result') {
+                    alertBox("Akses Terkunci", "Kamu sedang dalam sesi pengerjaan soal! Jawabanmu tersimpan otomatis. Silakan selesaikan permainan atau klik tombol 'Selesai' untuk mengakhiri.");
+                    return;
+                }
+
+                State.currentView = viewName;
+                if (viewName !== 'game' && State.timerInterval) {
+                    clearInterval(State.timerInterval);
+                }
+                renderApp();
+                window.scrollTo(0, 0);
+            }
+        };
+
+        function renderApp() {
+            const appEl = document.getElementById('app');
+            document.getElementById('headerSchoolSub').innerText = `${State.settings.schoolName} • ${State.settings.teacherName}`;
+            document.getElementById('footerSchoolIdent').innerText = `${State.settings.schoolName} • Guru: ${State.settings.teacherName}`;
+
+            const headerNav = document.getElementById('headerNav');
+            if (headerNav) {
+                if (State.currentView === 'game') {
+                    headerNav.style.display = 'none';
+                } else {
+                    headerNav.style.display = 'flex';
+                }
+            }
+
+            switch(State.currentView) {
+                case 'home': appEl.innerHTML = renderHomeView(); break;
+                case 'leaderboard': appEl.innerHTML = renderLeaderboardView(); break;
+                case 'howToPlay': appEl.innerHTML = renderHowToPlayView(); break;
+                case 'setup': appEl.innerHTML = renderSetupView(); break;
+                case 'game': appEl.innerHTML = renderGameView(); initGameEngine(); break;
+                case 'result': appEl.innerHTML = renderResultView(); break;
+                case 'teacherLogin': appEl.innerHTML = renderTeacherLoginView(); break;
+                case 'teacherDashboard': appEl.innerHTML = renderTeacherDashboardView(); break;
+                default: appEl.innerHTML = renderHomeView();
+            }
+        }
+
+        function renderHomeView() {
+            return `
+                <div class="space-y-10 py-6">
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-900 via-brand-800 to-indigo-900 text-white shadow-2xl p-8 sm:p-12 md:p-16 border border-brand-700/50">
+                        <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl pointer-events-none">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+                        <div class="relative z-10 max-w-2xl space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-semibold backdrop-blur border border-emerald-400/30">
+                                <i class="fa-solid fa-seedling"></i> Kurikulum Merdeka 1 Tahun Ajaran (Kelas 7, 8, 9) & KBC
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
+                                INFORMATIKA <span class="text-brand-300">TTS CHALLENGE</span>
+                            </h1>
+                            <p class="text-lg text-brand-100 font-medium">
+                                "Uji Pengetahuanmu. Pecahkan Kata. Kuasai Informatika." Media pembelajaran interaktif berbasis gamifikasi untuk siswa MTs kelas 7, 8, dan 9 dengan 500+ bank soal dan variasi TTS acak unik per siswa.
+                            </p>
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <button onclick="router.navigate('setup')" class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 text-lg">
+                                    <i class="fa-solid fa-play"></i> MULAI BERMAIN
+                                </button>
+                                <button onclick="router.navigate('leaderboard')" class="px-6 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2">
+                                    <i class="fa-solid fa-trophy"></i> Klasemen Siswa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-brand-600 flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">500+ Bank Soal Lengkap</h3>
+                            <p class="text-sm text-slate-600">Materi komprehensif 50 soal per topik untuk Kelas 7, 8, dan 9 MTs sesuai standar Kurikulum Merdeka dan KBC.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-shuffle"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">TTS Unik & Acak Per Siswa</h3>
+                            <p class="text-sm text-slate-600">Setiap siswa mendapatkan susunan grid, urutan soal, dan kombinasi teka-teki yang berbeda dan acak sesuai token guru.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">AI Generator & Token Game</h3>
+                            <p class="text-sm text-slate-600">Guru dapat membuat soal otomatis dengan AI dan menghasilkan token kelas dengan kustomisasi materi & timer manual.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLeaderboardView() {
+            let results = getActiveResults();
+            results.sort((a,b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return (a.timeSpent || 0) - (b.timeSpent || 0);
+            });
+            
+            let filtered = results;
+            let filterVal = State.activeLeaderboardFilter || 'ALL';
+
+            if (filterVal === '7') {
+                filtered = results.filter(r => r.class && r.class.startsWith('VII'));
+            } else if (filterVal === '8') {
+                filtered = results.filter(r => r.class && r.class.startsWith('VIII'));
+            } else if (filterVal === '9') {
+                filtered = results.filter(r => r.class && r.class.startsWith('IX'));
+            } else if (filterVal !== 'ALL') {
+                filtered = results.filter(r => r.class === filterVal);
+            }
+
+            return `
+                <div class="max-w-4xl mx-auto space-y-6 py-4 w-full">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
+                        <div class="flex flex-col sm:flex-row items-center justify-between border-b pb-4 gap-4">
+                            <div>
+                                <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">
+                                    <i class="fa-solid fa-trophy text-amber-500"></i> KLASEMEN SISWA INFORMATIKA
+                                </h2>
+                                <p class="text-sm text-slate-500">Peringkat pencapaian skor tertinggi peserta didik MTs Kurikulum Merdeka & KBC.</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <select id="leaderboardFilter" onchange="filterLeaderboard(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border">
+                                    <option value="ALL" ${filterVal === 'ALL' ? 'selected' : ''}>Semua Angkatan & Kelas</option>
+                                    <option value="7" ${filterVal === '7' ? 'selected' : ''}>Angkatan Kelas 7</option>
+                                    <option value="8" ${filterVal === '8' ? 'selected' : ''}>Angkatan Kelas 8</option>
+                                    <option value="9" ${filterVal === '9' ? 'selected' : ''}>Angkatan Kelas 9</option>
+                                    <optgroup label="Per Kelas">
+                                        ${[7,8,9].flatMap(g => State.availableClasses[g] || []).map(c => `<option value="${c}" ${filterVal === c ? 'selected' : ''}>Kelas ${c}</option>`).join('')}
+                                    </optgroup>
+                                </select>
+                                <button onclick="router.navigate('home')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+                                    <i class="fa-solid fa-arrow-left mr-1"></i> Kembali
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm text-slate-700">
+                                <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b">
+                                    <tr>
+                                        <th class="p-3.5 text-center w-16">Rank</th>
+                                        <th class="p-3.5">Nama Siswa</th>
+                                        <th class="p-3.5">Kelas</th>
+                                        <th class="p-3.5 text-center">Skor</th>
+                                        <th class="p-3.5 text-center">Waktu Pengerjaan</th>
+                                        <th class="p-3.5 text-center">Akurasi</th>
+                                        <th class="p-3.5">Badge Prestasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaderboardTableBody" class="divide-y divide-slate-100 font-medium">
+                                    ${renderLeaderboardRows(filtered)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.filterLeaderboard = function(filterVal) {
+            State.activeLeaderboardFilter = filterVal;
+            let results = getActiveResults();
+            results.sort((a,b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return (a.timeSpent || 0) - (b.timeSpent || 0);
+            });
+            let filtered = results;
+
+            if (filterVal === '7') {
+                filtered = results.filter(r => r.class && r.class.startsWith('VII'));
+            } else if (filterVal === '8') {
+                filtered = results.filter(r => r.class && r.class.startsWith('VIII'));
+            } else if (filterVal === '9') {
+                filtered = results.filter(r => r.class && r.class.startsWith('IX'));
+            } else if (filterVal !== 'ALL') {
+                filtered = results.filter(r => r.class === filterVal);
+            }
+
+            const tbody = document.getElementById('leaderboardTableBody');
+            if (tbody) tbody.innerHTML = renderLeaderboardRows(filtered);
+        };
+
+        function renderLeaderboardRows(results) {
+            if (!results.length) {
+                return `<tr><td colspan="7" class="p-8 text-center text-slate-400 italic">Belum ada data skor siswa yang sesuai filter.</td></tr>`;
+            }
+            return results.map((r, i) => {
+                let m = Math.floor((r.timeSpent || 0) / 60);
+                let s = (r.timeSpent || 0) % 60;
+                let timeStr = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+                return `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3.5 text-center font-black ${i === 0 ? 'text-amber-500 text-base' : i === 1 ? 'text-slate-400 text-base' : i === 2 ? 'text-amber-700 text-base' : 'text-slate-600'}">
+                        ${i === 0 ? '🏆 1' : i === 1 ? '🥈 2' : i === 2 ? '🥉 3' : i+1}
+                    </td>
+                    <td class="p-3.5 font-bold text-slate-900">${r.name}</td>
+                    <td class="p-3.5"><span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-bold text-xs">${r.class}</span></td>
+                    <td class="p-3.5 text-center font-black text-brand-600 text-base">${r.score}</td>
+                    <td class="p-3.5 text-center font-mono font-bold text-slate-600">${timeStr}</td>
+                    <td class="p-3.5 text-center font-bold text-emerald-600">${r.accuracy}%</td>
+                    <td class="p-3.5 font-semibold text-slate-800">${r.badge}</td>
+                </tr>
+            `;
+            }).join('');
+        }
+
+        function renderHowToPlayView() {
+            return `
+                <div class="max-w-3xl mx-auto space-y-6 py-4 w-full">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
+                        <div class="flex items-center justify-between border-b pb-4">
+                            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">
+                                <i class="fa-solid fa-circle-question text-brand-600"></i> CARA BERMAIN TTS INFORMATIKA
+                            </h2>
+                            <button onclick="router.navigate('home')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">Kembali</button>
+                        </div>
+                        <div class="space-y-4 text-sm text-slate-600">
+                            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border">
+                                <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
+                                <div>
+                                    <h3 class="font-bold text-slate-900">Masukkan Token Game</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Masukkan kode token yang diberikan oleh Guru Informatika untuk mengakses tantangan kelas 7, 8, atau 9.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border">
+                                <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">2</span>
+                                <div>
+                                    <h3 class="font-bold text-slate-900">Isi Identitas Siswa</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketik Nama Lengkap, pilih Kelas, dan Nomor Absen.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border">
+                                <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">3</span>
+                                <div>
+                                    <h3 class="font-bold text-slate-900">Pecahkan Kotak TTS (Unik & Acak)</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Setiap siswa menerima susunan grid, urutan soal, dan teka-teki yang diacak secara unik. Baca petunjuk beserta keterangan jumlah huruf, klik kotak grid untuk mengetik, dan selesaikan tantangan tepat waktu!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSetupView() {
+            const tokens = getActiveTokens();
+            let defaultToken = tokens[0] || { token: 'IFMT7B2A', kelas: 7, soalCount: 10, timer: 10 };
+            let classList = State.availableClasses[defaultToken.kelas] || ['VII-A', 'VII-B', 'VII-C', 'VII-D', 'VII-E', 'VII-F', 'VII-G'];
+
+            return `
+                <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-lg border border-slate-200 space-y-6 my-auto w-full">
+                    <div class="text-center space-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900">SETUP PERMAINAN TTS</h2>
+                        <p class="text-xs text-slate-500">Masukkan token kelas dan identitas sebelum memulai tantangan.</p>
+                    </div>
+
+                    <form onsubmit="handleStartGame(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Token Game / Kelas</label>
+                            <select id="setupTokenSelect" onchange="onTokenSelectChange(this.value)" class="w-full px-4 py-3 rounded-xl border text-sm font-bold bg-white">
+                                ${tokens.map(t => `<option value="${t.token}">[${t.token}] ${t.title} (${t.timer} Menit)</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Lengkap Siswa</label>
+                            <input type="text" id="setupStudentName" required class="w-full px-4 py-3 rounded-xl border text-sm" placeholder="Contoh: Ahmad Zaki">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Kelas</label>
+                                <select id="setupStudentClass" class="w-full px-4 py-3 rounded-xl border text-sm font-bold bg-white">
+                                    ${classList.map(c => `<option value="${c}">${c}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">No. Absen</label>
+                                <input type="number" id="setupStudentNo" min="1" max="40" required class="w-full px-4 py-3 rounded-xl border text-sm" placeholder="12">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg transition text-base flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play"></i> MULAI GAME SEKARANG
+                        </button>
+                    </form>
+                </div>
+            `;
+        }
+
+        window.onTokenSelectChange = function(tokenVal) {
+            let tokens = getActiveTokens();
+            let found = tokens.find(t => t.token === tokenVal);
+            if (found) {
+                let classList = State.availableClasses[found.kelas] || (found.kelas === 7 ? ['VII-A','VII-B','VII-C','VII-D','VII-E','VII-F','VII-G'] : found.kelas === 8 ? ['VIII-A','VIII-B','VIII-C','VIII-D','VIII-E','VIII-F','VIII-G','VIII-H'] : ['IX-A','IX-B','IX-C','IX-D','IX-E']);
+                let classSel = document.getElementById('setupStudentClass');
+                if (classSel) {
+                    classSel.innerHTML = classList.map(c => `<option value="${c}">${c}</option>`).join('');
+                }
+            }
+        };
+
+        window.handleStartGame = function(e) {
+            e.preventDefault();
+            State.gameConfig.studentName = document.getElementById('setupStudentName').value.trim();
+            State.gameConfig.studentClass = document.getElementById('setupStudentClass').value;
+            State.gameConfig.studentNo = document.getElementById('setupStudentNo').value.trim();
+
+            let tokenVal = document.getElementById('setupTokenSelect')?.value;
+            let tokens = getActiveTokens();
+            let found = tokens.find(t => t.token === tokenVal);
+            let grade = found ? found.kelas : 7;
+            let soalCount = found ? found.soalCount : 10;
+            let timerMin = found ? found.timer : 10;
+            let materiFilter = found ? found.materi : 'Semua Materi';
+            let specificQuestionIds = found ? found.questionIds : null;
+
+            buildRandomizedTTSPuzzle(grade, soalCount, timerMin, materiFilter, specificQuestionIds);
+            router.navigate('game');
+        };
+
+        function buildRandomizedTTSPuzzle(grade, count, timerMin, materiFilter = 'Semua Materi', specificQuestionIds = null) {
+            const allQuestions = getActiveQuestions();
+            let filtered = allQuestions.filter(q => Number(q.kelas) === Number(grade));
+            
+            if (specificQuestionIds && specificQuestionIds.length > 0) {
+                let manualFiltered = filtered.filter(q => specificQuestionIds.includes(q.id));
+                if (manualFiltered.length > 0) filtered = manualFiltered;
+            } else if (materiFilter && materiFilter !== 'Semua Materi') {
+                let subFiltered = filtered.filter(q => q.materi === materiFilter);
+                if (subFiltered.length >= 3) filtered = subFiltered;
+            }
+
+            let shuffledPool = [...filtered];
+            for (let i = shuffledPool.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [shuffledPool[i], shuffledPool[j]] = [shuffledPool[j], shuffledPool[i]];
+            }
+
+            let uniqueFiltered = [];
+            let seenAnswers = new Set();
+            for (let q of shuffledPool) {
+                if (!seenAnswers.has(q.jawaban)) {
+                    seenAnswers.add(q.jawaban);
+                    uniqueFiltered.push(q);
+                }
+            }
+
+            if (uniqueFiltered.length < count) uniqueFiltered = shuffledPool;
+            
+            let selectedQuestions = uniqueFiltered.slice(0, count);
+            selectedQuestions.sort(() => Math.random() - 0.5);
+
+            const MAX_GRID = 35;
+            let grid = Array(MAX_GRID).fill(0).map(() => Array(MAX_GRID).fill(''));
+            let placedWords = [];
+            let usedIds = new Set();
+
+            if (selectedQuestions.length > 0) {
+                let q0 = selectedQuestions[0];
+                let word0 = q0.jawaban;
+                let startR = Math.floor(MAX_GRID / 2);
+                let startC = Math.floor(MAX_GRID / 2) - Math.floor(word0.length / 2);
+                
+                let coords0 = [];
+                for(let i=0; i<word0.length; i++) {
+                    grid[startR][startC + i] = word0[i];
+                    coords0.push({r: startR, c: startC + i});
+                }
+                
+                placedWords.push({
+                    ...q0,
+                    word: word0,
+                    direction: Math.random() > 0.5 ? 'mendatar' : 'menurun',
+                    coords: coords0,
+                    number: 1
+                });
+                usedIds.add(q0.id);
+            }
+
+            let questionNumberCounter = 2;
+            let attempts = 0;
+
+            while (placedWords.length < selectedQuestions.length && attempts < 400) {
+                attempts++;
+                let bestFit = null;
+
+                for (let q of selectedQuestions) {
+                    if (usedIds.has(q.id)) continue;
+                    let word = q.jawaban;
+
+                    for (let pw of placedWords) {
+                        for (let pIdx = 0; pIdx < pw.word.length; pIdx++) {
+                            let targetChar = pw.word[pIdx];
+                            let targetCoord = pw.coords[pIdx];
+
+                            for (let wIdx = 0; wIdx < word.length; wIdx++) {
+                                if (word[wIdx] === targetChar) {
+                                    let newDir = pw.direction === 'mendatar' ? 'menurun' : 'mendatar';
+                                    let startR_new = newDir === 'menurun' ? targetCoord.r - wIdx : targetCoord.r;
+                                    let startC_new = newDir === 'mendatar' ? targetCoord.c - wIdx : targetCoord.c;
+
+                                    if (canPlaceWord(grid, word, startR_new, startC_new, newDir, MAX_GRID)) {
+                                        bestFit = { q: q, word: word, dir: newDir, r: startR_new, c: startC_new };
+                                        break; 
+                                    }
+                                }
+                            }
+                            if (bestFit) break; 
+                        }
+                        if (bestFit) break; 
+                    }
+                    if (bestFit) break; 
+                }
+
+                if (bestFit) {
+                    let coords = [];
+                    for(let k = 0; k < bestFit.word.length; k++) {
+                        let rr = bestFit.dir === 'menurun' ? bestFit.r + k : bestFit.r;
+                        let cc = bestFit.dir === 'mendatar' ? bestFit.c + k : bestFit.c;
+                        grid[rr][cc] = bestFit.word[k];
+                        coords.push({r: rr, c: cc});
+                    }
+                    placedWords.push({
+                        ...bestFit.q,
+                        word: bestFit.word,
+                        direction: bestFit.dir,
+                        coords: coords,
+                        number: questionNumberCounter++
+                    });
+                    usedIds.add(bestFit.q.id);
+                } else {
+                    break; 
+                }
+            }
+
+            let minR = MAX_GRID, maxR = 0, minC = MAX_GRID, maxC = 0;
+            for (let r = 0; r < MAX_GRID; r++) {
+                for (let c = 0; c < MAX_GRID; c++) {
+                    if (grid[r][c] !== '') {
+                        if (r < minR) minR = r;
+                        if (r > maxR) maxR = r;
+                        if (c < minC) minC = c;
+                        if (c > maxC) maxC = c;
+                    }
+                }
+            }
+
+            minR = Math.max(0, minR - 1);
+            maxR = Math.min(MAX_GRID - 1, maxR + 1);
+            minC = Math.max(0, minC - 1);
+            maxC = Math.min(MAX_GRID - 1, maxC + 1);
+
+            let croppedRows = maxR - minR + 1;
+            let croppedCols = maxC - minC + 1;
+            let croppedGrid = Array(croppedRows).fill(0).map(() => Array(croppedCols).fill(''));
+
+            for (let r = minR; r <= maxR; r++) {
+                for (let c = minC; c <= maxC; c++) {
+                    croppedGrid[r - minR][c - minC] = grid[r][c];
+                }
+            }
+
+            placedWords.forEach(w => {
+                w.coords = w.coords.map(coord => ({
+                    r: coord.r - minR,
+                    c: coord.c - minC
+                }));
+            });
+
+            placedWords.sort((a, b) => a.coords[0].r - b.coords[0].r || a.coords[0].c - b.coords[0].c);
+            placedWords.forEach((w, idx) => { w.number = idx + 1; });
+
+            State.activeGame = {
+                grid: croppedGrid,
+                gridRows: croppedRows,
+                gridCols: croppedCols,
+                words: placedWords
+            };
+
+            State.answersState = {};
+            State.score = 0;
+            State.hintsUsed = 0;
+            State.remainingSeconds = timerMin * 60;
+            State.startTime = new Date();
+        }
+
+        function canPlaceWord(grid, word, startR, startC, direction, size) {
+            for(let i=0; i<word.length; i++) {
+                let r = direction === 'menurun' ? startR + i : startR;
+                let c = direction === 'mendatar' ? startC + i : startC;
+                
+                if (r < 0 || r >= size || c < 0 || c >= size) return false;
+                
+                let current = grid[r][c];
+                if (current !== '' && current !== word[i]) return false;
+
+                if (direction === 'mendatar') {
+                    if (current === '') {
+                        if (r - 1 >= 0 && grid[r-1][c] !== '') return false;
+                        if (r + 1 < size && grid[r+1][c] !== '') return false;
+                    }
+                    if (i === 0 && c - 1 >= 0 && grid[r][c-1] !== '') return false;
+                    if (i === word.length - 1 && c + 1 < size && grid[r][c+1] !== '') return false;
+                } else {
+                    if (current === '') {
+                        if (c - 1 >= 0 && grid[r][c-1] !== '') return false;
+                        if (c + 1 < size && grid[r][c+1] !== '') return false;
+                    }
+                    if (i === 0 && r - 1 >= 0 && grid[r-1][c] !== '') return false;
+                    if (i === word.length - 1 && r + 1 < size && grid[r+1][c] !== '') return false;
+                }
+            }
+            return true;
+        }
+
+        function renderGameView() {
+            return `
+                <div class="space-y-6 w-full">
+                    <div class="bg-white p-4 rounded-3xl shadow-md border border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md animate-pop">
+                                <i class="fa-solid fa-puzzle-piece"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-black text-slate-900 text-base">TTS INFORMATIKA INTERAKTIF (ACAK & UNIK)</h2>
+                                <p class="text-xs text-slate-500 font-medium">Peserta: <span class="font-bold text-slate-700">${State.gameConfig.studentName}</span> (${State.gameConfig.studentClass})</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-slate-50 px-4 py-2.5 rounded-2xl text-center border border-slate-200/80 shadow-inner">
+                                <div class="text-[10px] uppercase font-bold text-slate-400">Waktu Tersisa</div>
+                                <div id="timerDisplay" class="text-lg font-black text-rose-600">10:00</div>
+                            </div>
+                            <div class="bg-slate-50 px-4 py-2.5 rounded-2xl text-center border border-slate-200/80 shadow-inner">
+                                <div class="text-[10px] uppercase font-bold text-slate-400">Skor</div>
+                                <div id="scoreDisplay" class="text-lg font-black text-emerald-600 transition-all duration-300">0</div>
+                            </div>
+                            <button onclick="finishGameConfirm()" class="px-5 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-black rounded-2xl shadow-lg hover:shadow-emerald-500/30 transition transform hover:-translate-y-0.5 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-flag-checkered"></i> Selesai
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-sm border border-slate-200/80 flex flex-col items-center overflow-x-auto relative">
+                            <div class="flex justify-between w-full mb-6 items-center">
+                                <div class="text-xs font-black text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-pulse"></span> Papan TTS Interaktif Unik
+                                </div>
+                                <div class="flex gap-2">
+                                    <button onclick="useHint()" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-amber-950 rounded-2xl text-xs font-black transition flex items-center gap-2 shadow-md">
+                                        <i class="fa-solid fa-lightbulb text-amber-900"></i> HINT (<span id="hintCount">3</span>)
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="ttsGridContainer" class="p-4 bg-slate-900/5 rounded-3xl border border-slate-200 inline-block shadow-inner backdrop-blur-sm"></div>
+                            <p class="text-[11px] font-medium text-slate-400 mt-4 text-center">💡 Klik kotak grid untuk mengetik. Kata yang terisi benar akan menyala hijau secara estetis dan otomatis!</p>
+                        </div>
+
+                        <div class="lg:col-span-5 space-y-6">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 max-h-72 overflow-y-auto">
+                                <h3 class="font-black text-slate-900 text-sm mb-3 flex items-center gap-2 text-brand-600 border-b border-slate-100 pb-3">
+                                    <i class="fa-solid fa-arrow-right"></i> MENDATAR (ACROSS)
+                                </h3>
+                                <div id="cluesMendatar" class="space-y-2.5 text-xs"></div>
+                            </div>
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 max-h-72 overflow-y-auto">
+                                <h3 class="font-black text-slate-900 text-sm mb-3 flex items-center gap-2 text-indigo-600 border-b border-slate-100 pb-3">
+                                    <i class="fa-solid fa-arrow-down"></i> MENURUN (DOWN)
+                                </h3>
+                                <div id="cluesMenurun" class="space-y-2.5 text-xs"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initGameEngine() {
+            renderTTSBoard();
+            renderClues();
+            startTimer();
+        }
+
+        function renderTTSBoard() {
+            const container = document.getElementById('ttsGridContainer');
+            if (!container || !State.activeGame) return;
+            const { grid, gridRows, gridCols, words } = State.activeGame;
+
+            let cellLabels = {};
+            words.forEach(w => {
+                if (w.coords.length > 0) {
+                    let startCoordKey = `${w.coords[0].r}_${w.coords[0].c}`;
+                    if (!cellLabels[startCoordKey]) {
+                        cellLabels[startCoordKey] = { across: [], down: [] };
+                    }
+                    if (w.direction === 'mendatar') {
+                        cellLabels[startCoordKey].across.push(w.number);
+                    } else {
+                        cellLabels[startCoordKey].down.push(w.number);
+                    }
+                }
+            });
+
+            let html = '<table class="border-collapse"><tbody>';
+            for (let r = 0; r < gridRows; r++) {
+                html += '<tr>';
+                for (let c = 0; c < gridCols; c++) {
+                    let isLetter = grid[r][c] !== '';
+                    if (isLetter) {
+                        let key = `${r}_${c}`;
+                        let val = State.answersState[key] || '';
+                        let labelObj = cellLabels[key];
+
+                        let isCellCorrect = false;
+                        words.forEach(w => {
+                            let formed = '';
+                            w.coords.forEach(coord => formed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                            if (formed === w.word) {
+                                if (w.coords.some(coord => coord.r === r && coord.c === c)) isCellCorrect = true;
+                            }
+                        });
+
+                        let cellBg = isCellCorrect 
+                            ? 'bg-gradient-to-br from-emerald-100 to-emerald-200 border-emerald-500 text-emerald-900 shadow-md animate-correct' 
+                            : val !== '' 
+                                ? 'bg-blue-50/80 border-brand-400 text-brand-900 shadow-sm' 
+                                : 'bg-white border-slate-200 hover:border-brand-300 text-slate-900 shadow-sm';
+
+                        html += `<td class="relative border ${cellBg} tts-cell rounded-lg transition-all duration-200 hover:scale-105" onclick="selectCell(${r}, ${c})">`;
+                        if (labelObj) {
+                            let badgeText = [];
+                            if (labelObj.across.length > 0) badgeText.push(`M:${labelObj.across.join(',')}`);
+                            if (labelObj.down.length > 0) badgeText.push(`T:${labelObj.down.join(',')}`);
+                            html += `<span class="absolute top-1 left-1 text-[8px] font-black text-indigo-700 bg-indigo-50/90 px-1 py-0.5 rounded shadow-sm leading-none pointer-events-none z-10">${badgeText.join(' ')}</span>`;
+                        }
+                        html += `<input type="text" maxlength="1" id="cell_${r}_${c}" value="${val}" oninput="handleCellInput(event, ${r}, ${c})" onkeydown="handleCellKeydown(event, ${r}, ${c})" class="w-full h-full pt-2 text-center uppercase bg-transparent font-black focus:outline-none focus:bg-brand-100/50 rounded-lg">`;
+                        html += `</td>`;
+                    } else {
+                        html += `<td class="tts-cell bg-slate-900/90 border border-slate-900 rounded-md"></td>`;
+                    }
+                }
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function renderClues() {
+            const mendatarEl = document.getElementById('cluesMendatar');
+            const menurunEl = document.getElementById('cluesMenurun');
+            if (!mendatarEl || !menurunEl || !State.activeGame) return;
+            const { words } = State.activeGame;
+
+            let mendatarHtml = '';
+            let menurunHtml = '';
+
+            words.forEach(w => {
+                let formed = '';
+                w.coords.forEach(coord => formed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                let isComplete = formed === w.word;
+                let letterCount = w.word.length;
+
+                let text = `<div id="clue_${w.number}" class="p-3 rounded-2xl transition border ${isComplete ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900 font-bold shadow-sm' : 'bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-brand-50 hover:border-brand-200 cursor-pointer shadow-sm'}" onclick="focusWord(${w.number})">
+                    <div class="flex items-center justify-between">
+                        <span class="font-black text-brand-600">${w.number}. <span class="text-[11px] font-semibold text-slate-500">(${letterCount} huruf)</span></span>
+                        ${isComplete ? '<span class="text-[10px] bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-bold shadow-xs">✓ Selesai</span>' : ''}
+                    </div>
+                    <p class="mt-1 leading-relaxed">${w.pertanyaan}</p>
+                </div>`;
+                if (w.direction === 'mendatar') mendatarHtml += text;
+                else menurunHtml += text;
+            });
+
+            mendatarEl.innerHTML = mendatarHtml || '<p class="text-slate-400 italic">Tidak ada petunjuk mendatar.</p>';
+            menurunEl.innerHTML = menurunHtml || '<p class="text-slate-400 italic">Tidak ada petunjuk menurun.</p>';
+        }
+
+        function selectCell(r, c) {
+            let el = document.getElementById(`cell_${r}_${c}`);
+            if (el) el.focus();
+        }
+
+        function handleCellKeydown(e, r, c) {
+            if (e.key === 'Backspace') {
+                let key = `${r}_${c}`;
+                if (!State.answersState[key] && c - 1 >= 0 && State.activeGame.grid[r][c-1] !== '') {
+                    selectCell(r, c - 1);
+                }
+            } else if (e.key === 'ArrowRight' && c + 1 < State.activeGame.gridCols && State.activeGame.grid[r][c+1] !== '') {
+                selectCell(r, c + 1);
+            } else if (e.key === 'ArrowLeft' && c - 1 >= 0 && State.activeGame.grid[r][c-1] !== '') {
+                selectCell(r, c - 1);
+            } else if (e.key === 'ArrowDown' && r + 1 < State.activeGame.gridRows && State.activeGame.grid[r+1][c] !== '') {
+                selectCell(r + 1, c);
+            } else if (e.key === 'ArrowUp' && r - 1 >= 0 && State.activeGame.grid[r-1][c] !== '') {
+                selectCell(r - 1, c);
+            }
+        }
+
+        function handleCellInput(e, r, c) {
+            let val = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+            e.target.value = val;
+            let key = `${r}_${c}`;
+            let prevVal = State.answersState[key];
+            State.answersState[key] = val;
+
+            if (val && !prevVal) {
+                e.target.classList.add('animate-pop');
+                setTimeout(() => e.target.classList.remove('animate-pop'), 300);
+            }
+
+            let correctCount = 0;
+            State.activeGame.words.forEach(w => {
+                let formed = '';
+                w.coords.forEach(coord => formed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                if (formed === w.word) correctCount++;
+            });
+
+            State.score = correctCount * 100 - (State.hintsUsed * 25);
+            if (State.score < 0) State.score = 0;
+            const scoreEl = document.getElementById('scoreDisplay');
+            if (scoreEl) {
+                scoreEl.innerText = State.score;
+                scoreEl.classList.add('scale-125', 'text-amber-500');
+                setTimeout(() => scoreEl.classList.remove('scale-125', 'text-amber-500'), 250);
+            }
+
+            renderTTSBoard();
+            renderClues();
+
+            if (val && c + 1 < State.activeGame.gridCols && State.activeGame.grid[r][c+1] !== '') {
+                selectCell(r, c + 1);
+            }
+        }
+
+        function focusWord(num) {
+            let wordObj = State.activeGame.words.find(w => w.number === num);
+            if (wordObj && wordObj.coords.length > 0) {
+                selectCell(wordObj.coords[0].r, wordObj.coords[0].c);
+            }
+        }
+
+        function useHint() {
+            if (State.hintsUsed >= 3) {
+                alertBox("Batas Hint", "Kamu sudah menggunakan semua hint yang tersedia!");
+                return;
+            }
+            let unassignedWords = State.activeGame.words.filter(w => {
+                let formed = '';
+                w.coords.forEach(coord => formed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                return formed !== w.word;
+            });
+
+            if (unassignedWords.length === 0) {
+                alertBox("Selesai", "Semua kata sudah terisi dengan benar!");
+                return;
+            }
+
+            let targetWord = unassignedWords[0];
+            let firstCoord = targetWord.coords[0];
+            State.answersState[`${firstCoord.r}_${firstCoord.c}`] = targetWord.word[0];
+            State.hintsUsed++;
+            document.getElementById('hintCount').innerText = 3 - State.hintsUsed;
+            renderTTSBoard();
+            renderClues();
+            alertBox("💡 Bantuan Hint", `Huruf pertama untuk pertanyaan nomor ${targetWord.number} adalah "${targetWord.word[0]}". (-25 Poin)`);
+        }
+
+        function startTimer() {
+            if (State.timerInterval) clearInterval(State.timerInterval);
+            State.timerInterval = setInterval(() => {
+                State.remainingSeconds--;
+                let m = Math.floor(State.remainingSeconds / 60);
+                let s = State.remainingSeconds % 60;
+                let display = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                let timerEl = document.getElementById('timerDisplay');
+                if (timerEl) timerEl.innerText = display;
+
+                if (State.remainingSeconds <= 0) {
+                    clearInterval(State.timerInterval);
+                    alertBox("Waktu Habis!", "Waktu permainan telah habis. Mari lihat hasil pencapaianmu!");
+                    finishGame();
+                }
+            }, 1000);
+        }
+
+        function confirmBox(title, message, onConfirmCallback) {
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-pop";
+            modal.innerHTML = `
+                <div class="bg-white p-6 rounded-3xl shadow-2xl max-w-sm w-full space-y-4 text-center border">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900">${title}</h3>
+                    <p class="text-sm text-slate-600">${message}</p>
+                    <div class="flex gap-3 pt-4">
+                        <button id="btnCancelBox" class="w-full py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition shadow">Batal</button>
+                        <button id="btnConfirmBox" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition shadow">Ya, Lanjutkan</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            document.getElementById('btnCancelBox').onclick = () => modal.remove();
+            document.getElementById('btnConfirmBox').onclick = () => {
+                modal.remove();
+                onConfirmCallback();
+            };
+        }
+
+        function finishGameConfirm() {
+            let belumTerjawab = 0;
+            State.activeGame.words.forEach(w => {
+                let wordFormed = '';
+                w.coords.forEach(coord => wordFormed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                if (wordFormed !== w.word) {
+                    belumTerjawab++;
+                }
+            });
+
+            let title = "Selesaikan Permainan?";
+            let msg = "Apakah kamu yakin ingin menyelesaikan permainan sekarang dan melihat hasil?";
+            if (belumTerjawab > 0) {
+                let m = Math.floor(State.remainingSeconds / 60);
+                let s = State.remainingSeconds % 60;
+                let waktuSisa = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                msg = `Masih ada <strong class="text-rose-600">${belumTerjawab} soal</strong> yang kosong atau keliru. Sisa waktu: <strong>${waktuSisa}</strong>.<br><br>Akhiri permainan? (Jawaban kosong dihitung salah)`;
+            }
+
+            confirmBox(title, msg, finishGame);
+        }
+
+        async function finishGame() {
+            if (State.timerInterval) clearInterval(State.timerInterval);
+            State.endTime = new Date();
+
+            let correct = 0, wrong = 0, details = [];
+            State.activeGame.words.forEach(w => {
+                let wordFormed = '';
+                w.coords.forEach(coord => wordFormed += (State.answersState[`${coord.r}_${coord.c}`] || ''));
+                let isCorrect = wordFormed === w.word;
+                if (isCorrect) correct++; else wrong++;
+                details.push({ question: w.pertanyaan, answer: w.word, explanation: w.penjelasan, userAnswer: wordFormed, isCorrect });
+            });
+
+            let totalWords = State.activeGame.words.length;
+            let accuracy = Math.round((correct / totalWords) * 100);
+            let finalScore = (correct * 100) - (State.hintsUsed * 25);
+            if (finalScore < 0) finalScore = 0;
+
+            let badge = "🥉 PEMULA DIGITAL";
+            if (finalScore >= 900) badge = "🏆 MASTER INFORMATIKA";
+            else if (finalScore >= 750) badge = "🥇 AHLI DIGITAL";
+            else if (finalScore >= 600) badge = "🥈 PENJELAJAH DIGITAL";
+
+            let resultRecord = {
+                id: 'RES-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+                name: State.gameConfig.studentName,
+                class: State.gameConfig.studentClass,
+                score: finalScore,
+                correct: correct,
+                wrong: wrong,
+                total: totalWords,
+                accuracy: accuracy,
+                badge: badge,
+                timeSpent: Math.floor((State.endTime - State.startTime) / 1000),
+                date: new Date().toLocaleDateString('id-ID'),
+                details: details
+            };
+
+            if (db && userId) {
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', resultRecord.id), resultRecord);
+                } catch (e) {
+                    console.warn("Cloud save result error:", e);
+                }
+            }
+
+            State.lastResult = resultRecord;
+            router.navigate('result');
+        }
+
+        function renderResultView() {
+            const res = State.lastResult || { name: "Ahmad", class: "VII-A", score: 950, correct: 10, wrong: 0, total: 10, accuracy: 100, badge: "🏆 MASTER INFORMATIKA", timeSpent: 200, details: [] };
+
+            return `
+                <div class="max-w-3xl mx-auto space-y-8 py-4 w-full">
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 text-center space-y-6">
+                        <div class="w-20 h-20 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl shadow-inner animate-pop">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-black text-slate-900">HASIL PERMAINAN & KLASEMEN CLOUD</h2>
+                            <p class="text-sm text-slate-500 mt-1">Skormu telah berhasil disinkronkan ke database cloud!</p>
+                        </div>
+
+                        <div class="inline-block bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-md">
+                            <div class="text-xs uppercase font-bold tracking-widest text-slate-400">Pencapaian Badge</div>
+                            <div class="text-xl font-black text-emerald-400 mt-1">${res.badge}</div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-left">
+                            <div class="bg-slate-50 p-4 rounded-2xl border">
+                                <div class="text-xs font-semibold text-slate-500">Nama</div>
+                                <div class="text-sm font-bold text-slate-800 truncate">${res.name}</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border">
+                                <div class="text-xs font-semibold text-slate-500">Kelas</div>
+                                <div class="text-sm font-bold text-slate-800">${res.class}</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border">
+                                <div class="text-xs font-semibold text-slate-500">Skor</div>
+                                <div class="text-lg font-black text-brand-600">${res.score}</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border">
+                                <div class="text-xs font-semibold text-slate-500">Akurasi</div>
+                                <div class="text-lg font-black text-emerald-600">${res.accuracy}%</div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap justify-center gap-3 pt-4">
+                            <button onclick="router.navigate('leaderboard')" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow transition">
+                                <i class="fa-solid fa-trophy mr-1"></i> Lihat Klasemen
+                            </button>
+                            <button onclick="router.navigate('setup')" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow transition">
+                                <i class="fa-solid fa-rotate-right mr-1"></i> Main Lagi
+                            </button>
+                            <button onclick="router.navigate('home')" class="px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition">
+                                <i class="fa-solid fa-house mr-1"></i> Menu Utama
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
+                        <h3 class="font-extrabold text-slate-900 text-xl flex items-center gap-2 border-b pb-3">
+                            <i class="fa-solid fa-graduation-cap text-brand-600"></i> Pembahasan Materi
+                        </h3>
+                        <div class="space-y-4">
+                            ${res.details.map((d, idx) => `
+                                <div class="p-4 rounded-2xl border ${d.isCorrect ? 'bg-emerald-50/50 border-emerald-200' : 'bg-rose-50/50 border-rose-200'} space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-bold px-2.5 py-1 rounded-full ${d.isCorrect ? 'bg-emerald-200 text-emerald-800' : 'bg-rose-200 text-rose-800'}">
+                                            ${d.isCorrect ? '✓ BENAR' : '✗ BELUM TEPAT'}
+                                        </span>
+                                        <span class="text-xs font-mono text-slate-500">Jawaban: <strong>${d.answer}</strong></span>
+                                    </div>
+                                    <p class="text-sm font-semibold text-slate-900">${idx+1}. ${d.question}</p>
+                                    <p class="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200">
+                                        💡 <strong>Penjelasan Kumer & KBC:</strong> ${d.explanation}
+                                    </p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTeacherLoginView() {
+            return `
+                <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6 my-auto w-full">
+                    <div class="text-center space-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900">LOGIN GURU / ADMIN</h2>
+                        <p class="text-xs text-slate-500">Masukkan kredensial akun pengajar atau administrator yang terdaftar.</p>
+                    </div>
+
+                    <form onsubmit="handleTeacherLogin(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Username</label>
+                            <input type="text" id="loginUsername" required class="w-full px-4 py-3 rounded-xl border text-sm" placeholder="Masukkan username">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+                            <input type="password" id="loginPassword" required class="w-full px-4 py-3 rounded-xl border text-sm" placeholder="Masukkan password">
+                        </div>
+                        <button type="submit" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg transition">MASUK</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function handleTeacherLogin(e) {
+            e.preventDefault();
+            let u = document.getElementById('loginUsername').value.trim();
+            let p = document.getElementById('loginPassword').value.trim();
+            let users = getActiveUsers();
+            let found = users.find(item => item.username === u && item.password === p);
+
+            if (found) {
+                State.currentUser = found;
+                State.activeAdminTab = found.role === 'admin' ? 'soal' : 'soal';
+                router.navigate('teacherDashboard');
+            } else {
+                alertBox("Login Gagal", "Username atau password salah.");
+            }
+        }
+
+        function renderTeacherDashboardView() {
+            const results = getActiveResults();
+            const questions = getActiveQuestions();
+            const users = getActiveUsers();
+            const gameTokens = getActiveTokens();
+            const isAdmin = State.currentUser && State.currentUser.role === 'admin';
+            const activeTab = State.activeAdminTab || 'soal';
+
+            let qFilterGrade = document.getElementById('adminQuestionFilter')?.value || 'ALL';
+            let filteredQuestions = qFilterGrade === 'ALL' ? questions : questions.filter(q => Number(q.kelas) === Number(qFilterGrade));
+            let totalQuestions = filteredQuestions.length;
+            let rowsPerPage = State.adminRowsPerPage || 10;
+            let totalPages = Math.ceil(totalQuestions / rowsPerPage) || 1;
+            if (State.adminQuestionPage > totalPages) State.adminQuestionPage = totalPages;
+            if (State.adminQuestionPage < 1) State.adminQuestionPage = 1;
+            let startIndex = (State.adminQuestionPage - 1) * rowsPerPage;
+            let paginatedQuestions = filteredQuestions.slice(startIndex, startIndex + rowsPerPage);
+
+            return `
+                <div class="space-y-8 pb-12 w-full">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center font-bold text-2xl shadow-md">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-black text-slate-900 text-xl">${isAdmin ? 'DASHBOARD ADMIN' : 'DASHBOARD GURU'}</h2>
+                                <p class="text-xs text-slate-500">Masuk sebagai: <span class="font-bold text-brand-600">${State.currentUser ? State.currentUser.name : 'Guru/Admin'}</span></p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="router.navigate('home')" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap border-b border-slate-200 gap-6 text-sm font-bold">
+                        <button onclick="switchAdminTab('soal')" id="tabBtnSoal" class="pb-3 border-b-2 ${activeTab === 'soal' ? 'border-brand-600 text-brand-600' : 'border-transparent text-slate-500 hover:text-slate-800'} transition flex items-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Bank Soal (<span id="soalCountBadge">${questions.length}</span>)
+                        </button>
+                        <button onclick="switchAdminTab('tokens')" id="tabBtnTokens" class="pb-3 border-b-2 ${activeTab === 'tokens' ? 'border-brand-600 text-brand-600' : 'border-transparent text-slate-500 hover:text-slate-800'} transition flex items-center gap-2">
+                            <i class="fa-solid fa-ticket"></i> Token Game (<span id="tokenCountBadge">${gameTokens.length}</span>)
+                        </button>
+                        ${isAdmin ? `
+                            <button onclick="switchAdminTab('classes')" id="tabBtnClasses" class="pb-3 border-b-2 ${activeTab === 'classes' ? 'border-brand-600 text-brand-600' : 'border-transparent text-slate-500 hover:text-slate-800'} transition flex items-center gap-2">
+                                <i class="fa-solid fa-school"></i> Pengaturan Kelas
+                            </button>
+                            <button onclick="switchAdminTab('hasil')" id="tabBtnHasil" class="pb-3 border-b-2 ${activeTab === 'hasil' ? 'border-brand-600 text-brand-600' : 'border-transparent text-slate-500 hover:text-slate-800'} transition flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie"></i> Hasil Siswa
+                            </button>
+                            <button onclick="switchAdminTab('guru')" id="tabBtnGuru" class="pb-3 border-b-2 ${activeTab === 'guru' ? 'border-brand-600 text-brand-600' : 'border-transparent text-slate-500 hover:text-slate-800'} transition flex items-center gap-2">
+                                <i class="fa-solid fa-users-gear"></i> Akun Guru & Password
+                            </button>
+                        ` : ''}
+                    </div>
+
+                    <div id="adminTabSoal" class="space-y-6 ${activeTab === 'soal' ? '' : 'hidden'}">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <div>
+                                        <h3 class="font-extrabold text-slate-900 text-lg">Kelola Bank Soal TTS Kumer & KBC (Kelas 7, 8, 9)</h3>
+                                        <p class="text-xs text-slate-500">Total Soal: <strong class="text-brand-600">${totalQuestions}</strong> soal tersedia di filter saat ini.</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2 items-center">
+                                    <select id="adminQuestionFilter" onchange="filterAdminQuestions(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border">
+                                        <option value="ALL" ${qFilterGrade === 'ALL' ? 'selected' : ''}>Semua Kelas</option>
+                                        <option value="7" ${qFilterGrade === '7' ? 'selected' : ''}>Kelas 7</option>
+                                        <option value="8" ${qFilterGrade === '8' ? 'selected' : ''}>Kelas 8</option>
+                                        <option value="9" ${qFilterGrade === '9' ? 'selected' : ''}>Kelas 9</option>
+                                    </select>
+                                    ${isAdmin ? `
+                                        <select id="deleteQuestionClassSelect" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-xl text-xs border">
+                                            <option value="">-- Hapus Per Kelas --</option>
+                                            <option value="7">Kelas 7</option>
+                                            <option value="8">Kelas 8</option>
+                                            <option value="9">Kelas 9</option>
+                                        </select>
+                                        <button onclick="deleteQuestionsByGrade()" class="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold rounded-xl text-xs transition" title="Hapus Semua Soal pada Kelas Terpilih">
+                                            <i class="fa-solid fa-trash-can mr-1"></i> Hapus Kelas
+                                        </button>
+                                        <button onclick="openResetDatabaseModal()" class="px-3.5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold rounded-xl text-xs transition" title="Reset Database Bank Soal">
+                                            <i class="fa-solid fa-rotate-left mr-1"></i> Reset DB
+                                        </button>
+                                    ` : ''}
+                                    <button onclick="downloadExcelTemplate()" class="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold rounded-xl text-xs transition" title="Download Template Excel / CSV Upload Soal">
+                                        <i class="fa-solid fa-file-excel mr-1"></i> Template Excel
+                                    </button>
+                                    <label class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl text-xs transition cursor-pointer flex items-center gap-1" title="Upload Soal CSV/Excel">
+                                        <i class="fa-solid fa-file-arrow-up"></i> Upload Soal
+                                        <input type="file" id="bulkUploadInput" accept=".csv, .txt" onchange="handleBulkUpload(event)" class="hidden">
+                                    </label>
+                                    <button onclick="openAIQuizModal()" class="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Generator
+                                    </button>
+                                    <button onclick="openQuestionModal()" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                        <i class="fa-solid fa-plus"></i> Tambah Soal
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto pt-2">
+                                <table class="w-full text-left text-xs text-slate-700">
+                                    <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b">
+                                        <tr>
+                                            <th class="p-3.5 w-16 text-center">No</th>
+                                            <th class="p-3.5">ID / Kelas</th>
+                                            <th class="p-3.5">Materi</th>
+                                            <th class="p-3.5">Pertanyaan</th>
+                                            <th class="p-3.5 text-center">Kesulitan</th>
+                                            <th class="p-3.5 text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminQuestionTableBody" class="divide-y divide-slate-100 font-medium">
+                                        ${renderAdminQuestionRows(paginatedQuestions, startIndex)}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-slate-100 gap-4 text-xs font-semibold text-slate-600">
+                                <div class="flex items-center gap-2">
+                                    <span>Tampilkan</span>
+                                    <select id="adminRowsPerPageSelect" onchange="changeAdminRowsPerPage(this.value)" class="px-3 py-1.5 bg-slate-100 border rounded-xl font-bold">
+                                        <option value="10" ${rowsPerPage == 10 ? 'selected' : ''}>10</option>
+                                        <option value="20" ${rowsPerPage == 20 ? 'selected' : ''}>20</option>
+                                        <option value="30" ${rowsPerPage == 30 ? 'selected' : ''}>30</option>
+                                        <option value="50" ${rowsPerPage == 50 ? 'selected' : ''}>50</option>
+                                        <option value="100" ${rowsPerPage == 100 ? 'selected' : ''}>100</option>
+                                    </select>
+                                    <span>soal per halaman (Total: ${totalQuestions} soal)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="changeAdminPage(${State.adminQuestionPage - 1})" ${State.adminQuestionPage <= 1 ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 bg-slate-100 rounded-lg"' : 'class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg font-bold transition"'}>
+                                        <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+                                    </button>
+                                    <span class="px-3 py-1 font-bold text-slate-800">Hal. ${State.adminQuestionPage} dari ${totalPages}</span>
+                                    <button onclick="changeAdminPage(${State.adminQuestionPage + 1})" ${State.adminQuestionPage >= totalPages ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 bg-slate-100 rounded-lg"' : 'class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg font-bold transition"'}>
+                                        Berikutnya <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="adminTabTokens" class="space-y-6 ${activeTab === 'tokens' ? '' : 'hidden'}">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900 text-lg">Pengaturan Token Game & Pemilihan Materi</h3>
+                                    <p class="text-xs text-slate-500">Buat token kelas dengan kustomisasi durasi timer, jumlah soal, pemilihan materi kurikulum, serta pratinjau soal.</p>
+                                </div>
+                                <button onclick="openTokenModal()" class="px-5 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                    <i class="fa-solid fa-plus"></i> Buat Token Game Baru
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto pt-2">
+                                <table class="w-full text-left text-xs text-slate-700">
+                                    <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b">
+                                        <tr>
+                                            <th class="p-3.5">Kode Token</th>
+                                            <th class="p-3.5">Judul Game</th>
+                                            <th class="p-3.5">Kelas</th>
+                                            <th class="p-3.5">Materi Kurikulum</th>
+                                            <th class="p-3.5 text-center">Jumlah Soal</th>
+                                            <th class="p-3.5 text-center">Durasi Timer</th>
+                                            <th class="p-3.5 text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 font-medium">
+                                        ${gameTokens.map((t) => `
+                                            <tr class="hover:bg-slate-50 transition">
+                                                <td class="p-3.5 font-mono font-black text-brand-600 text-sm">${t.token}</td>
+                                                <td class="p-3.5 font-bold text-slate-900">${t.title}</td>
+                                                <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-slate-100 font-bold">Kelas ${t.kelas}</span></td>
+                                                <td class="p-3.5 font-semibold text-slate-600">${t.materi || 'Semua Materi'}</td>
+                                                <td class="p-3.5 text-center font-bold">${t.soalCount} Soal</td>
+                                                <td class="p-3.5 text-center"><span class="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 font-bold"><i class="fa-solid fa-clock mr-1"></i> ${t.timer} Menit</span></td>
+                                                <td class="p-3.5 text-center space-x-1">
+                                                    <button onclick="previewTokenQuestions('${t.token}')" class="p-2 bg-slate-100 hover:bg-indigo-100 text-slate-700 hover:text-indigo-600 rounded-lg transition" title="Pratinjau Soal"><i class="fa-solid fa-eye"></i></button>
+                                                    <button onclick="deleteGameToken('${t.token}')" class="p-2 bg-slate-100 hover:bg-rose-100 text-slate-700 hover:text-rose-600 rounded-lg transition" title="Hapus Token"><i class="fa-solid fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${isAdmin ? `
+                        <div id="adminTabClasses" class="space-y-6 ${activeTab === 'classes' ? '' : 'hidden'}">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <div>
+                                        <h3 class="font-extrabold text-slate-900 text-lg">Manajemen Rombel Kelas (Kelas 7, 8, & 9)</h3>
+                                        <p class="text-xs text-slate-500">Tambah atau sesuaikan daftar kelas aktif yang tersedia untuk siswa.</p>
+                                    </div>
+                                    <button onclick="openAddClassModal()" class="px-5 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                        <i class="fa-solid fa-plus"></i> Tambah Kelas Baru
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                                    <div class="bg-slate-50 p-5 rounded-2xl border space-y-3">
+                                        <h4 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-school text-brand-600"></i> Kelas 7 (A s.d G)</h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            ${State.availableClasses[7].map(c => `
+                                                <span class="px-3 py-1.5 bg-white border rounded-xl font-bold text-xs text-slate-700 shadow-sm flex items-center gap-2">
+                                                    ${c}
+                                                    <button onclick="removeClassItem(7, '${c}')" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 p-5 rounded-2xl border space-y-3">
+                                        <h4 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-school text-indigo-600"></i> Kelas 8 (A s.d H)</h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            ${State.availableClasses[8].map(c => `
+                                                <span class="px-3 py-1.5 bg-white border rounded-xl font-bold text-xs text-slate-700 shadow-sm flex items-center gap-2">
+                                                    ${c}
+                                                    <button onclick="removeClassItem(8, '${c}')" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 p-5 rounded-2xl border space-y-3">
+                                        <h4 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-school text-purple-600"></i> Kelas 9 (A s.d E)</h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            ${State.availableClasses[9].map(c => `
+                                                <span class="px-3 py-1.5 bg-white border rounded-xl font-bold text-xs text-slate-700 shadow-sm flex items-center gap-2">
+                                                    ${c}
+                                                    <button onclick="removeClassItem(9, '${c}')" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="adminTabHasil" class="space-y-6 ${activeTab === 'hasil' ? '' : 'hidden'}">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <div>
+                                        <h3 class="font-extrabold text-slate-900 text-lg">Rekapitulasi Hasil Siswa & Klasemen Cloud</h3>
+                                        <p class="text-xs text-slate-500">Daftar lengkap seluruh percobaan bermain siswa di cloud.</p>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 justify-end">
+                                        <select id="deleteClassSelect" class="px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs border">
+                                            <option value="">-- Pilih Kelas --</option>
+                                            ${[7,8,9].flatMap(g => State.availableClasses[g] || []).map(c => `<option value="${c}">${c}</option>`).join('')}
+                                        </select>
+                                        <button onclick="deleteResultsByClass()" class="px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold rounded-xl text-xs transition">
+                                            <i class="fa-solid fa-eraser mr-1"></i> Hapus Kelas
+                                        </button>
+                                        <button onclick="deleteSelectedResults()" class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-xl text-xs transition">
+                                            <i class="fa-solid fa-list-check mr-1"></i> Hapus Terpilih
+                                        </button>
+                                        <button onclick="clearAllResults()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs transition shadow-sm">
+                                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Reset Semua
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-xs text-slate-700">
+                                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b">
+                                            <tr>
+                                                <th class="p-3 text-center w-10"><input type="checkbox" id="selectAllResults" onclick="toggleSelectAllResults(this)" class="rounded border-slate-300"></th>
+                                                <th class="p-3">Nama Siswa</th>
+                                                <th class="p-3">Kelas</th>
+                                                <th class="p-3 text-center">Skor</th>
+                                                <th class="p-3 text-center">Akurasi</th>
+                                                <th class="p-3">Badge Pencapaian</th>
+                                                <th class="p-3">Tanggal</th>
+                                                <th class="p-3 text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y">
+                                            ${results.length ? results.map((r) => `
+                                                <tr class="hover:bg-slate-50 transition">
+                                                    <td class="p-3 text-center"><input type="checkbox" class="result-cb rounded border-slate-300" value="${r.id}"></td>
+                                                    <td class="p-3 font-bold text-slate-900">${r.name}</td>
+                                                    <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-100 font-bold">${r.class}</span></td>
+                                                    <td class="p-3 text-center font-black text-brand-600 text-sm">${r.score}</td>
+                                                    <td class="p-3 text-center font-bold text-emerald-600">${r.accuracy}%</td>
+                                                    <td class="p-3">${r.badge}</td>
+                                                    <td class="p-3 text-slate-400">${r.date}</td>
+                                                    <td class="p-3 text-center">
+                                                        <button onclick="deleteResultRecord('${r.id}')" class="p-1.5 bg-rose-50 text-rose-600 rounded hover:bg-rose-100 transition"><i class="fa-solid fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            `).join('') : '<tr><td colspan="8" class="p-6 text-center text-slate-400 italic">Belum ada riwayat hasil siswa di cloud.</td></tr>'}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="adminTabGuru" class="space-y-6 ${activeTab === 'guru' ? '' : 'hidden'}">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="font-extrabold text-slate-900 text-lg">Manajemen Akun Guru & Ganti Password</h3>
+                                        <p class="text-xs text-slate-500">Tambah akun pengajar baru atau perbarui password akun.</p>
+                                    </div>
+                                    <button onclick="openUserModal()" class="px-5 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                                        <i class="fa-solid fa-user-plus"></i> Tambah Akun Guru
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto pt-2">
+                                    <table class="w-full text-left text-xs text-slate-700">
+                                        <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-b">
+                                            <tr>
+                                                <th class="p-3">Nama Lengkap & Gelar</th>
+                                                <th class="p-3">Username</th>
+                                                <th class="p-3">Role</th>
+                                                <th class="p-3 text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y">
+                                            ${users.map((u) => `
+                                                <tr>
+                                                    <td class="p-3 font-bold text-slate-900">${u.name}</td>
+                                                    <td class="p-3 font-mono font-semibold">${u.username}</td>
+                                                    <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-100 font-bold">${u.role}</span></td>
+                                                    <td class="p-3 text-center space-x-2">
+                                                        <button onclick="openChangePasswordModal('${u.username}')" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg transition" title="Ganti Password">
+                                                            <i class="fa-solid fa-key mr-1"></i> Password
+                                                        </button>
+                                                        ${u.username !== 'admin' ? `
+                                                            <button onclick="deleteUser('${u.username}')" class="p-1.5 bg-rose-50 text-rose-600 rounded hover:bg-rose-100 transition" title="Hapus Akun">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        ` : ''}
+                                                    </td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        window.filterAdminQuestions = function(gradeVal) {
+            State.adminQuestionPage = 1;
+            renderApp();
+        };
+
+        window.changeAdminPage = function(newPage) {
+            State.adminQuestionPage = newPage;
+            renderApp();
+        };
+
+        window.changeAdminRowsPerPage = function(val) {
+            State.adminRowsPerPage = parseInt(val) || 10;
+            State.adminQuestionPage = 1;
+            renderApp();
+        };
+
+        function renderAdminQuestionRows(questions, startIndex) {
+            if (!questions.length) {
+                return `<tr><td colspan="6" class="p-8 text-center text-slate-400 italic">Tidak ada soal pada kategori ini.</td></tr>`;
+            }
+            const isAdmin = State.currentUser && State.currentUser.role === 'admin';
+            return questions.map((q, idx) => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3.5 text-center font-bold text-slate-500">${startIndex + idx + 1}</td>
+                    <td class="p-3.5 font-mono text-slate-500">
+                        <span class="font-bold text-slate-800">${q.id || 'Q-'+idx}</span><br>
+                        Kelas ${q.kelas}
+                    </td>
+                    <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-brand-50 text-brand-700 font-bold">${q.materi}</span></td>
+                    <td class="p-3.5 text-slate-900 max-w-xs truncate">${q.pertanyaan}</td>
+                    <td class="p-3.5 text-center">
+                        <span class="px-2 py-1 rounded-full text-[10px] font-bold ${q.kesulitan === 'Mudah' ? 'bg-emerald-100 text-emerald-800' : q.kesulitan === 'Sedang' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'}">
+                            ${q.kesulitan || 'Sedang'}
+                        </span>
+                    </td>
+                    <td class="p-3.5 text-center space-x-1">
+                        <button onclick="editQuestion('${q.id || idx}')" class="p-2 bg-slate-100 hover:bg-brand-100 text-slate-700 hover:text-brand-600 rounded-lg transition" title="Edit Soal">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        ${isAdmin ? `
+                            <button onclick="deleteQuestion('${q.id || idx}')" class="p-2 bg-slate-100 hover:bg-rose-100 text-slate-700 hover:text-rose-600 rounded-lg transition" title="Hapus Soal">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        window.switchAdminTab = function(tab) {
+            State.activeAdminTab = tab;
+
+            document.getElementById('adminTabSoal')?.classList.add('hidden');
+            document.getElementById('adminTabTokens')?.classList.add('hidden');
+            document.getElementById('adminTabClasses')?.classList.add('hidden');
+            document.getElementById('adminTabHasil')?.classList.add('hidden');
+            document.getElementById('adminTabGuru')?.classList.add('hidden');
+
+            document.getElementById('tabBtnSoal').className = "pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2";
+            if(document.getElementById('tabBtnTokens')) document.getElementById('tabBtnTokens').className = "pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2";
+            if(document.getElementById('tabBtnClasses')) document.getElementById('tabBtnClasses').className = "pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2";
+            if(document.getElementById('tabBtnHasil')) document.getElementById('tabBtnHasil').className = "pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2";
+            if(document.getElementById('tabBtnGuru')) document.getElementById('tabBtnGuru').className = "pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center gap-2";
+
+            if (tab === 'soal') {
+                document.getElementById('adminTabSoal')?.classList.remove('hidden');
+                document.getElementById('tabBtnSoal').className = "pb-3 border-b-2 border-brand-600 text-brand-600 transition flex items-center gap-2";
+            } else if (tab === 'tokens') {
+                document.getElementById('adminTabTokens')?.classList.remove('hidden');
+                if(document.getElementById('tabBtnTokens')) document.getElementById('tabBtnTokens').className = "pb-3 border-b-2 border-brand-600 text-brand-600 transition flex items-center gap-2";
+            } else if (tab === 'classes') {
+                document.getElementById('adminTabClasses')?.classList.remove('hidden');
+                if(document.getElementById('tabBtnClasses')) document.getElementById('tabBtnClasses').className = "pb-3 border-b-2 border-brand-600 text-brand-600 transition flex items-center gap-2";
+            } else if (tab === 'hasil') {
+                document.getElementById('adminTabHasil')?.classList.remove('hidden');
+                if(document.getElementById('tabBtnHasil')) document.getElementById('tabBtnHasil').className = "pb-3 border-b-2 border-brand-600 text-brand-600 transition flex items-center gap-2";
+            } else if (tab === 'guru') {
+                document.getElementById('adminTabGuru')?.classList.remove('hidden');
+                if(document.getElementById('tabBtnGuru')) document.getElementById('tabBtnGuru').className = "pb-3 border-b-2 border-brand-600 text-brand-600 transition flex items-center gap-2";
+            }
+        };
+
+        window.openAddClassModal = function() {
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full space-y-6 border">
+                    <h3 class="font-black text-slate-900 text-lg">Tambah Rombel Kelas</h3>
+                    <form onsubmit="saveNewClass(event)" class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div>
+                            <label class="block mb-1">Tingkat Kelas</label>
+                            <select id="newClassGrade" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                <option value="7">Kelas 7 (A-G)</option>
+                                <option value="8">Kelas 8 (A-H)</option>
+                                <option value="9">Kelas 9 (A-E)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Nama Rombel (Contoh: VII-H atau IX-F)</label>
+                            <input type="text" id="newClassName" required placeholder="IX-F" class="w-full p-2.5 rounded-xl border uppercase font-bold">
+                        </div>
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl shadow">Tambah Kelas</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.saveNewClass = function(e) {
+            e.preventDefault();
+            let grade = document.getElementById('newClassGrade').value;
+            let cName = document.getElementById('newClassName').value.trim().toUpperCase();
+            if (!State.availableClasses[grade].includes(cName)) {
+                State.availableClasses[grade].push(cName);
+            }
+            document.querySelector('.fixed').remove();
+            router.navigate('teacherDashboard');
+            alertBox("Berhasil", `Kelas ${cName} berhasil ditambahkan.`);
+        };
+
+        window.removeClassItem = function(grade, cName) {
+            confirmBox("Hapus Kelas?", `Apakah Anda yakin ingin menghapus kelas ${cName}?`, () => {
+                State.availableClasses[grade] = State.availableClasses[grade].filter(item => item !== cName);
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.openQuestionModal = function(editId = null) {
+            let q = editId ? getActiveQuestions().find(item => item.id === editId) : null;
+            let currentGrade = q ? q.kelas : 7;
+            let mats = GRADE_MATERIALS[currentGrade].filter(m => m !== "Semua Materi") || [];
+
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-lg w-full space-y-6 border">
+                    <h3 class="font-black text-slate-900 text-lg">${q ? 'Edit Soal' : 'Tambah Soal Baru'}</h3>
+                    <form onsubmit="saveQuestionData(event, '${editId || ''}')" class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Kelas</label>
+                                <select id="qKelas" onchange="updateModalMaterials(this.value)" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="7" ${q && q.kelas == 7 ? 'selected' : ''}>Kelas 7</option>
+                                    <option value="8" ${q && q.kelas == 8 ? 'selected' : ''}>Kelas 8</option>
+                                    <option value="9" ${q && q.kelas == 9 ? 'selected' : ''}>Kelas 9</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-1">Tingkat Kesulitan</label>
+                                <select id="qSulit" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="Mudah" ${q && q.kesulitan === 'Mudah' ? 'selected' : ''}>Mudah</option>
+                                    <option value="Sedang" ${!q || q.kesulitan === 'Sedang' ? 'selected' : ''}>Sedang</option>
+                                    <option value="Sulit" ${q && q.kesulitan === 'Sulit' ? 'selected' : ''}>Sulit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Materi / Submateri</label>
+                            <select id="qMateri" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                ${mats.map(m => `<option value="${m}" ${q && q.materi === m ? 'selected' : ''}>${m}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Pertanyaan / Petunjuk TTS</label>
+                            <textarea id="qTanya" required rows="2" class="w-full p-3 rounded-xl border text-sm font-bold">${q ? q.pertanyaan : ''}</textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Jawaban (Huruf Kapital Tanpa Spasi)</label>
+                                <input type="text" id="qJawab" required value="${q ? q.jawaban : ''}" placeholder="BROWSER" class="w-full p-2.5 rounded-xl border uppercase font-mono font-bold text-brand-600">
+                            </div>
+                            <div>
+                                <label class="block mb-1">Arah</label>
+                                <select id="qArah" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="mendatar" ${q && q.arah === 'mendatar' ? 'selected' : ''}>Mendatar</option>
+                                    <option value="menurun" ${q && q.arah === 'menurun' ? 'selected' : ''}>Menurun</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Penjelasan / Pembahasan</label>
+                            <textarea id="qPenjelas" required rows="2" class="w-full p-3 rounded-xl border text-sm">${q ? q.penjelasan : ''}</textarea>
+                        </div>
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl shadow">Simpan Soal</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.updateModalMaterials = function(grade) {
+            let mats = GRADE_MATERIALS[grade].filter(m => m !== "Semua Materi") || [];
+            let selectEl = document.getElementById('qMateri');
+            if (selectEl) {
+                selectEl.innerHTML = mats.map(m => `<option value="${m}">${m}</option>`).join('');
+            }
+        };
+
+        window.downloadExcelTemplate = function() {
+            const csvContent = "data:text/csv;charset=utf-8,kelas,materi,pertanyaan,jawaban,kesulitan,penjelasan\n7,Perangkat Lunak,Perangkat lunak untuk menjelajah internet disebut ...,BROWSER,Mudah,Browser adalah software penjelajah web.\n8,Analisis Data,Proses membuat salinan data untuk mengantisipasi kehilangan disebut ...,BACKUP,Sedang,Backup adalah pencadangan data.";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "template_upload_soal_tts_informatika.csv");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        };
+
+        window.handleBulkUpload = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(evt) {
+                const text = evt.target.result;
+                const lines = text.split('\n');
+                let count = 0;
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    const parts = line.split(',');
+                    if (parts.length >= 5) {
+                        let kelas = parseInt(parts[0].trim()) || 7;
+                        let materi = parts[1].trim() || 'Teknologi Informasi';
+                        let pertanyaan = parts[2].trim();
+                        let jawaban = parts[3].trim().replace(/[^A-Z]/gi, '').toUpperCase();
+                        let kesulitan = parts[4].trim() || 'Sedang';
+                        let penjelasan = parts[5] ? parts[5].trim() : `Penjelasan materi ${materi}: ${jawaban}.`;
+
+                        let id = 'IF' + kelas + '-BULK-' + Math.floor(Math.random() * 9000 + 1000);
+                        let qObj = { id, kelas, bab: 2, materi, pertanyaan, jawaban, kesulitan, penjelasan, arah: 'mendatar' };
+
+                        if (db && userId) {
+                            try {
+                                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', id), qObj);
+                            } catch(err) {
+                                console.warn("Bulk upload error:", err);
+                            }
+                        }
+                        count++;
+                    }
+                }
+                alertBox("Berhasil Upload", `${count} soal berhasil diimpor secara massal ke dalam Bank Soal!`);
+                router.navigate('teacherDashboard');
+            };
+            reader.readAsText(file);
+        };
+
+        window.openAIQuizModal = function() {
+            let initialMats = GRADE_MATERIALS[7].filter(m => m !== "Semua Materi") || [];
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-lg w-full space-y-6 border">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-slate-900 text-lg">AI Question Generator (Kurikulum Merdeka & KBC)</h3>
+                            <p class="text-xs text-slate-500">Pilih materi standar kurikulum atau ketik manual dan tentukan jumlah soal sekaligus.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Pilih Kelas</label>
+                                <select id="aiKelas" onchange="updateAIClassMaterials(this.value)" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="7" selected>Kelas 7</option>
+                                    <option value="8">Kelas 8</option>
+                                    <option value="9">Kelas 9</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-1">Tingkat Kesulitan</label>
+                                <select id="aiSulit" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="Mudah">Mudah</option>
+                                    <option value="Sedang" selected>Sedang</option>
+                                    <option value="Sulit">Sulit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Jumlah Soal AI</label>
+                                <select id="aiJumlahSoal" class="w-full p-2.5 rounded-xl border bg-white font-bold text-purple-700">
+                                    <option value="1">1 Soal</option>
+                                    <option value="3">3 Soal</option>
+                                    <option value="5">5 Soal</option>
+                                    <option value="10" selected>10 Soal Sekaligus</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-1">Pilih Materi Kurikulum</label>
+                                <select id="aiKurikulumMateri" onchange="document.getElementById('aiMateri').value = this.value;" class="w-full p-2.5 rounded-xl border bg-white font-bold text-slate-800 truncate">
+                                    <option value="">-- Pilih Materi --</option>
+                                    ${initialMats.map(m => `<option value="${m}">${m}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Materi / Topik (Atau Ketik Manual Di Sini)</label>
+                            <input type="text" id="aiMateri" placeholder="Contoh: Berpikir Komputasional - Algoritma" class="w-full p-3 rounded-xl border text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none font-bold">
+                        </div>
+                        <div id="aiLoading" class="hidden text-center py-4 text-purple-600 font-bold flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-spinner fa-spin text-lg"></i> AI sedang merancang dan memproses kumpulan soal TTS...
+                        </div>
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="button" onclick="generateAIQuestionsBatch()" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow flex items-center gap-2">
+                                <i class="fa-solid fa-bolt"></i> Generate Soal AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.updateAIClassMaterials = function(grade) {
+            let mats = GRADE_MATERIALS[grade].filter(m => m !== "Semua Materi") || [];
+            let selectEl = document.getElementById('aiKurikulumMateri');
+            if (selectEl) {
+                selectEl.innerHTML = `<option value="">-- Pilih Materi --</option>` + mats.map(m => `<option value="${m}">${m}</option>`).join('');
+            }
+        };
+
+        window.generateAIQuestionsBatch = async function() {
+            let kelas = document.getElementById('aiKelas').value;
+            let kesulitan = document.getElementById('aiSulit').value;
+            let materi = document.getElementById('aiMateri').value.trim();
+            let jumlah = parseInt(document.getElementById('aiJumlahSoal').value) || 1;
+
+            if (!materi) {
+                alertBox("Materi Kosong", "Silakan pilih dari kurikulum atau ketik materi/topik informatika terlebih dahulu.");
+                return;
+            }
+
+            document.getElementById('aiLoading').classList.remove('hidden');
+
+            const systemPrompt = `Act as an expert Informatics educator for Indonesian MTs students under Kurikulum Merdeka and KBC. Generate exactly ${jumlah} distinct crossword puzzle questions based on the given topic. Each answer must be a single word in uppercase without spaces, suitable for a crossword puzzle grid (max 12 chars). Return a JSON array of objects with properties: pertanyaan, jawaban, penjelasan.`;
+            const userQuery = `Topik: ${materi}, Kelas: ${kelas}, Tingkat: ${kesulitan}, Jumlah Soal: ${jumlah}`;
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                pertanyaan: { type: "STRING" },
+                                jawaban: { type: "STRING" },
+                                penjelasan: { type: "STRING" }
+                            },
+                            propertyOrdering: ["pertanyaan", "jawaban", "penjelasan"]
+                        }
+                    }
+                }
+            };
+
+            let success = false;
+            let questionsArray = [];
+
+            for (let attempt = 0; attempt < 3; attempt++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const parsed = JSON.parse(candidate.content.parts[0].text);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            questionsArray = parsed;
+                            success = true;
+                            break;
+                        }
+                    }
+                } catch (err) {
+                    await new Promise(r => setTimeout(r, (attempt + 1) * 1000));
+                }
+            }
+
+            document.getElementById('aiLoading').classList.add('hidden');
+
+            if (success && questionsArray.length > 0) {
+                let countSaved = 0;
+                for (let qData of questionsArray) {
+                    let id = 'IF' + kelas + '-AI-' + Math.floor(Math.random() * 9000 + 1000);
+                    let newQuestion = {
+                        id: id,
+                        kelas: parseInt(kelas),
+                        bab: 2,
+                        materi: materi,
+                        pertanyaan: qData.pertanyaan,
+                        jawaban: (qData.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase(),
+                        kesulitan: kesulitan,
+                        penjelasan: qData.penjelasan || `Penjelasan materi ${materi}.`,
+                        arah: "mendatar"
+                    };
+
+                    if (newQuestion.jawaban.length >= 2) {
+                        if (db && userId) {
+                            try {
+                                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', id), newQuestion);
+                                countSaved++;
+                            } catch (err) {
+                                console.warn("Cloud save batch AI question error:", err);
+                            }
+                        }
+                    }
+                }
+
+                document.querySelector('.fixed').remove();
+                router.navigate('teacherDashboard');
+                alertBox("Berhasil!", `${countSaved} soal TTS baru tentang "${materi}" berhasil di-generate oleh AI dan ditambahkan ke Bank Soal.`);
+            } else {
+                alertBox("Gagal", "Gagal menghasilkan soal dari AI. Silakan coba lagi dengan topik lain.");
+            }
+        };
+
+        window.saveQuestionData = async function(e, editId) {
+            e.preventDefault();
+            let id = editId || ('IF' + document.getElementById('qKelas').value + '-02-' + Math.floor(Math.random()*900+100));
+            let data = {
+                id: id,
+                kelas: parseInt(document.getElementById('qKelas').value),
+                bab: 2,
+                materi: document.getElementById('qMateri').value.trim(),
+                pertanyaan: document.getElementById('qTanya').value.trim(),
+                jawaban: document.getElementById('qJawab').value.trim().toUpperCase(),
+                kesulitan: document.getElementById('qSulit').value,
+                penjelasan: document.getElementById('qPenjelas').value.trim(),
+                arah: "mendatar"
+            };
+
+            if (db && userId) {
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', id), data);
+                } catch (err) {
+                    console.warn("Cloud save question error:", err);
+                }
+            }
+            document.querySelector('.fixed').remove();
+            router.navigate('teacherDashboard');
+            alertBox("Berhasil", "Soal berhasil disimpan ke cloud.");
+        };
+
+        window.editQuestion = function(id) {
+            openQuestionModal(id);
+        };
+
+        window.deleteQuestion = async function(id) {
+            confirmBox("Hapus Soal?", "Hapus soal ini dari database cloud secara permanen?", async () => {
+                if (db && userId) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', id));
+                    } catch (err) {
+                        console.warn("Cloud delete question error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.deleteQuestionsByGrade = async function() {
+            let gradeVal = document.getElementById('deleteQuestionClassSelect').value;
+            if (!gradeVal) {
+                alertBox("Peringatan", "Silakan pilih tingkat kelas terlebih dahulu dari dropdown menu (Kelas 7, 8, atau 9).");
+                return;
+            }
+            let questions = getActiveQuestions();
+            let toDelete = questions.filter(q => Number(q.kelas) === Number(gradeVal));
+            if (toDelete.length === 0) {
+                alertBox("Info", `Tidak ada soal untuk Kelas ${gradeVal} saat ini.`);
+                return;
+            }
+            confirmBox("Hapus Soal Per Kelas?", `Yakin ingin menghapus secara massal SEMUA soal (${toDelete.length} soal) untuk Kelas ${gradeVal}?`, async () => {
+                if (db && userId) {
+                    try {
+                        for (let q of toDelete) {
+                            if (q.id) {
+                                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', q.id));
+                            }
+                        }
+                    } catch (err) {
+                        console.warn("Cloud delete questions by grade error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.openResetDatabaseModal = function() {
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-pop";
+            modal.innerHTML = `
+                <div class="bg-white p-6 rounded-3xl shadow-2xl max-w-sm w-full space-y-4 text-center border">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900">Reset Database Bank Soal?</h3>
+                    <p class="text-xs text-slate-600">Tindakan ini akan mereset dan memuat ulang seluruh bank soal bawaan sistem (500+ soal). Masukkan password Admin untuk konfirmasi:</p>
+                    <input type="password" id="resetDbPassword" placeholder="Masukkan password admin" class="w-full px-4 py-2.5 rounded-xl border text-sm text-center">
+                    <div class="flex gap-3 pt-2">
+                        <button onclick="this.closest('.fixed').remove()" class="w-full py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition">Batal</button>
+                        <button onclick="executeResetDatabase()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl transition shadow">Konfirmasi Reset</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.executeResetDatabase = async function() {
+            let pass = document.getElementById('resetDbPassword').value.trim();
+            let users = getActiveUsers();
+            let adminUser = users.find(u => u.username === 'admin' || u.role === 'admin');
+            let adminPass = adminUser ? adminUser.password : 'admin123';
+
+            if (pass !== adminPass) {
+                alertBox("Password Salah", "Password admin yang Anda masukkan tidak valid.");
+                return;
+            }
+
+            document.querySelector('.fixed').remove();
+
+            if (db && userId) {
+                try {
+                    let snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'questions'));
+                    for (let docSnap of snap.docs) {
+                        await deleteDoc(docSnap.ref);
+                    }
+                    DEFAULT_QUESTIONS.forEach(async (q) => {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'questions', q.id), q);
+                    });
+                    State.cloudQuestions = DEFAULT_QUESTIONS;
+                    alertBox("Berhasil Reset", "Database Bank Soal berhasil di-reset dan dimuat ulang ke set default.");
+                    router.navigate('teacherDashboard');
+                } catch (err) {
+                    console.warn("Reset database error:", err);
+                    alertBox("Gagal", "Terjadi kesalahan saat mereset database cloud.");
+                }
+            }
+        };
+
+        window.openTokenModal = function() {
+            let grade7Mats = GRADE_MATERIALS[7];
+
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-xl w-full space-y-6 border my-8 max-h-[90vh] overflow-y-auto">
+                    <h3 class="font-black text-slate-900 text-lg">Buat Token Game & Pilih Materi</h3>
+                    <form onsubmit="saveGameToken(event)" class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div>
+                            <label class="block mb-1">Judul Challenge / Game</label>
+                            <input type="text" id="tTitle" required placeholder="Uji Kompetensi Kumer 7" class="w-full p-2.5 rounded-xl border">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Kode Token Game</label>
+                                <input type="text" id="tCode" required value="IFMT${Math.floor(Math.random()*90+10)}B2" class="w-full p-2.5 rounded-xl border font-mono uppercase font-bold text-brand-600">
+                            </div>
+                            <div>
+                                <label class="block mb-1">Kelas</label>
+                                <select id="tKelas" onchange="updateTokenMaterialsAndPreview(this.value)" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="7">Kelas 7</option>
+                                    <option value="8">Kelas 8</option>
+                                    <option value="9">Kelas 9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block mb-1">Pilih Materi Kurikulum</label>
+                                <select id="tokenMateriSelect" onchange="updateTokenQuestionPreview()" class="w-full p-3 rounded-xl border bg-white font-bold text-slate-800">
+                                    ${grade7Mats.map(m => `<option value="${m}">${m}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-1">Jumlah Soal</label>
+                                <select id="tSoal" onchange="updateTokenQuestionPreview()" class="w-full p-2.5 rounded-xl border bg-white font-bold">
+                                    <option value="5">5 Soal</option>
+                                    <option value="10" selected>10 Soal</option>
+                                    <option value="15">15 Soal</option>
+                                    <option value="20">20 Soal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-1">Durasi Timer (Menit)</label>
+                            <input type="number" id="tTimer" min="1" max="120" value="10" required class="w-full p-2.5 rounded-xl border font-bold text-brand-600">
+                        </div>
+
+                        <!-- Question Preview Box -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border space-y-2">
+                            <label class="block font-bold text-slate-800">Pratinjau Soal yang Akan Muncul di TTS:</label>
+                            <div id="tokenQuestionPreviewList" class="max-h-40 overflow-y-auto space-y-1.5 text-slate-600 font-medium text-[11px]">
+                                <!-- Dynamic items -->
+                            </div>
+                        </div>
+
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl shadow">Simpan Token</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            updateTokenQuestionPreview();
+        };
+
+        window.updateTokenMaterialsAndPreview = function(grade) {
+            let mats = GRADE_MATERIALS[grade] || [];
+            let selectEl = document.getElementById('tokenMateriSelect');
+            if (selectEl) {
+                selectEl.innerHTML = mats.map(m => `<option value="${m}">${m}</option>`).join('');
+            }
+            updateTokenQuestionPreview();
+        };
+
+        window.updateTokenQuestionPreview = function() {
+            let grade = document.getElementById('tKelas')?.value || 7;
+            let materi = document.getElementById('tokenMateriSelect')?.value || 'Semua Materi';
+            let count = parseInt(document.getElementById('tSoal')?.value) || 10;
+
+            let allQuestions = getActiveQuestions();
+            let filtered = allQuestions.filter(q => Number(q.kelas) === Number(grade));
+            if (materi && materi !== 'Semua Materi') {
+                let subFiltered = filtered.filter(q => q.materi === materi);
+                if (subFiltered.length >= 3) filtered = subFiltered;
+            }
+
+            let previewListEl = document.getElementById('tokenQuestionPreviewList');
+            if (!previewListEl) return;
+
+            if (filtered.length === 0) {
+                previewListEl.innerHTML = `<p class="text-slate-400 italic">Tidak ada soal tersedia untuk materi ini.</p>`;
+                return;
+            }
+
+            let previewItems = filtered.slice(0, count);
+            previewListEl.innerHTML = previewItems.map((q, i) => `
+                <div class="p-2 bg-white rounded-xl border flex items-center justify-between">
+                    <span class="font-bold text-slate-800">${i+1}. ${q.pertanyaan}</span>
+                    <span class="font-mono bg-brand-50 text-brand-700 px-2 py-0.5 rounded font-bold">${q.jawaban}</span>
+                </div>
+            `).join('');
+        };
+
+        window.previewTokenQuestions = function(tokenCode) {
+            let tokens = getActiveTokens();
+            let t = tokens.find(item => item.token === tokenCode);
+            if (!t) return;
+
+            let allQuestions = getActiveQuestions();
+            let filtered = allQuestions.filter(q => Number(q.kelas) === Number(t.kelas));
+            if (t.materi && t.materi !== 'Semua Materi') {
+                let subFiltered = filtered.filter(q => q.materi === t.materi);
+                if (subFiltered.length >= 3) filtered = subFiltered;
+            }
+            let previewItems = filtered.slice(0, t.soalCount || 10);
+
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-lg w-full space-y-4 border max-h-[80vh] overflow-y-auto">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <h3 class="font-black text-slate-900 text-base">Pratinjau Token: <span class="text-brand-600">${t.token}</span></h3>
+                        <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-slate-700 font-bold"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+                    <p class="text-xs text-slate-500 font-semibold">Judul: ${t.title} | Kelas ${t.kelas} | Materi: ${t.materi || 'Semua'}</p>
+                    <div class="space-y-2 pt-2">
+                        ${previewItems.map((q, idx) => `
+                            <div class="p-3 bg-slate-50 rounded-2xl border text-xs space-y-1">
+                                <div class="flex justify-between font-bold text-slate-700">
+                                    <span>No. ${idx+1} (${q.materi})</span>
+                                    <span class="font-mono text-brand-600 bg-brand-50 px-2 py-0.5 rounded">${q.jawaban}</span>
+                                </div>
+                                <p class="text-slate-900 font-semibold">${q.pertanyaan}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="pt-2 text-right">
+                        <button onclick="this.closest('.fixed').remove()" class="px-5 py-2.5 bg-brand-600 text-white font-bold rounded-xl text-xs">Tutup</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.saveGameToken = async function(e) {
+            e.preventDefault();
+            let tokenCode = document.getElementById('tCode').value.trim().toUpperCase();
+            let manualTimer = parseInt(document.getElementById('tTimer').value) || 10;
+            let kelasVal = parseInt(document.getElementById('tKelas').value) || 7;
+            let soalCountVal = parseInt(document.getElementById('tSoal').value) || 10;
+            let selectedMateri = document.getElementById('tokenMateriSelect').value;
+
+            let allQuestions = getActiveQuestions();
+            let filtered = allQuestions.filter(q => Number(q.kelas) === Number(kelasVal));
+            if (selectedMateri && selectedMateri !== 'Semua Materi') {
+                let subFiltered = filtered.filter(q => q.materi === selectedMateri);
+                if (subFiltered.length >= 3) filtered = subFiltered;
+            }
+            let selectedIds = filtered.slice(0, soalCountVal).map(q => q.id);
+
+            let newToken = {
+                title: document.getElementById('tTitle').value.trim(),
+                token: tokenCode,
+                kelas: kelasVal,
+                materi: selectedMateri,
+                soalCount: soalCountVal,
+                timer: manualTimer,
+                questionIds: selectedIds
+            };
+
+            if (db && userId) {
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tokens', tokenCode), newToken);
+                } catch (err) {
+                    console.warn("Cloud save token error:", err);
+                }
+            }
+            document.querySelector('.fixed').remove();
+            router.navigate('teacherDashboard');
+            alertBox("Berhasil", "Token game dengan materi kurikulum terpilih berhasil disimpan ke cloud.");
+        };
+
+        window.deleteGameToken = async function(token) {
+            confirmBox("Hapus Token?", `Hapus token "${token}" dari cloud?`, async () => {
+                if (db && userId) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tokens', token));
+                    } catch (err) {
+                        console.warn("Cloud delete token error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.deleteResultRecord = async function(id) {
+            confirmBox("Hapus Riwayat?", "Hapus catatan hasil siswa ini dari cloud?", async () => {
+                if (db && userId) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', id));
+                    } catch (err) {
+                        console.warn("Cloud delete result error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.clearAllResults = async function() {
+            confirmBox("Reset Semua Hasil?", "Awas! Tindakan ini akan menghapus seluruh riwayat klasemen siswa secara permanen.", async () => {
+                if (db && userId) {
+                    try {
+                        let snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'results'));
+                        snap.forEach(async (d) => {
+                            await deleteDoc(d.ref);
+                        });
+                    } catch (err) {
+                        console.warn("Cloud clear results error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.toggleSelectAllResults = function(source) {
+            let checkboxes = document.querySelectorAll('.result-cb');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        };
+
+        window.deleteSelectedResults = async function() {
+            let checkboxes = document.querySelectorAll('.result-cb:checked');
+            if (checkboxes.length === 0) {
+                alertBox("Peringatan", "Pilih minimal satu data untuk dihapus dari daftar.");
+                return;
+            }
+            confirmBox("Hapus Terpilih?", `Yakin ingin menghapus ${checkboxes.length} riwayat hasil yang dipilih?`, async () => {
+                if (db && userId) {
+                    try {
+                        for (let cb of checkboxes) {
+                            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', cb.value));
+                        }
+                    } catch (err) {
+                        console.warn("Cloud delete selected results error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.deleteResultsByClass = async function() {
+            let classVal = document.getElementById('deleteClassSelect').value;
+            if (!classVal) {
+                alertBox("Peringatan", "Silakan pilih kelas terlebih dahulu dari dropdown menu.");
+                return;
+            }
+            let results = getActiveResults();
+            let toDelete = results.filter(r => r.class === classVal);
+            if (toDelete.length === 0) {
+                alertBox("Info", `Tidak ada data hasil untuk kelas ${classVal} saat ini.`);
+                return;
+            }
+            confirmBox("Hapus Per Kelas?", `Yakin ingin menghapus secara massal SEMUA data hasil (${toDelete.length} data) untuk kelas ${classVal}?`, async () => {
+                if (db && userId) {
+                    try {
+                        for (let r of toDelete) {
+                            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', r.id));
+                        }
+                    } catch (err) {
+                        console.warn("Cloud delete class results error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        window.openUserModal = function() {
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full space-y-6 border">
+                    <h3 class="font-black text-slate-900 text-lg">Tambah Akun Guru Baru</h3>
+                    <form onsubmit="saveUserAccount(event)" class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div>
+                            <label class="block mb-1">Nama Lengkap & Gelar</label>
+                            <input type="text" id="uName" required placeholder="Contoh: Siti Aminah, S.Pd." class="w-full p-2.5 rounded-xl border">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Username Login</label>
+                            <input type="text" id="uUser" required placeholder="username" class="w-full p-2.5 rounded-xl border">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Password</label>
+                            <input type="password" id="uPass" required placeholder="password" class="w-full p-2.5 rounded-xl border">
+                        </div>
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl shadow">Simpan Akun</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.openChangePasswordModal = function(username) {
+            let users = getActiveUsers();
+            let u = users.find(item => item.username === username);
+            if (!u) return;
+
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full space-y-6 border">
+                    <h3 class="font-black text-slate-900 text-lg">Ganti Password: <span class="text-brand-600">${u.name}</span></h3>
+                    <form onsubmit="saveNewPassword(event, '${username}')" class="space-y-4 text-xs font-semibold text-slate-600">
+                        <div>
+                            <label class="block mb-1">Password Baru</label>
+                            <input type="password" id="newPass" required placeholder="Masukkan password baru" class="w-full p-2.5 rounded-xl border">
+                        </div>
+                        <div class="pt-4 flex gap-3 justify-end">
+                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
+                            <button type="submit" class="px-6 py-2.5 bg-brand-600 text-white font-bold rounded-xl shadow">Perbarui Password</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        };
+
+        window.saveNewPassword = async function(e, username) {
+            e.preventDefault();
+            let newPass = document.getElementById('newPass').value.trim();
+            let users = getActiveUsers();
+            let u = users.find(item => item.username === username);
+
+            if (u) {
+                u.password = newPass;
+                if (db && userId) {
+                    try {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', username), u);
+                    } catch (err) {
+                        console.warn("Cloud update password error:", err);
+                    }
+                }
+                document.querySelector('.fixed').remove();
+                router.navigate('teacherDashboard');
+                alertBox("Berhasil", `Password untuk akun "${username}" berhasil diperbarui.`);
+            }
+        };
+
+        window.saveUserAccount = async function(e) {
+            e.preventDefault();
+            let username = document.getElementById('uUser').value.trim();
+            let newUser = {
+                name: document.getElementById('uName').value.trim(),
+                username: username,
+                password: document.getElementById('uPass').value.trim(),
+                role: 'teacher'
+            };
+
+            if (db && userId) {
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', username), newUser);
+                } catch (err) {
+                    console.warn("Cloud save user error:", err);
+                }
+            }
+            document.querySelector('.fixed').remove();
+            router.navigate('teacherDashboard');
+            alertBox("Berhasil", "Akun guru baru berhasil ditambahkan ke cloud.");
+        };
+
+        window.deleteUser = async function(username) {
+            confirmBox("Hapus Akun?", `Hapus akun guru "${username}" dari sistem?`, async () => {
+                if (db && userId) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', username));
+                    } catch (err) {
+                        console.warn("Cloud delete user error:", err);
+                    }
+                }
+                router.navigate('teacherDashboard');
+            });
+        };
+
+        function alertBox(title, message) {
+            let modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-pop";
+            modal.innerHTML = `
+                <div class="bg-white p-6 rounded-3xl shadow-2xl max-w-sm w-full space-y-4 text-center border">
+                    <h3 class="font-bold text-lg text-slate-900">${title}</h3>
+                    <p class="text-sm text-slate-600">${message}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition shadow">OK</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        window.router = router;
+        window.selectCell = selectCell;
+        window.handleCellInput = handleCellInput;
+        window.handleCellKeydown = handleCellKeydown;
+        window.focusWord = focusWord;
+        window.useHint = useHint;
+        window.finishGameConfirm = finishGameConfirm;
+        window.handleTeacherLogin = handleTeacherLogin;
+        window.updateAIClassMaterials = updateAIClassMaterials;
+        window.updateTokenMaterialsAndPreview = updateTokenMaterialsAndPreview;
+        window.updateTokenQuestionPreview = updateTokenQuestionPreview;
+        window.previewTokenQuestions = previewTokenQuestions;
+        window.updateModalMaterials = updateModalMaterials;
+
+        window.onload = function() {
+            renderApp();
+        };
+    </script>
+</body>
+</html>
