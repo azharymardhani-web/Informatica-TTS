@@ -157,6 +157,7 @@
             currentView: 'home',
             activeAdminTab: 'soal',
             activeLeaderboardFilter: 'ALL',
+            activeResultFilter: 'ALL',
             adminQuestionPage: 1,
             adminRowsPerPage: 10,
             settings: { schoolName: "MTs Negeri 14 Jakarta", teacherName: "Azhary Mardhani, S.Kom." },
@@ -1225,6 +1226,13 @@
             let startIndex = (State.adminQuestionPage - 1) * rowsPerPage;
             let paginatedQuestions = filteredQuestions.slice(startIndex, startIndex + rowsPerPage);
 
+            let resFilterClass = document.getElementById('adminResultClassFilter')?.value || 'ALL';
+            let filteredResults = results;
+            if (resFilterClass === '7') filteredResults = results.filter(r => r.class && r.class.startsWith('VII'));
+            else if (resFilterClass === '8') filteredResults = results.filter(r => r.class && r.class.startsWith('VIII'));
+            else if (resFilterClass === '9') filteredResults = results.filter(r => r.class && r.class.startsWith('IX'));
+            else if (resFilterClass !== 'ALL') filteredResults = results.filter(r => r.class === resFilterClass);
+
             return `
                 <div class="space-y-8 pb-12 w-full">
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -1446,7 +1454,16 @@
                                         <h3 class="font-extrabold text-slate-900 text-lg">Rekapitulasi Hasil Siswa</h3>
                                         <p class="text-xs text-slate-500">Daftar lengkap seluruh percobaan bermain siswa.</p>
                                     </div>
-                                    <div class="flex flex-wrap gap-2 justify-end">
+                                    <div class="flex flex-wrap gap-2 items-center">
+                                        <select id="adminResultClassFilter" onchange="filterAdminResults(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border">
+                                            <option value="ALL" ${resFilterClass === 'ALL' ? 'selected' : ''}>Semua Kelas & Angkatan</option>
+                                            <option value="7" ${resFilterClass === '7' ? 'selected' : ''}>Angkatan Kelas 7</option>
+                                            <option value="8" ${resFilterClass === '8' ? 'selected' : ''}>Angkatan Kelas 8</option>
+                                            <option value="9" ${resFilterClass === '9' ? 'selected' : ''}>Angkatan Kelas 9</option>
+                                            <optgroup label="Per Kelas">
+                                                ${[7,8,9].flatMap(g => State.availableClasses[g] || []).map(c => `<option value="${c}" ${resFilterClass === c ? 'selected' : ''}>Kelas ${c}</option>`).join('')}
+                                            </optgroup>
+                                        </select>
                                         <button onclick="clearAllResults()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs transition shadow-sm">
                                             <i class="fa-solid fa-triangle-exclamation mr-1"></i> Reset Semua Hasil
                                         </button>
@@ -1466,7 +1483,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y">
-                                            ${results.length ? results.map((r) => `
+                                            ${filteredResults.length ? filteredResults.map((r) => `
                                                 <tr class="hover:bg-slate-50 transition">
                                                     <td class="p-3 font-bold text-slate-900">${r.name}</td>
                                                     <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-100 font-bold">${r.class}</span></td>
@@ -1478,7 +1495,7 @@
                                                         <button onclick="deleteResultRecord('${r.id}')" class="p-1.5 bg-rose-50 text-rose-600 rounded hover:bg-rose-100 transition"><i class="fa-solid fa-trash"></i></button>
                                                     </td>
                                                 </tr>
-                                            `).join('') : '<tr><td colspan="7" class="p-6 text-center text-slate-400 italic">Belum ada riwayat hasil siswa.</td></tr>'}
+                                            `).join('') : '<tr><td colspan="7" class="p-6 text-center text-slate-400 italic">Belum ada riwayat hasil siswa yang sesuai filter.</td></tr>'}
                                         </tbody>
                                     </table>
                                 </div>
@@ -1534,6 +1551,10 @@
 
         window.filterAdminQuestions = function(gradeVal) {
             State.adminQuestionPage = 1;
+            renderApp();
+        };
+
+        window.filterAdminResults = function(classVal) {
             renderApp();
         };
 
@@ -2253,6 +2274,7 @@
         window.previewTokenQuestions = previewTokenQuestions;
         window.updateModalMaterials = updateModalMaterials;
         window.onTokenSelectChange = onTokenSelectChange;
+        window.filterAdminResults = filterAdminResults;
 
         window.onload = function() { renderApp(); };
     </script>
