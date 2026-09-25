@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INFORMATIKA TTS CHALLENGE | Media Pembelajaran Informatika MTs</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,7 +26,6 @@
             }
         }
     </script>
-    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -69,7 +67,7 @@
     <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 text-white shadow-lg sticky top-0 z-40 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div id="headerLogo" class="flex items-center space-x-3 cursor-pointer group" onclick="router.navigate('home')">
-                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur group-hover:bg-white/20 transition">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/25 backdrop-blur group-hover:bg-white/20 transition">
                     <i class="fa-solid fa-puzzle-piece text-brand-300 text-xl"></i>
                 </div>
                 <div>
@@ -97,7 +95,7 @@
     </header>
 
     <main id="app" class="flex-grow flex flex-col max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <!-- Dynamic Views -->
+        <!-- Dynamic Views Container -->
     </main>
 
     <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-sm mt-auto no-print">
@@ -118,60 +116,41 @@
         </div>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = {
- apiKey: "AIzaSyA3v19W60OQ5qfKYELEvmmkKaO-Gf6zHgs",
-  authDomain: "informatica-class.firebaseapp.com",
-  projectId: "informatica-class",
-  storageBucket: "informatica-class.firebasestorage.app",
-  messagingSenderId: "352869091816",
-  appId: "1:352869091816:web:e7af4d6c3bd798332bbc5d",
-  measurementId: "G-XKCH0CZZFZ
-        };
-
-        let app, db, auth, userId = 'offline-user-' + Math.random().toString(36).substr(2, 9);
-
+    <script>
         const GRADE_MATERIALS = {
-            7: ["Semua Materi", "Berpikir Komputasional", "Pengolahan Data", "Literasi Informasi", "Keseimbangan Hidup Digital", "Perkakas TIK"],
-            8: ["Semua Materi", "Analisis Data", "Berpikir Komputasional", "Algoritma Pemrograman", "Jejak Bermedia Digital", "Pemanfaatan Perkakas Digital"],
+            7: ["Semua Materi", "Berpikir Komputasional", "Perangkat Lunak", "Aplikasi Perkantoran", "Pengelolaan Dokumen", "Internet dan Komunikasi Digital", "Etika Digital"],
+            8: ["Semua Materi", "Analisis Data", "Pengolahan Informasi", "Aplikasi Produktivitas", "Pengelolaan Data Digital", "Internet", "Literasi Digital", "Pemanfaatan Teknologi"],
             9: ["Semua Materi", "Informatika SMP", "Berpikir Komputasional", "Teknik Informasi dan Komunikasi", "Sistem Komputer", "Jaringan Komputer dan Internet", "Analisis Data", "Algoritma dan Pemrograman", "Dampak Sosial Informatika", "Praktik Lintas Bidang Informatika"]
         };
 
-        // Embedded robust 50+ unique question dataset spanning grades 7, 8, 9 with strictly unique answers
-        const EMBEDDED_50_QUESTIONS = [
-            // Kelas 7
-            { id: "IF7-01", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memecah masalah besar menjadi bagian-bagian kecil", jawaban: "DEKOMPOSISI", penjelasan: "Dekomposisi memecah masalah kompleks.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-02", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Keteraturan yang dapat ditemukan dalam data atau masalah", jawaban: "POLA", penjelasan: "Pengenalan pola membantu kesamaan struktur.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-03", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memusatkan perhatian pada informasi yang penting", jawaban: "ABSTRAKSI", penjelasan: "Abstraksi menyaring detail tidak relevan.", kesulitan: "Sedang", arah: "mendatar" },
+        const EMBEDDED_QUESTIONS = [
+            { id: "IF7-01", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memecah masalah besar menjadi bagian-bagian kecil", jawaban: "DEKOMPOSISI", penjelasan: "Dekomposisi memecah masalah kompleks menjadi sub-masalah.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-02", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Keteraturan yang dapat ditemukan dalam data atau masalah", jawaban: "POLA", penjelasan: "Pengenalan pola membantu memahami kesamaan struktur.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-03", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memusatkan perhatian pada informasi yang penting dan menyaring detail tidak relevan", jawaban: "ABSTRAKSI", penjelasan: "Abstraksi menyaring hal mendasar.", kesulitan: "Sedang", arah: "mendatar" },
             { id: "IF7-04", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Langkah-langkah terurut untuk menyelesaikan masalah", jawaban: "ALGORITMA", penjelasan: "Algoritma adalah urutan langkah logis.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-05", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Proses mencari dan memperbaiki kesalahan", jawaban: "DEBUGGING", penjelasan: "Debugging membersihkan galat dalam logika.", kesulitan: "Sulit", arah: "mendatar" },
-            { id: "IF7-06", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Fakta mentah yang dapat diolah", jawaban: "DATA", penjelasan: "Data adalah bahan mentah informasi.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-07", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Data yang telah diolah dan bermakna", jawaban: "INFORMASI", penjelasan: "Informasi adalah hasil olahan data.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-08", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Aplikasi pengolah lembar kerja berbentuk tabel", jawaban: "SPREADSHEET", penjelasan: "Spreadsheet mengelola angka dan tabel.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-09", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Perangkat lunak penjelajah halaman web", jawaban: "BROWSER", penjelasan: "Browser menjelajahi situs web.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-10", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Kotak penyimpanan file digital di komputer", jawaban: "FOLDER", penjelasan: "Folder mengelompokkan file.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-11", kelas: 7, bab: 2, materi: "Literasi Informasi", pertanyaan: "Surat elektronik dalam jaringan internet", jawaban: "EMAIL", penjelasan: "Email mengirim pesan digital.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-12", kelas: 7, bab: 2, materi: "Literasi Informasi", pertanyaan: "Alamat unik sebuah halaman web di internet", jawaban: "URL", penjelasan: "URL menunjuk alamat web.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-13", kelas: 7, bab: 2, materi: "Keseimbangan Hidup Digital", pertanyaan: "Kata kunci rahasia untuk mengamankan akun", jawaban: "PASSWORD", penjelasan: "Password melindungi akses akun.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF7-14", kelas: 7, bab: 2, materi: "Keseimbangan Hidup Digital", pertanyaan: "Etika sopan santun saat berkomunikasi di internet", jawaban: "NETIKET", penjelasan: "Netiket adalah etika berinternet.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-15", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Perangkat keras fisik komputer yang dapat disentuh", jawaban: "HARDWARE", penjelasan: "Hardware adalah komponen fisik.", kesulitan: "Mudah", arah: "menurun" },
-
-            // Kelas 8
+            { id: "IF7-05", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Proses mencari dan memperbaiki kesalahan dalam kode atau logika", jawaban: "DEBUGGING", penjelasan: "Debugging membersihkan galat.", kesulitan: "Sulit", arah: "mendatar" },
+            { id: "IF7-06", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Program pengendali utama sistem komputer", jawaban: "OPERASI", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF7-07", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Aplikasi pengolah lembar kerja berbentuk tabel", jawaban: "SPREADSHEET", penjelasan: "Spreadsheet mengelola angka dan tabel.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF7-08", kelas: 7, bab: 2, materi: "Aplikasi Perkantoran", pertanyaan: "Aplikasi pembuat dokumen teks", jawaban: "WORD", penjelasan: "Microsoft Word mengolah kata.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-09", kelas: 7, bab: 2, materi: "Pengelolaan Dokumen", pertanyaan: "Kotak penyimpanan file digital di komputer", jawaban: "FOLDER", penjelasan: "Folder mengelompokkan file.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-10", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Surat elektronik dalam jaringan internet", jawaban: "EMAIL", penjelasan: "Email mengirim pesan digital.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-11", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Alamat unik sebuah halaman web di internet", jawaban: "URL", penjelasan: "URL menunjuk alamat web.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-12", kelas: 7, bab: 2, materi: "Etika Digital", pertanyaan: "Kata kunci rahasia untuk mengamankan akun", jawaban: "PASSWORD", penjelasan: "Password melindungi akses akun.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF7-13", kelas: 7, bab: 2, materi: "Etika Digital", pertanyaan: "Etika sopan santun saat berkomunikasi di internet", jawaban: "NETIKET", penjelasan: "Netiket adalah etika berinternet.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF7-14", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Perangkat keras fisik komputer yang dapat disentuh", jawaban: "HARDWARE", penjelasan: "Hardware adalah komponen fisik.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-15", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Perangkat lunak penjelajah halaman web", jawaban: "BROWSER", penjelasan: "Browser menjelajahi situs web.", kesulitan: "Mudah", arah: "mendatar" },
             { id: "IF8-01", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Proses mengurai data untuk mendapat wawasan", jawaban: "ANALISIS", penjelasan: "Analisis menemukan makna dari data.", kesulitan: "Sedang", arah: "mendatar" },
             { id: "IF8-02", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Kumpulan himpunan data terstruktur", jawaban: "DATASET", penjelasan: "Dataset menyimpan data terorganisir.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF8-03", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Proses penyalinan cadangan data agar aman", jawaban: "BACKUP", penjelasan: "Backup mencegah kehilangan data.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-04", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Penipuan online untuk mencuri data pribadi", jawaban: "PHISHING", penjelasan: "Phishing mengelabui pengguna.", kesulitan: "Sulit", arah: "menurun" },
-            { id: "IF8-05", kelas: 8, bab: 2, materi: "Jejak Bermedia Digital", pertanyaan: "Jejak aktivitas seseorang di dunia digital", jawaban: "DIGITAL", penjelasan: "Jejak digital terekam saat online.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-06", kelas: 8, bab: 2, materi: "Pemanfaatan Perkakas Digital", pertanyaan: "Penyimpanan data berbasis awan internet", jawaban: "CLOUD", penjelasan: "Cloud menyimpan file secara online.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF8-07", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Jaringan global penghubung perangkat", jawaban: "INTERNET", penjelasan: "Internet menghubungkan dunia.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF8-08", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Mesin pencari informasi di internet", jawaban: "PENCARI", penjelasan: "Mesin pencari mencari web.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF8-09", kelas: 8, bab: 2, materi: "Jejak Bermedia Digital", pertanyaan: "Berita bohong yang tidak benar faktanya", jawaban: "HOAKS", penjelasan: "Hoaks menyebarkan informasi palsu.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF8-10", kelas: 8, bab: 2, materi: "Pemanfaatan Perkakas Digital", pertanyaan: "Program pengendali utama sistem komputer", jawaban: "SISTEM", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" }
+            { id: "IF8-03", kelas: 8, bab: 2, materi: "Pengolahan Informasi", pertanyaan: "Proses penyalinan cadangan data agar aman", jawaban: "BACKUP", penjelasan: "Backup mencegah kehilangan data.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-04", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Penipuan online untuk mencuri data pribadi", jawaban: "PHISHING", penjelasan: "Phishing mengelabui pengguna.", kesulitan: "Sulit", arah: "menurun" },
+            { id: "IF8-05", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Jejak aktivitas seseorang di dunia digital", jawaban: "DIGITAL", penjelasan: "Jejak digital terekam saat online.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-06", kelas: 8, bab: 2, materi: "Pengelolaan Data Digital", pertanyaan: "Penyimpanan data berbasis awan internet", jawaban: "CLOUD", penjelasan: "Cloud menyimpan file secara online.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF8-07", kelas: 8, bab: 2, materi: "Internet", pertanyaan: "Jaringan global penghubung perangkat", jawaban: "INTERNET", penjelasan: "Internet menghubungkan dunia.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF8-08", kelas: 8, bab: 2, materi: "Internet", pertanyaan: "Mesin pencari informasi di internet", jawaban: "PENCARI", penjelasan: "Mesin pencari mencari web.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF8-09", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Berita bohong yang tidak benar faktanya", jawaban: "HOAKS", penjelasan: "Hoaks menyebarkan informasi palsu.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF8-10", kelas: 8, bab: 2, materi: "Pemanfaatan Teknologi", pertanyaan: "Sistem pengendali utama perangkat komputer", jawaban: "SISTEM", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF8-11", kelas: 8, bab: 2, materi: "Aplikasi Produktivitas", pertanyaan: "Fungsi otomatis dalam lembar kerja", jawaban: "FORMULA", penjelasan: "Formula menghitung nilai angka.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-12", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Visualisasi data berbentuk diagram batang", jawaban: "GRAFIK", penjelasan: "Grafik menampilkan data visual.", kesulitan: "Mudah", arah: "menurun" }
         ];
 
         const State = {
@@ -191,10 +170,17 @@
             startTime: null,
             endTime: null,
             currentUser: null,
-            cloudQuestions: JSON.parse(localStorage.getItem('tts_questions') || '[]'),
+            cloudQuestions: JSON.parse(localStorage.getItem('tts_questions') || JSON.stringify(EMBEDDED_QUESTIONS)),
             cloudResults: JSON.parse(localStorage.getItem('tts_results') || '[]'),
-            cloudTokens: JSON.parse(localStorage.getItem('tts_tokens') || '[]'),
-            cloudUsers: JSON.parse(localStorage.getItem('tts_users') || '[]'),
+            cloudTokens: JSON.parse(localStorage.getItem('tts_tokens') || JSON.stringify([
+                { token: 'IFMT7B2A', kelas: 7, materi: 'Semua Materi', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 7 A' },
+                { token: 'IFMT8B2B', kelas: 8, materi: 'Analisis Data', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 8 B' },
+                { token: 'IFMT9C2A', kelas: 9, materi: 'Informatika SMP', soalCount: 15, timer: 12, title: 'Challenge TIK Kumer Kelas 9 A' }
+            ])),
+            cloudUsers: JSON.parse(localStorage.getItem('tts_users') || JSON.stringify([
+                { username: 'admin', password: 'admin123', role: 'admin', name: 'Administrator' },
+                { username: 'informatika', password: 'guru123', role: 'teacher', name: 'Guru Informatika MTs' }
+            ])),
             availableClasses: {
                 7: ['VII-A', 'VII-B', 'VII-C', 'VII-D', 'VII-E', 'VII-F', 'VII-G'],
                 8: ['VIII-A', 'VIII-B', 'VIII-C', 'VIII-D', 'VIII-E', 'VIII-F', 'VIII-G', 'VIII-H'],
@@ -202,82 +188,7 @@
             }
         };
 
-        if (State.cloudQuestions.length === 0) State.cloudQuestions = EMBEDDED_50_QUESTIONS;
-        if (State.cloudTokens.length === 0) {
-            State.cloudTokens = [
-                { token: 'IFMT7B2A', kelas: 7, materi: 'Semua Materi', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 7 A' },
-                { token: 'IFMT8B2B', kelas: 8, materi: 'Analisis Data', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 8 B' },
-                { token: 'IFMT9C2A', kelas: 9, materi: 'Informatika SMP', soalCount: 15, timer: 12, title: 'Challenge TIK Kumer Kelas 9 A' }
-            ];
-        }
-        if (State.cloudUsers.length === 0) {
-            State.cloudUsers = [
-                { username: 'admin', password: 'admin123', role: 'admin', name: 'Administrator' },
-                { username: 'informatika', password: 'guru123', role: 'teacher', name: 'Guru Informatika MTs' }
-            ];
-        }
-
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            
-            const initAuth = async () => {
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    userId = auth.currentUser?.uid || userId;
-                } catch (authErr) {
-                    console.debug("Firebase Auth restricted, using offline fallback profile.");
-                }
-                initCloudSync();
-            };
-            initAuth();
-        } catch (e) {
-            console.warn("Using offline standalone storage mode.");
-        }
-
-        function initCloudSync() {
-            if (!db) return;
-            try {
-                const qRef = collection(db, 'artifacts', appId, 'public', 'data', 'questions');
-                onSnapshot(qRef, (snapshot) => {
-                    let items = [];
-                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
-                    if (items.length > 0) {
-                        State.cloudQuestions = items;
-                        localStorage.setItem('tts_questions', JSON.stringify(items));
-                    }
-                    if (State.currentView === 'teacherDashboard') renderApp();
-                }, (err) => { console.debug("Firestore questions offline fallback"); });
-
-                const rRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
-                onSnapshot(rRef, (snapshot) => {
-                    let items = [];
-                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
-                    State.cloudResults = items;
-                    localStorage.setItem('tts_results', JSON.stringify(items));
-                    if (State.currentView === 'leaderboard' || State.currentView === 'teacherDashboard') renderApp();
-                }, (err) => { console.debug("Firestore results offline fallback"); });
-
-                const tRef = collection(db, 'artifacts', appId, 'public', 'data', 'tokens');
-                onSnapshot(tRef, (snapshot) => {
-                    let items = [];
-                    snapshot.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
-                    if (items.length > 0) {
-                        State.cloudTokens = items;
-                        localStorage.setItem('tts_tokens', JSON.stringify(items));
-                    }
-                    if (State.currentView === 'setup' || State.currentView === 'teacherDashboard') renderApp();
-                }, (err) => { console.debug("Firestore tokens offline fallback"); });
-            } catch (e) {
-                console.debug("Cloud sync offline fallback active");
-            }
-        }
-
+        // Offline-first robust persistence engine preventing any cloud backoff warnings
         async function syncSave(collectionName, docId, data) {
             if (collectionName === 'questions') {
                 let idx = State.cloudQuestions.findIndex(q => q.id === docId);
@@ -296,14 +207,6 @@
                 if (idx >= 0) State.cloudUsers[idx] = data; else State.cloudUsers.push(data);
                 localStorage.setItem('tts_users', JSON.stringify(State.cloudUsers));
             }
-
-            if (db) {
-                try {
-                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', collectionName, docId), data);
-                } catch (err) {
-                    console.debug(`Firestore write offline mode (${collectionName}/${docId})`);
-                }
-            }
         }
 
         async function syncDelete(collectionName, docId) {
@@ -319,14 +222,6 @@
             } else if (collectionName === 'users') {
                 State.cloudUsers = State.cloudUsers.filter(u => u.username !== docId);
                 localStorage.setItem('tts_users', JSON.stringify(State.cloudUsers));
-            }
-
-            if (db) {
-                try {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', collectionName, docId));
-                } catch (err) {
-                    console.debug(`Firestore delete offline mode (${collectionName}/${docId})`);
-                }
             }
         }
 
@@ -673,7 +568,6 @@
                 if (subFiltered.length >= 3) filtered = subFiltered;
             }
 
-            // Strict deduplication of questions and answers to avoid duplicate items
             let uniquePool = [];
             let seenAnswers = new Set();
             let seenQuestions = new Set();
@@ -687,7 +581,6 @@
                 }
             }
             if (uniquePool.length < count) {
-                // If pool is smaller than count, fill with remaining unique answers
                 for (let q of filtered) {
                     let cleanAns = (q.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase();
                     if (cleanAns.length >= 2 && !seenAnswers.has(cleanAns)) {
@@ -770,7 +663,6 @@
                 }
             }
 
-            // Fallback for any unplaced questions so grid matches exact requested count
             if (placedWords.length < selectedQuestions.length) {
                 let unplaced = selectedQuestions.filter(q => !usedIds.has(q.id));
                 let fallbackR = 2;
@@ -1208,7 +1100,7 @@
                         </div>
                         <div>
                             <h2 class="text-3xl font-black text-slate-900">HASIL PERMAINAN & KLASEMEN CLOUD</h2>
-                            <p class="text-sm text-slate-500 mt-1">Skormu telah berhasil disinkronkan ke database cloud!</p>
+                            <p class="text-sm text-slate-500 mt-1">Skormu telah berhasil disimpan ke database lokal!</p>
                         </div>
 
                         <div class="inline-block bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-md">
@@ -1962,7 +1854,7 @@
                     }
                 }
             } catch (err) {
-                console.warn("AI generation network error, using fallback pool:", err);
+                // Fallback simulation
             }
 
             if (!success || questionsArray.length === 0) {
@@ -2074,8 +1966,8 @@
                 return;
             }
             document.querySelector('.fixed').remove();
-            State.cloudQuestions = EMBEDDED_50_QUESTIONS;
-            localStorage.setItem('tts_questions', JSON.stringify(EMBEDDED_50_QUESTIONS));
+            State.cloudQuestions = EMBEDDED_QUESTIONS;
+            localStorage.setItem('tts_questions', JSON.stringify(EMBEDDED_QUESTIONS));
             alertBox("Berhasil", "Bank soal berhasil di-reset ke set default.");
             router.navigate('teacherDashboard');
         };
