@@ -118,40 +118,1030 @@
 
     <script>
         const GRADE_MATERIALS = {
-            7: ["Semua Materi", "Berpikir Komputasional", "Perangkat Lunak", "Aplikasi Perkantoran", "Pengelolaan Dokumen", "Internet dan Komunikasi Digital", "Etika Digital"],
-            8: ["Semua Materi", "Analisis Data", "Pengolahan Informasi", "Aplikasi Produktivitas", "Pengelolaan Data Digital", "Internet", "Literasi Digital", "Pemanfaatan Teknologi"],
+            7: ["Semua Materi", "Berpikir Komputasional", "Pengolahan Data", "Literasi Informasi", "Keseimbangan Hidup Digital", "Perkakas TIK"],
+            8: ["Semua Materi", "Analisis Data", "Berpikir Komputasional", "Algoritma Pemrograman", "Jejak Bermedia Digital", "Pemanfaatan Perkakas Digital"],
             9: ["Semua Materi", "Informatika SMP", "Berpikir Komputasional", "Teknik Informasi dan Komunikasi", "Sistem Komputer", "Jaringan Komputer dan Internet", "Analisis Data", "Algoritma dan Pemrograman", "Dampak Sosial Informatika", "Praktik Lintas Bidang Informatika"]
         };
 
-        const EMBEDDED_QUESTIONS = [
-            { id: "IF7-01", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memecah masalah besar menjadi bagian-bagian kecil", jawaban: "DEKOMPOSISI", penjelasan: "Dekomposisi memecah masalah kompleks menjadi sub-masalah.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-02", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Keteraturan yang dapat ditemukan dalam data atau masalah", jawaban: "POLA", penjelasan: "Pengenalan pola membantu memahami kesamaan struktur.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-03", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memusatkan perhatian pada informasi yang penting dan menyaring detail tidak relevan", jawaban: "ABSTRAKSI", penjelasan: "Abstraksi menyaring hal mendasar.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-04", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Langkah-langkah terurut untuk menyelesaikan masalah", jawaban: "ALGORITMA", penjelasan: "Algoritma adalah urutan langkah logis.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-05", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Proses mencari dan memperbaiki kesalahan dalam kode atau logika", jawaban: "DEBUGGING", penjelasan: "Debugging membersihkan galat.", kesulitan: "Sulit", arah: "mendatar" },
-            { id: "IF7-06", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Program pengendali utama sistem komputer", jawaban: "OPERASI", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF7-07", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Aplikasi pengolah lembar kerja berbentuk tabel", jawaban: "SPREADSHEET", penjelasan: "Spreadsheet mengelola angka dan tabel.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-08", kelas: 7, bab: 2, materi: "Aplikasi Perkantoran", pertanyaan: "Aplikasi pembuat dokumen teks", jawaban: "WORD", penjelasan: "Microsoft Word mengolah kata.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-09", kelas: 7, bab: 2, materi: "Pengelolaan Dokumen", pertanyaan: "Kotak penyimpanan file digital di komputer", jawaban: "FOLDER", penjelasan: "Folder mengelompokkan file.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-10", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Surat elektronik dalam jaringan internet", jawaban: "EMAIL", penjelasan: "Email mengirim pesan digital.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-11", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Alamat unik sebuah halaman web di internet", jawaban: "URL", penjelasan: "URL menunjuk alamat web.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-12", kelas: 7, bab: 2, materi: "Etika Digital", pertanyaan: "Kata kunci rahasia untuk mengamankan akun", jawaban: "PASSWORD", penjelasan: "Password melindungi akses akun.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF7-13", kelas: 7, bab: 2, materi: "Etika Digital", pertanyaan: "Etika sopan santun saat berkomunikasi di internet", jawaban: "NETIKET", penjelasan: "Netiket adalah etika berinternet.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-14", kelas: 7, bab: 2, materi: "Perangkat Lunak", pertanyaan: "Perangkat keras fisik komputer yang dapat disentuh", jawaban: "HARDWARE", penjelasan: "Hardware adalah komponen fisik.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-15", kelas: 7, bab: 2, materi: "Internet dan Komunikasi Digital", pertanyaan: "Perangkat lunak penjelajah halaman web", jawaban: "BROWSER", penjelasan: "Browser menjelajahi situs web.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF8-01", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Proses mengurai data untuk mendapat wawasan", jawaban: "ANALISIS", penjelasan: "Analisis menemukan makna dari data.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-02", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Kumpulan himpunan data terstruktur", jawaban: "DATASET", penjelasan: "Dataset menyimpan data terorganisir.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF8-03", kelas: 8, bab: 2, materi: "Pengolahan Informasi", pertanyaan: "Proses penyalinan cadangan data agar aman", jawaban: "BACKUP", penjelasan: "Backup mencegah kehilangan data.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-04", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Penipuan online untuk mencuri data pribadi", jawaban: "PHISHING", penjelasan: "Phishing mengelabui pengguna.", kesulitan: "Sulit", arah: "menurun" },
-            { id: "IF8-05", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Jejak aktivitas seseorang di dunia digital", jawaban: "DIGITAL", penjelasan: "Jejak digital terekam saat online.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-06", kelas: 8, bab: 2, materi: "Pengelolaan Data Digital", pertanyaan: "Penyimpanan data berbasis awan internet", jawaban: "CLOUD", penjelasan: "Cloud menyimpan file secara online.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF8-07", kelas: 8, bab: 2, materi: "Internet", pertanyaan: "Jaringan global penghubung perangkat", jawaban: "INTERNET", penjelasan: "Internet menghubungkan dunia.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF8-08", kelas: 8, bab: 2, materi: "Internet", pertanyaan: "Mesin pencari informasi di internet", jawaban: "PENCARI", penjelasan: "Mesin pencari mencari web.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF8-09", kelas: 8, bab: 2, materi: "Literasi Digital", pertanyaan: "Berita bohong yang tidak benar faktanya", jawaban: "HOAKS", penjelasan: "Hoaks menyebarkan informasi palsu.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF8-10", kelas: 8, bab: 2, materi: "Pemanfaatan Teknologi", pertanyaan: "Sistem pengendali utama perangkat komputer", jawaban: "SISTEM", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" },
-            { id: "IF8-11", kelas: 8, bab: 2, materi: "Aplikasi Produktivitas", pertanyaan: "Fungsi otomatis dalam lembar kerja", jawaban: "FORMULA", penjelasan: "Formula menghitung nilai angka.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-12", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Visualisasi data berbentuk diagram batang", jawaban: "GRAFIK", penjelasan: "Grafik menampilkan data visual.", kesulitan: "Mudah", arah: "menurun" }
-        ];
+        const RAW_Q = `
+#7|Berpikir Komputasional
+Memecah masalah besar menjadi bagian-bagian kecil|dekomposisi
+Keteraturan yang dapat ditemukan dalam data atau masalah|pola
+Memusatkan perhatian pada informasi yang penting|abstraksi
+Langkah-langkah terurut untuk menyelesaikan masalah|algoritma
+Proses mencari dan memperbaiki kesalahan|debugging
+Data yang dimasukkan ke dalam sistem|input
+Tahap pengolahan input menjadi hasil|proses
+Hasil yang diperoleh setelah data diproses|output
+Cara berpikir berdasarkan alasan yang masuk akal|logika
+Jawaban atau cara untuk menyelesaikan masalah|solusi
+Sesuatu yang membutuhkan penyelesaian|masalah
+Urutan langkah yang harus dilakukan|prosedur
+Susunan langkah dari awal hingga akhir|urutan
+Keadaan yang menjadi dasar suatu keputusan|kondisi
+Pilihan yang diambil berdasarkan kondisi|keputusan
+Pengulangan langkah dalam algoritma|perulangan
+Kemampuan menyelesaikan tugas dengan sumber daya yang hemat|efisiensi
+Rencana atau cara yang digunakan untuk mencapai tujuan|strategi
+Cara menggambarkan informasi agar mudah dipahami|representasi
+Tanda yang digunakan untuk mewakili sesuatu|simbol
+Gambaran informasi menggunakan bentuk atau hubungan|diagram
+Diagram yang menggambarkan alur langkah penyelesaian|flowchart
+Penulisan algoritma dengan bahasa sederhana mirip kode|pseudocode
+Tempat untuk menyimpan nilai yang dapat berubah|variabel
+Nilai yang tetap selama proses berlangsung|konstanta
+Hubungan antara dua hal atau lebih|relasi
+Pengelompokan berdasarkan ciri tertentu|klasifikasi
+Proses mengenali atau menentukan sesuatu|identifikasi
+Menarik pola umum dari beberapa contoh|generalisasi
+Proses menilai hasil atau langkah penyelesaian|evaluasi
+Hal yang didahulukan berdasarkan kepentingan|prioritas
+Hal yang membatasi penyelesaian masalah|kendala
+Fakta atau informasi yang dapat diolah|data
+Data yang telah diolah sehingga bermakna|informasi
+Pelaksanaan pekerjaan oleh sistem secara otomatis|otomatisasi
+Proses melakukan pengolahan menggunakan komputer|komputasi
+Gambaran sederhana dari suatu sistem atau masalah|model
+Peniruan proses nyata menggunakan model|simulasi
+Perkiraan tentang keadaan yang akan terjadi|prediksi
+Proses mencari hasil yang paling efektif|optimasi
+Proses menguraikan masalah untuk memahaminya|analisis
+Menggabungkan bagian-bagian menjadi satu kesatuan|sintesis
+Pemeriksaan apakah solusi memenuhi kebutuhan|validasi
+Pemeriksaan apakah sesuatu sesuai dengan aturan|verifikasi
+Pengulangan proses untuk memperoleh hasil lebih baik|iterasi
+Proses menemukan data atau solusi yang dibutuhkan|pencarian
+Proses menyusun data berdasarkan aturan tertentu|pengurutan
+Penggambaran hubungan antara unsur-unsur|pemetaan
+Ukuran tingkat kerumitan suatu masalah atau algoritma|kompleksitas
+Pendekatan mencari solusi dengan aturan praktis atau perkiraan|heuristik
+
+#7|Pengolahan Data
+Fakta mentah yang dapat diolah|data
+Data yang telah diolah dan memiliki makna|informasi
+Proses mengubah data menjadi informasi|pengolahan
+Data yang dimasukkan untuk diproses|input
+Tahap pengolahan data|proses
+Hasil dari proses pengolahan|output
+Penyajian data dalam baris dan kolom|tabel
+Susunan data secara mendatar pada tabel|baris
+Susunan data secara tegak pada tabel|kolom
+Kotak pertemuan baris dan kolom pada spreadsheet|sel
+Aplikasi untuk mengolah data berbentuk tabel|spreadsheet
+Rumus yang digunakan dalam pengolahan data|formula
+Rumus siap pakai dalam spreadsheet|fungsi
+Proses mengurutkan data|sortir
+Fitur untuk menampilkan data sesuai kriteria|filter
+Penyajian data secara visual|grafik
+Gambaran data menggunakan bentuk visual|diagram
+Kelompok data berdasarkan jenis tertentu|kategori
+Data berbentuk bilangan|angka
+Data berbentuk karakter atau kata|teks
+Data yang menunjukkan waktu tertentu|tanggal
+Ilmu yang mempelajari pengumpulan dan analisis data|statistik
+Nilai yang diperoleh dari jumlah data dibagi banyak data|rata rata
+Nilai tengah setelah data diurutkan|median
+Nilai yang paling sering muncul|modus
+Hasil penambahan beberapa nilai|jumlah
+Nilai paling besar dalam kumpulan data|maksimum
+Nilai paling kecil dalam kumpulan data|minimum
+Nilai perbandingan yang dinyatakan per seratus|persentase
+Sistem bilangan yang menggunakan basis sepuluh|desimal
+Kumpulan data yang tersusun dan dapat dikelola|database
+Ringkasan data dari beberapa sumber|rekapitulasi
+Pemeriksaan kebenaran atau kesesuaian data|validasi
+Tingkat ketepatan data|akurasi
+Keadaan data yang tetap selaras dan tidak bertentangan|konsistensi
+Data yang muncul lebih dari sekali|duplikat
+Satu data yang dimasukkan ke dalam sistem|entri
+Asal diperolehnya suatu data|sumber
+Penanda yang digunakan untuk mewakili data tertentu|kode
+Besaran atau nilai yang dapat berubah|variabel
+Berkaitan dengan angka|numerik
+Data yang menggambarkan sifat atau kategori|kualitatif
+Data yang dinyatakan dalam angka|kuantitatif
+Grafik yang menggunakan batang untuk membandingkan nilai|diagrambatang
+Grafik berbentuk lingkaran untuk menunjukkan proporsi|diagramlingkaran
+Grafik yang menggunakan garis untuk menunjukkan perubahan|diagramgaris
+Memindahkan data keluar dari suatu aplikasi|ekspor
+Memasukkan data dari sumber lain|impor
+Salinan data untuk mengantisipasi kehilangan|backup
+Cara analisis yang menggambarkan keadaan data|deskriptif
+
+#7|Literasi Informasi
+Data yang telah diolah sehingga memiliki makna|informasi
+Kemampuan memahami dan menggunakan informasi|literasi
+Tempat atau asal informasi diperoleh|sumber
+Pernyataan yang dapat dibuktikan kebenarannya|fakta
+Pendapat atau pandangan seseorang|opini
+Informasi palsu yang disebarkan seolah-olah benar|hoaks
+Proses memeriksa kebenaran informasi|verifikasi
+Proses memastikan informasi sesuai dan sah|validasi
+Tingkat dapat dipercayanya suatu sumber|kredibilitas
+Sumber yang digunakan sebagai rujukan|referensi
+Bagian informasi yang diambil dari sumber|kutipan
+Menggabungkan informasi dari beberapa sumber|sintesis
+Penyajian inti informasi secara singkat|ringkasan
+Nama atau kepala suatu tulisan|judul
+Orang yang membuat tulisan atau informasi|penulis
+Waktu penerbitan suatu informasi|tanggal
+Keadaan yang melatarbelakangi informasi|konteks
+Kecenderungan pandangan yang dapat memengaruhi informasi|bias
+Informasi yang dirancang untuk memengaruhi pandangan|propaganda
+Informasi salah yang dibagikan tanpa niat menipu|misinformasi
+Informasi salah yang disebarkan dengan sengaja|disinformasi
+Informasi benar yang digunakan untuk merugikan|malinformasi
+Sarana untuk menyampaikan informasi|media
+Situs yang menyediakan kumpulan informasi|portal
+Layanan untuk menemukan informasi di internet|mesinpencari
+Kata utama yang digunakan saat mencari informasi|kata kunci
+Proses menemukan informasi yang diperlukan|pencarian
+Langkah sistematis yang digunakan mesin pencari|algoritma
+Rekaman aktivitas yang ditinggalkan pengguna|jejak
+Hak untuk menjaga informasi pribadi|privasi
+Hak hukum atas karya yang dibuat seseorang|hakcipta
+Menggunakan karya orang lain tanpa pengakuan yang layak|plagiarisme
+Izin atau aturan penggunaan suatu karya|lisensi
+Pencantuman sumber atau pembuat karya|atribusi
+Bagian alamat situs yang menunjukkan nama tertentu|domain
+Sumber yang memuat informasi tentang banyak topik|ensiklopedia
+Publikasi ilmiah yang memuat hasil penelitian|jurnal
+Orang yang memberikan informasi|narasumber
+Catatan atau berkas yang berisi informasi|dokumen
+Hal yang mendukung kebenaran suatu pernyataan|bukti
+Penjelasan untuk meluruskan informasi|klarifikasi
+Kegiatan memeriksa kebenaran klaim|cekfakta
+Sumber informasi yang berasal langsung dari kejadian atau pelaku|sumberprimer
+Sumber yang mengolah atau menjelaskan sumber primer|sumbersekunder
+Berdasarkan fakta tanpa memihak|objektif
+Sesuai dengan kebutuhan atau topik|relevan
+Dapat diandalkan kebenarannya|terpercaya
+Prinsip tentang baik dan buruk dalam menggunakan informasi|etika
+Proses menyebarkan informasi kepada pihak lain|distribusi
+Kegiatan menerbitkan atau menyebarkan karya|publikasi
+
+#7|Keseimbangan Hidup Digital
+Keadaan penggunaan teknologi yang proporsional|keseimbangan
+Berkaitan dengan teknologi berbasis data elektronik|digital
+Perangkat elektronik yang mudah dibawa|gawai
+Tampilan visual pada perangkat digital|layar
+Lama waktu yang digunakan untuk melihat layar|waktulayar
+Waktu berhenti sejenak dari aktivitas|istirahat
+Ilmu menyesuaikan aktivitas dengan kondisi tubuh|ergonomi
+Posisi tubuh saat melakukan aktivitas|postur
+Keadaan tubuh dan pikiran yang baik|kesehatan
+Kondisi tubuh beristirahat|tidur
+Kemampuan memusatkan perhatian|fokus
+Pemusatan pikiran pada suatu kegiatan|konsentrasi
+Kebiasaan berlebihan yang sulit dikendalikan|kecanduan
+Pemberitahuan dari aplikasi atau perangkat|notifikasi
+Mengurangi penggunaan perangkat digital untuk sementara|detoksdigital
+Hal yang perlu didahulukan|prioritas
+Kegiatan yang melibatkan gerakan tubuh|aktivitasfisik
+Aktivitas fisik untuk menjaga kebugaran|olahraga
+Hubungan atau komunikasi dengan orang lain|interaksi
+Proses berhubungan dan berkomunikasi dengan orang lain|sosialisasi
+Keadaan tidak terhubung ke internet|offline
+Keadaan terhubung ke internet|online
+Aturan atau pembatas penggunaan teknologi|batasan
+Pengaturan waktu kegiatan|jadwal
+Menghasilkan sesuatu yang bermanfaat|produktif
+Kegiatan untuk membuat tubuh dan pikiran lebih tenang|relaksasi
+Tekanan yang dapat memengaruhi kondisi fisik dan mental|stres
+Posisi tubuh yang sesuai prinsip kenyamanan dan kesehatan|posturergonomis
+Jarak mata yang ideal dari layar|jarakpandangan
+Pengaturan cahaya agar aktivitas layar nyaman|pencahayaan
+Waktu jeda untuk mengurangi kelelahan mata|istirahatmata
+Tingkat keras suara dari perangkat|volume
+Suara yang mengganggu kenyamanan|kebisingan
+Keadaan sehat, aman, dan nyaman|kesejahteraan
+Perilaku yang dilakukan berulang|kebiasaan
+Kemampuan mematuhi aturan yang dibuat|disiplin
+Kemampuan mengatur penggunaan teknologi|kontrol
+Kemampuan menyadari kondisi dan perilaku diri|kesadaran
+Pengaturan waktu agar kegiatan seimbang|manajemenwaktu
+Kegiatan untuk memperoleh kesenangan|hiburan
+Kegiatan memperoleh pengetahuan atau keterampilan|belajar
+Kelompok orang terdekat dalam kehidupan sehari-hari|keluarga
+Orang yang menjadi kawan berinteraksi|teman
+Proses menyampaikan dan menerima pesan|komunikasi
+Kemampuan menghasilkan gagasan atau karya baru|kreativitas
+Kemampuan menghasilkan sesuatu secara efektif|produktivitas
+Keadaan pikiran dan perasaan yang seimbang|kesehatanmental
+Keadaan tubuh yang sehat|kesehatanfisik
+Jeda yang dilakukan secara berkala|istirahatteratur
+Kemampuan mengatur perilaku agar tidak berlebihan|pengendalian
+
+#7|Perkakas TIK
+Perangkat elektronik untuk mengolah data|komputer
+Komputer portabel yang mudah dibawa|laptop
+Perangkat layar sentuh berukuran ringkas|tablet
+Telepon pintar yang memiliki berbagai fungsi digital|smartphone
+Perangkat untuk memasukkan teks dan perintah|keyboard
+Perangkat penunjuk pada komputer|mouse
+Perangkat untuk menampilkan keluaran visual|monitor
+Perangkat untuk mencetak dokumen|printer
+Perangkat untuk memindai dokumen atau gambar|scanner
+Perangkat untuk menghasilkan suara|speaker
+Perangkat untuk menangkap suara|mikrofon
+Perangkat untuk mengambil gambar|kamera
+Perangkat untuk menampilkan gambar ke layar besar|proyektor
+Media penyimpanan kecil yang menggunakan USB|flashdisk
+Media penyimpanan data berkapasitas besar|harddisk
+Media penyimpanan berbasis memori tanpa piringan berputar|ssd
+Kamera yang digunakan bersama komputer|webcam
+Perangkat yang mengatur lalu lintas jaringan|router
+Perangkat yang menghubungkan perangkat ke layanan internet|modem
+Antarmuka yang banyak digunakan untuk menghubungkan perangkat|usb
+Kabel atau antarmuka untuk mengirim audio dan video digital|hdmi
+Teknologi komunikasi nirkabel jarak dekat|bluetooth
+Teknologi jaringan nirkabel untuk koneksi data|wifi
+Aplikasi untuk mengakses halaman web|browser
+Program yang dirancang untuk melakukan fungsi tertentu|aplikasi
+Perangkat lunak yang mengelola kerja komputer|sistemoperasi
+Tempat untuk mengelompokkan berkas|folder
+Berkas digital yang menyimpan data|file
+Gambar kecil yang mewakili fungsi atau aplikasi|ikon
+Tampilan utama pada sistem operasi komputer|desktop
+Bilah pada antarmuka yang menampilkan aplikasi dan fungsi|taskbar
+Kombinasi tombol untuk menjalankan perintah dengan cepat|keyboardshortcut
+Permukaan sentuh sebagai pengganti mouse pada laptop|touchpad
+Perangkat untuk mengisi daya baterai|charger
+Sumber energi listrik pada perangkat portabel|baterai
+Soket untuk menghubungkan perangkat atau kabel|port
+Komponen atau media untuk menyimpan data|memori
+Komponen yang menjalankan instruksi komputer|prosesor
+Memori sementara yang digunakan saat program berjalan|ram
+Komponen yang memproses tampilan grafis|gpu
+Perangkat lunak untuk membuat bahan presentasi|aplikasipresentasi
+Perangkat lunak untuk membuat dan mengedit dokumen teks|pengolahkata
+Perangkat lunak untuk mengolah data dalam tabel|pengolahangka
+Layanan untuk mengirim dan menerima pesan elektronik|email
+Layanan penyimpanan atau komputasi melalui internet|cloud
+Proses mengambil data dari internet ke perangkat|unduh
+Proses mengirim data dari perangkat ke internet|unggah
+Perintah untuk membuat duplikat data|salin
+Perintah untuk menempatkan hasil salinan|tempel
+Bagian fisik komputer yang dapat dilihat dan disentuh|perangkatkeras
+
+#8|Analisis Data
+Proses mengolah dan menafsirkan data untuk menemukan makna|analisis
+Fakta atau nilai yang menjadi bahan analisis|data
+Hasil pengolahan data yang bermakna|informasi
+Kumpulan data yang dianalisis|dataset
+Karakteristik atau besaran yang memiliki nilai berbeda|variabel
+Ciri atau kolom yang menjelaskan data|atribut
+Satu baris data yang menggambarkan sebuah objek|record
+Penyajian data dalam baris dan kolom|tabel
+Bagian mendatar dalam tabel data|baris
+Bagian tegak dalam tabel data|kolom
+Fitur untuk memilih data berdasarkan kriteria|filter
+Proses mengurutkan data|sortir
+Proses menemukan data tertentu|pencarian
+Istilah yang digunakan untuk menemukan data|kata kunci
+Penyajian data dalam bentuk gambar atau grafik|visualisasi
+Bentuk visual untuk memperlihatkan data|grafik
+Grafik menggunakan batang untuk membandingkan nilai|diagrambatang
+Grafik garis untuk menunjukkan perubahan atau tren|diagramgaris
+Grafik lingkaran untuk menunjukkan proporsi|diagramlingkaran
+Grafik distribusi data berbentuk batang yang berdekatan|histogram
+Grafik titik untuk melihat hubungan dua variabel|scatterplot
+Arah perubahan data dari waktu ke waktu|tren
+Keteraturan yang tampak dalam kumpulan data|pola
+Jumlah seluruh nilai dibagi banyaknya data|rata rata
+Nilai tengah dari data yang telah diurutkan|median
+Nilai yang paling sering muncul|modus
+Selisih antara nilai maksimum dan minimum|rentang
+Nilai terbesar dalam kumpulan data|maksimum
+Nilai terkecil dalam kumpulan data|minimum
+Perbandingan nilai yang dinyatakan per seratus|persentase
+Banyaknya kemunculan suatu nilai|frekuensi
+Penyebaran nilai dalam suatu kumpulan data|distribusi
+Hubungan antara perubahan dua variabel|korelasi
+Proses melihat persamaan atau perbedaan data|perbandingan
+Penyajian inti data secara singkat|ringkasan
+Penggabungan data menjadi nilai ringkasan|agregasi
+Pemeriksaan kesesuaian atau kebenaran data|validasi
+Proses memperbaiki data yang salah atau tidak konsisten|pembersihandata
+Data yang tercatat lebih dari sekali|duplikat
+Data yang menyimpang dari pola umum|anomali
+Tingkat ketepatan data|akurasi
+Keadaan data yang selaras dan tidak bertentangan|konsistensi
+Asal data diperoleh|sumberdata
+Pernyataan yang dibuat berdasarkan hasil analisis|kesimpulan
+Penafsiran makna dari hasil analisis|interpretasi
+Perkiraan keadaan berdasarkan data|prediksi
+Tampilan ringkas berbagai informasi dan visualisasi|dashboard
+Penyajian informasi dengan kombinasi teks dan visual|infografis
+Pemahaman penting yang diperoleh dari data|insight
+Nilai yang membagi data terurut menjadi empat bagian|kuartil
+
+#8|Berpikir Komputasional
+Memecah masalah menjadi bagian yang lebih kecil|dekomposisi
+Menemukan kesamaan atau keteraturan dalam masalah|pengenalanpola
+Mengambil informasi penting dan mengabaikan detail yang tidak perlu|abstraksi
+Langkah terstruktur untuk menyelesaikan masalah|algoritma
+Kegiatan menemukan dan memperbaiki kesalahan|debugging
+Cara berpikir yang mengikuti alasan yang benar|logika
+Data yang diterima sebagai masukan|input
+Hasil yang dihasilkan setelah pemrosesan|output
+Tahap pengolahan masukan menjadi keluaran|proses
+Tempat menyimpan nilai yang dapat berubah|variabel
+Nilai yang tidak berubah selama proses|konstanta
+Simbol yang digunakan untuk melakukan operasi|operator
+Gabungan nilai, variabel, dan operator|ekspresi
+Pernyataan yang menentukan pilihan tindakan|kondisi
+Struktur algoritma untuk memilih berdasarkan kondisi|percabangan
+Struktur algoritma untuk mengulang langkah|perulangan
+Bagian program atau algoritma yang melakukan tugas tertentu|fungsi
+Nilai masukan yang diterima fungsi|parameter
+Penggunaan sumber daya secara hemat|efisiensi
+Usaha mencari solusi yang lebih efektif|optimasi
+Cara menyajikan masalah agar mudah dipahami|representasi
+Diagram untuk menggambarkan alur algoritma|flowchart
+Penulisan algoritma dengan bentuk bahasa sederhana|pseudocode
+Susunan langkah yang dilakukan secara berjenjang|urutan
+Pengulangan proses untuk memperbaiki hasil|iterasi
+Membentuk aturan umum dari beberapa kasus|generalisasi
+Mengelompokkan objek berdasarkan ciri tertentu|klasifikasi
+Menentukan hal yang perlu dikerjakan lebih dahulu|prioritas
+Batasan yang harus diperhatikan saat menyelesaikan masalah|kendala
+Cara atau jawaban untuk menyelesaikan masalah|solusi
+Gambaran sederhana dari masalah atau sistem|model
+Peniruan proses menggunakan model|simulasi
+Perkiraan berdasarkan pola atau data|prediksi
+Menguraikan masalah agar dapat dipahami|analisis
+Menilai hasil atau strategi penyelesaian|evaluasi
+Memeriksa kesesuaian dengan aturan atau spesifikasi|verifikasi
+Memastikan solusi sesuai kebutuhan|validasi
+Teknik ketika proses memanggil dirinya sendiri|rekursi
+Aturan praktis untuk menemukan solusi|heuristik
+Ukuran sumber daya atau kerumitan algoritma|kompleksitas
+Metode menemukan data atau solusi|pencarian
+Metode menyusun data berdasarkan aturan|pengurutan
+Struktur yang terdiri dari simpul dan hubungan|graf
+Titik atau elemen dalam struktur graf|simpul
+Hubungan yang menghubungkan dua simpul|sisi
+Struktur data bercabang yang memiliki hubungan hierarkis|pohon
+Urutan simpul yang dilalui dalam graf|jalur
+Pilihan yang diambil berdasarkan kondisi|keputusan
+Memecah bagian masalah kembali menjadi submasalah|dekomposisiulang
+Bagian yang membentuk suatu sistem atau solusi|komponen
+
+#8|Algoritma Pemrograman
+Urutan langkah logis untuk menyelesaikan masalah|algoritma
+Kumpulan instruksi yang dijalankan komputer|program
+Instruksi yang ditulis menggunakan bahasa pemrograman|kode
+Proses membuat program komputer|pemrograman
+Tempat menyimpan nilai yang dapat berubah|variabel
+Nilai yang tetap selama program berjalan|konstanta
+Jenis nilai yang dapat disimpan oleh program|tipe data
+Tipe data untuk bilangan bulat|integer
+Tipe data untuk bilangan pecahan|float
+Tipe data berupa teks|string
+Tipe data yang bernilai benar atau salah|boolean
+Simbol untuk melakukan operasi pada data|operator
+Operasi yang berkaitan dengan perhitungan|aritmatika
+Operasi yang menghasilkan nilai benar atau salah|logika
+Operasi untuk membandingkan dua nilai|perbandingan
+Data yang dimasukkan ke program|input
+Hasil yang dikeluarkan program|output
+Struktur program untuk memilih tindakan|percabangan
+Kata kunci yang digunakan untuk membuat kondisi|if
+Bagian yang dijalankan ketika kondisi utama tidak terpenuhi|else
+Struktur untuk menjalankan instruksi berulang|perulangan
+Perulangan yang umum digunakan dengan jumlah iterasi tertentu|for
+Perulangan yang berjalan selama kondisi bernilai benar|while
+Blok kode yang dibuat untuk tugas tertentu|fungsi
+Variabel yang menerima nilai masukan fungsi|parameter
+Nilai yang diberikan saat memanggil fungsi|argumen
+Perintah untuk mengembalikan nilai dari fungsi|return
+Kumpulan data yang disimpan dalam satu struktur|array
+Kumpulan elemen yang dapat dikelola sebagai satu data|list
+Posisi suatu elemen dalam struktur data|indeks
+Metode atau fungsi untuk mengolah teks|metodestring
+Catatan dalam kode yang tidak dijalankan|komentar
+Aturan penulisan kode dalam bahasa pemrograman|syntax
+Kesalahan yang menyebabkan program tidak berjalan sesuai harapan|error
+Kesalahan dalam program|bug
+Proses mencari dan memperbaiki bug|debugging
+Program yang menerjemahkan kode sumber menjadi bentuk yang dapat dijalankan|compiler
+Program yang menerjemahkan dan menjalankan kode secara bertahap|interpreter
+Kode program yang ditulis oleh programmer|sourcecode
+Diagram alur langkah algoritma|flowchart
+Penulisan algoritma menggunakan bahasa sederhana|pseudocode
+Bagian program yang dapat digunakan untuk fungsi tertentu|modul
+Kumpulan kode siap pakai untuk membantu pemrograman|library
+Sekumpulan langkah untuk melakukan suatu tugas|prosedur
+Teknik fungsi yang memanggil dirinya sendiri|rekursi
+Pengulangan langkah dalam program|iterasi
+Logika yang menggunakan benar dan salah|logika boolean
+Alat untuk membantu menemukan kesalahan program|debugger
+Proses menjalankan program|eksekusi
+Penjorokan spasi untuk menunjukkan struktur kode|indentasi
+
+#8|Jejak Bermedia Digital
+Rekaman aktivitas seseorang di lingkungan digital|jejakdigital
+Hak untuk mengendalikan informasi pribadi|privasi
+Representasi identitas seseorang di dunia digital|identitasdigital
+Pandangan orang lain terhadap seseorang berdasarkan perilakunya|reputasi
+Konten yang dikirim atau dipublikasikan ke internet|unggahan
+Tanggapan yang ditulis pada konten digital|komentar
+Tanda menyukai suatu konten|like
+Tindakan menyebarkan konten kepada orang lain|bagikan
+Konten yang menyebar dengan sangat cepat|viral
+Identitas pengguna pada layanan digital|akun
+Kode rahasia untuk melindungi akun|kata sandi
+Proses memastikan identitas pengguna|autentikasi
+Proses memeriksa kebenaran atau identitas|verifikasi
+Upaya melindungi data dan sistem|keamanan
+Informasi palsu yang disebarkan seolah benar|hoaks
+Informasi salah yang dibagikan tanpa sengaja menipu|misinformasi
+Informasi salah yang sengaja disebarkan|disinformasi
+Etika berperilaku saat berkomunikasi di internet|netiket
+Perundungan yang dilakukan melalui media digital|cyberbullying
+Tuduhan atau informasi buruk yang tidak berdasar|fitnah
+Istilah yang berkaitan dengan dunia komputer dan internet|siber
+Isi yang dibuat atau dibagikan melalui media|konten
+Layanan digital untuk berinteraksi dan berbagi konten|media sosial
+Layanan atau tempat digital untuk melakukan aktivitas tertentu|platform
+Data kecil yang disimpan situs pada perangkat pengguna|cookies
+Catatan aktivitas yang pernah dilakukan|riwayat
+Data yang menjelaskan atau memberi informasi tentang data lain|metadata
+Informasi mengenai posisi geografis pengguna|lokasi
+Penanda lokasi yang disematkan pada konten|geotag
+Istilah bahasa Inggris untuk jejak digital|digitalfootprint
+Sulit hilang atau dapat tersimpan dalam waktu lama|permanen
+Tangkapan gambar dari tampilan layar|screenshoot
+Simpanan konten atau data untuk digunakan kembali|arsip
+Tindakan menghilangkan konten dari suatu tempat|hapus
+Mengubah isi konten sebelum atau sesudah dipublikasikan|edit
+Asal informasi atau konten|sumber
+Hak atas karya yang dibuat seseorang|hakcipta
+Izin penggunaan suatu karya atau konten|lisensi
+Mengambil karya orang lain tanpa pengakuan yang tepat|plagiarisme
+Pencantuman pembuat atau sumber karya|atribusi
+Penyebaran informasi pribadi seseorang tanpa izin|doxxing
+Upaya menipu untuk memperoleh informasi rahasia|phishing
+Pesan tidak diinginkan yang dikirim berulang|spam
+Tindakan mencegah akun lain berinteraksi|blokir
+Tindakan memberi tahu platform tentang konten bermasalah|laporkan
+Jejak digital yang tercatat tanpa sengaja saat menggunakan layanan|jejakpasif
+Jejak digital yang dibuat secara sengaja oleh pengguna|jejakaktif
+Kemampuan menggunakan teknologi digital secara bijak|literasidigital
+Sikap siap menanggung akibat dari tindakan digital|tanggungjawab
+Proses meninjau dan mengelola konten di platform|moderasi
+
+#8|Pemanfaatan Perkakas Digital
+Kemampuan menghasilkan pekerjaan secara efektif dengan bantuan teknologi|produktifitas
+Berkas digital yang berisi teks atau informasi|dokumen
+Aplikasi untuk membuat dan mengedit dokumen teks|pengolahkata
+Aplikasi untuk mengolah data berbentuk tabel|spreadsheet
+Media untuk menyampaikan informasi secara terstruktur|presentasi
+Bekerja bersama menggunakan alat digital|kolaborasi
+Layanan penyimpanan atau komputasi melalui internet|cloud
+Tempat atau proses menyimpan data|penyimpanan
+Memberikan akses atau mengirim data kepada orang lain|berbagi
+Menyamakan data pada beberapa perangkat atau layanan|sinkronisasi
+Layanan untuk mengirim pesan elektronik|email
+Pertemuan jarak jauh menggunakan video dan internet|videokonferensi
+Alat digital untuk mengatur jadwal|kalender
+Aplikasi atau media untuk menyimpan informasi singkat|catatan
+Aplikasi untuk mengakses internet|browser
+Layanan untuk menemukan informasi di internet|mesinpencari
+Penanda halaman web agar mudah dibuka kembali|bookmark
+Mengambil data dari internet ke perangkat|unduh
+Mengirim data dari perangkat ke internet|unggah
+Format dokumen yang mempertahankan tata letak|pdf
+Proses mengecilkan ukuran data|kompresi
+Bentuk atau susunan suatu berkas|format
+Tempat untuk mengelompokkan berkas|folder
+Salinan data untuk mengantisipasi kehilangan|backup
+Kata atau kode rahasia untuk melindungi akun|password
+Proses memeriksa identitas pengguna|autentikasi
+Mengubah data menjadi bentuk yang sulit dibaca tanpa kunci|enkripsi
+Kode dua dimensi yang dapat dipindai|qr
+Kode berbentuk garis yang menyimpan informasi|barcode
+Perangkat untuk mengambil gambar atau video|kamera
+Perangkat untuk menangkap suara|mikrofon
+Perangkat untuk memindai dokumen|scanner
+Perangkat untuk mencetak dokumen|printer
+Perangkat untuk menampilkan gambar pada layar besar|proyektor
+Perangkat atau fitur untuk mengubah konten|editor
+Pola siap pakai untuk membuat dokumen atau desain|template
+Kombinasi tombol untuk mempercepat perintah|shortcut
+Pemberitahuan dari aplikasi atau layanan|notifikasi
+Program yang dibuat untuk fungsi tertentu|aplikasi
+Bagian sistem yang digunakan pengguna untuk berinteraksi|antarmuka
+Pengaturan tampilan teks atau dokumen|formatting
+Tautan yang mengarah ke halaman atau sumber lain|hyperlink
+Dapat digunakan bersama untuk mengerjakan tugas|kolaboratif
+Hak atau kemampuan untuk menggunakan sumber daya|akses
+Aturan yang menentukan apa yang boleh dilakukan pengguna|izin
+Bentuk atau edisi tertentu dari suatu berkas atau aplikasi|versi
+Perubahan atau perbaikan pada suatu dokumen|revisi
+Pelaksanaan pekerjaan dengan bantuan sistem secara otomatis|otomatisasi
+Penggabungan beberapa alat atau sistem agar bekerja bersama|integrasi
+Orang yang bekerja bersama dalam suatu proyek digital|kolaborator
+
+#9|Informatika SMP
+Ilmu yang mempelajari pengolahan informasi dengan sistem komputasi|informatika
+Proses menggunakan metode untuk mengolah informasi|komputasi
+Fakta atau simbol yang dapat diolah|data
+Data yang telah diolah sehingga bermakna|informasi
+Sekumpulan komponen yang saling berhubungan|sistem
+Perangkat yang dapat menerima, mengolah, dan menghasilkan data|komputer
+Langkah terstruktur untuk menyelesaikan masalah|algoritma
+Kegiatan membuat instruksi untuk komputer|pemrograman
+Kumpulan perangkat yang saling terhubung|jaringan
+Jaringan global yang menghubungkan banyak perangkat|internet
+Berkaitan dengan representasi data menggunakan sistem diskrit|digital
+Prinsip perilaku yang baik dan bertanggung jawab|etika
+Hak untuk menjaga informasi pribadi|privasi
+Upaya melindungi data, perangkat, dan sistem|keamanan
+Kemampuan memahami dan menggunakan informasi atau teknologi|literasi
+Proses menguraikan data atau masalah untuk memahaminya|analisis
+Kerja sama untuk mencapai tujuan|kolaborasi
+Kegiatan terencana untuk menghasilkan suatu karya|proyek
+Berkaitan dengan proses berpikir dan pemecahan masalah secara sistematis|komputasional
+Penerapan pengetahuan untuk membantu pekerjaan manusia|teknologi
+Alat yang digunakan untuk menjalankan fungsi tertentu|perangkat
+Program yang dirancang untuk kebutuhan pengguna|aplikasi
+Perangkat lunak utama yang mengelola komputer|sistemoperasi
+Kumpulan data yang terorganisasi|basisdata
+Instruksi yang ditulis dalam bahasa pemrograman|kode
+Proses menemukan dan memperbaiki kesalahan program|debugging
+Penyajian data dalam bentuk visual|visualisasi
+Proses menyampaikan dan menerima pesan|komunikasi
+Informasi yang disimpan atau disampaikan dalam bentuk digital|informasiigital
+Orang yang menggunakan sistem atau teknologi|pengguna
+Masukan ke dalam sistem|input
+Keluaran dari sistem|output
+Tahap pengolahan masukan menjadi keluaran|proses
+Jaringan global berbasis protokol internet|jaringaninternet
+Sikap dan tanggung jawab sebagai anggota masyarakat|kewargaan
+Kemampuan menghasilkan gagasan atau karya baru|kreativitas
+Penerapan gagasan baru untuk menghasilkan perubahan|inovasi
+Kemampuan mencapai tujuan dengan sumber daya yang hemat|efisiensi
+Cara untuk menyelesaikan masalah|solusi
+Peniruan sistem atau proses dalam model|simulasi
+Penggunaan sistem untuk menjalankan tugas secara otomatis|otomatisasi
+Perangkat elektronik yang memproses data digital|komputerdigital
+Kumpulan program yang menjalankan fungsi komputer|perangkatlunak
+Bagian fisik komputer yang dapat disentuh|perangkatkeras
+Orang atau perangkat yang menggunakan jaringan|penggunajaringan
+Layanan komputasi atau penyimpanan melalui internet|cloud
+Rekaman aktivitas pengguna di lingkungan digital|jejakdigital
+Hak hukum atas karya yang dibuat seseorang|hakcipta
+Kewajiban menanggung akibat dari tindakan|tanggungjawab
+Perubahan dari cara lama menuju cara yang lebih sesuai dengan kebutuhan baru|transformasi
+
+#9|Berpikir Komputasional
+Memecah masalah besar menjadi bagian lebih kecil|dekomposisi
+Keteraturan yang dapat dikenali dalam masalah|pola
+Mengambil informasi penting dan mengabaikan detail yang tidak perlu|abstraksi
+Langkah terurut untuk menyelesaikan masalah|algoritma
+Mencari dan memperbaiki kesalahan|debugging
+Penalaran yang mengikuti aturan yang benar|logika
+Masukan yang diterima sistem|input
+Hasil yang dikeluarkan sistem|output
+Tahap pengolahan data|proses
+Tempat menyimpan nilai yang dapat berubah|variabel
+Nilai yang tetap|konstanta
+Keadaan yang digunakan untuk menentukan keputusan|kondisi
+Pemilihan langkah berdasarkan kondisi|percabangan
+Pengulangan instruksi|perulangan
+Bagian solusi yang menjalankan tugas tertentu|fungsi
+Penggunaan sumber daya secara hemat|efisiensi
+Usaha mendapatkan solusi yang lebih efektif|optimasi
+Diagram yang menggambarkan alur algoritma|flowchart
+Penulisan algoritma dengan bahasa sederhana|pseudocode
+Cara menyajikan masalah atau data|representasi
+Membentuk aturan umum dari beberapa contoh|generalisasi
+Mengelompokkan berdasarkan ciri|klasifikasi
+Menentukan hal yang dikerjakan terlebih dahulu|prioritas
+Batasan yang harus diperhatikan|kendala
+Jawaban atau cara penyelesaian masalah|solusi
+Gambaran sederhana dari sistem|model
+Peniruan proses menggunakan model|simulasi
+Perkiraan berdasarkan data atau pola|prediksi
+Penguraian masalah untuk memahami bagian-bagiannya|analisis
+Penilaian terhadap hasil atau solusi|evaluasi
+Pemeriksaan kesesuaian solusi dengan kebutuhan|validasi
+Pemeriksaan kesesuaian dengan aturan|verifikasi
+Pengulangan untuk memperbaiki hasil|iterasi
+Aturan praktis untuk membantu menemukan solusi|heuristik
+Ukuran kerumitan atau kebutuhan sumber daya algoritma|kompleksitas
+Proses menemukan data atau solusi|pencarian
+Proses menyusun data berdasarkan aturan|pengurutan
+Struktur yang terdiri atas simpul dan sisi|graf
+Titik dalam struktur graf|simpul
+Penghubung antar simpul|sisi
+Struktur data yang bercabang secara hierarkis|pohon
+Urutan simpul yang dilewati|jalur
+Teknik yang memanggil proses atau fungsi itu sendiri|rekursi
+Bagian yang membentuk suatu sistem|komponen
+Rencana yang digunakan untuk mencapai tujuan|strategi
+Pilihan yang dibuat berdasarkan kondisi|keputusan
+Penggambaran hubungan antarunsur|pemetaan
+Susunan bagian yang membentuk keseluruhan|struktur
+Bentuk penyajian yang tidak memuat detail tidak penting|abstrak
+Proses menemukan cara untuk menyelesaikan masalah|pemecahan
+
+#9|Teknik Informasi dan Komunikasi
+Data yang telah diolah dan memiliki makna|informasi
+Proses menyampaikan pesan kepada pihak lain|komunikasi
+Penerapan pengetahuan untuk membantu pekerjaan|teknologi
+Perangkat untuk mengolah data|komputer
+Jaringan global untuk pertukaran informasi|internet
+Layanan surat elektronik|email
+Aplikasi untuk membuka halaman web|browser
+Layanan untuk mencari informasi di internet|mesinpencari
+Berkas yang berisi teks atau informasi|dokumen
+Aplikasi untuk membuat dokumen teks|pengolahkata
+Aplikasi untuk mengolah data berbentuk tabel|spreadsheet
+Media penyampaian informasi secara terstruktur|presentasi
+Perangkat untuk mencetak dokumen|printer
+Perangkat untuk memindai dokumen|scanner
+Perangkat untuk mengambil gambar|kamera
+Perangkat untuk menangkap suara|mikrofon
+Perangkat untuk menghasilkan suara|speaker
+Perangkat untuk menampilkan gambar pada layar besar|proyektor
+Perangkat untuk memasukkan teks|keyboard
+Perangkat penunjuk pada komputer|mouse
+Layanan penyimpanan atau komputasi berbasis internet|cloud
+Mengirim berkas dari perangkat ke internet|unggah
+Mengambil berkas dari internet|unduh
+Penghubung menuju halaman atau sumber lain|tautan
+Teks atau objek yang mengarah ke sumber lain|hyperlink
+Gabungan beberapa bentuk media seperti teks, gambar, dan suara|multimedia
+Teknologi yang menggunakan data diskrit|digital
+Sistem yang menggunakan sinyal kontinu|analog
+Bentuk atau susunan data atau berkas|format
+Berkas digital yang menyimpan data|file
+Tempat mengelompokkan berkas|folder
+Gambar kecil yang mewakili fungsi|ikon
+Bagian yang memungkinkan pengguna berinteraksi dengan sistem|antarmuka
+Program untuk melakukan fungsi tertentu|aplikasi
+Informasi yang disampaikan dalam komunikasi|pesan
+Pihak yang mengirim pesan|pengirim
+Pihak yang menerima pesan|penerima
+Sarana untuk menyampaikan informasi|media
+Isi yang disampaikan melalui media|konten
+Kegiatan menerbitkan atau menyebarkan informasi|publikasi
+Kerja sama menggunakan sarana komunikasi|kolaborasi
+Pertemuan jarak jauh menggunakan video|videokonferensi
+Etika berkomunikasi di internet|netiket
+Kemampuan menggunakan teknologi digital secara bijak|literasidigital
+Kemampuan bekerja dengan sumber daya yang hemat|efisiensi
+Pelaksanaan tugas dengan bantuan sistem|otomatisasi
+Salinan data untuk mencegah kehilangan|backup
+Layanan untuk bertukar pesan secara langsung melalui internet|pesaninstan
+Kemampuan untuk menggunakan informasi atau layanan|akses
+Proses menyamakan data pada beberapa perangkat|sinkronisasi
+
+#9|Sistem Komputer
+Bagian fisik komputer yang dapat disentuh|hardware
+Perangkat lunak yang menjalankan fungsi komputer|software
+Manusia yang menggunakan atau mengelola komputer|brainware
+Komponen yang menjalankan instruksi komputer|prosesor
+Unit pemroses utama pada komputer|cpu
+Memori sementara saat program berjalan|ram
+Memori yang menyimpan data tetap atau instruksi tertentu|rom
+Komponen untuk mengolah grafis|gpu
+Media penyimpanan dengan piringan magnetik|harddisk
+Media penyimpanan berbasis memori tanpa piringan|ssd
+Perangkat masukan untuk mengetik|keyboard
+Perangkat masukan untuk menggerakkan penunjuk|mouse
+Perangkat keluaran untuk menampilkan gambar|monitor
+Perangkat keluaran untuk mencetak|printer
+Perangkat keluaran untuk suara|speaker
+Perangkat masukan untuk memindai|scanner
+Perangkat masukan untuk suara|mikrofon
+Data yang masuk ke sistem|input
+Hasil yang keluar dari sistem|output
+Pengolahan data oleh sistem|proses
+Perangkat lunak yang mengelola sumber daya komputer|sistemoperasi
+Perangkat lunak yang membantu sistem operasi berkomunikasi dengan perangkat keras|driver
+Proses awal ketika komputer dinyalakan|booting
+Proses mematikan komputer secara benar|shutdown
+Perangkat lunak tingkat rendah yang tertanam pada perangkat|firmware
+Satuan data terkecil yang bernilai 0 atau 1|bit
+Satuan data yang umumnya terdiri dari delapan bit|byte
+Sistem bilangan berbasis dua|biner
+Sistem bilangan berbasis enam belas|heksadesimal
+Soket untuk menghubungkan perangkat|port
+Antarmuka umum untuk menghubungkan perangkat|usb
+Antarmuka untuk mengirim audio dan video digital|hdmi
+Firmware yang membantu proses awal komputer|bios
+Memori berkecepatan tinggi untuk mempercepat akses data|cache
+Penyimpanan sangat cepat di dalam prosesor|register
+Sinyal yang mengatur sinkronisasi kerja prosesor|clock
+Komponen yang menyediakan daya listrik ke komputer|powersupply
+Komponen yang membantu menjaga suhu perangkat|pendingin
+Perangkat untuk membantu membuang panas|kipas
+Bagian penyusun suatu sistem|komponen
+Rancangan dan susunan komponen sistem komputer|arsitektur
+Perangkat tambahan yang terhubung ke komputer|peripheral
+Jumlah detail piksel pada tampilan|resolusi
+Tempat menyimpan data atau instruksi|memori
+Jumlah data yang dapat ditampung|kapasitas
+Jumlah siklus sinyal dalam satu detik|frekuensi
+Istilah Indonesia untuk hardware|perangkatkeras
+Sekumpulan sirkuit yang mengatur komunikasi antar komponen komputer|chipset
+Jalur komunikasi yang menghubungkan komponen komputer|bus
+Rancangan struktur dan cara kerja sistem komputer|arsitekturkomputer
+
+#9|Jaringan Komputer dan Internet
+Sekumpulan perangkat yang saling terhubung|jaringan
+Jaringan global yang menghubungkan banyak jaringan|internet
+Jaringan dalam wilayah terbatas seperti sekolah|lan
+Jaringan yang mencakup wilayah satu kota|man
+Jaringan yang mencakup wilayah sangat luas|wan
+Teknologi jaringan nirkabel|wifi
+Perangkat yang meneruskan paket antarjaringan|router
+Perangkat untuk menghubungkan banyak perangkat dalam jaringan lokal|switch
+Perangkat yang menghubungkan jaringan ke layanan internet|modem
+Perangkat yang menyediakan akses jaringan nirkabel|accesspoint
+Komputer atau sistem yang menyediakan layanan|server
+Perangkat yang menggunakan layanan dari server|client
+Alamat numerik yang mengidentifikasi perangkat pada jaringan|ipaddress
+Versi protokol IP yang menggunakan alamat 32 bit|ipv4
+Versi protokol IP dengan alamat 128 bit|ipv6
+Alamat unik antarmuka jaringan|macaddress
+Sistem yang menerjemahkan nama domain menjadi alamat IP|dns
+Nama yang digunakan untuk mengidentifikasi situs|domain
+Alamat lengkap suatu sumber di web|url
+Protokol untuk pertukaran halaman web|http
+Versi HTTP yang menggunakan pengamanan enkripsi|https
+Protokol yang menyediakan pengiriman data yang andal|tcp
+Protokol pengiriman data yang lebih ringan tanpa jaminan koneksi|udp
+Protokol untuk transfer berkas|ftp
+Protokol untuk mengirim email|smtp
+Protokol untuk mengambil email dari server|pop3
+Protokol untuk mengakses email yang tersimpan di server|imap
+Unit data yang dikirim melalui jaringan|paket
+Jaringan privat yang menggunakan teknologi internet dalam suatu organisasi|intranet
+Waktu tunda pengiriman data|latency
+Perintah untuk menguji keterjangkauan perangkat jaringan|ping
+Pola susunan hubungan perangkat dalam jaringan|topologi
+Topologi dengan perangkat terhubung ke pusat|star
+Topologi yang menggunakan satu jalur utama|bus
+Topologi berbentuk lingkaran|ring
+Topologi dengan banyak hubungan antarperangkat|mesh
+Sistem yang menyaring lalu lintas jaringan|firewall
+Pengubahan data menjadi bentuk terlindungi|enkripsi
+Kode rahasia untuk mengakses akun atau layanan|password
+Area yang menyediakan akses internet nirkabel|hotspot
+Teknologi jaringan kabel yang umum digunakan|ethernet
+Media fisik untuk mengirim data|kabel
+Media transmisi menggunakan cahaya melalui serat|fiberoptik
+Komunikasi tanpa menggunakan kabel fisik|nirkabel
+Pintu penghubung antara jaringan berbeda|gateway
+Pembagian jaringan menjadi bagian yang lebih kecil|subnet
+Aturan komunikasi antarperangkat jaringan|protokol
+Kemampuan untuk terhubung atau menggunakan jaringan|akses
+Upaya melindungi jaringan dari ancaman|keamanan
+Kapasitas maksimum transfer data pada jaringan|bandwidth
+
+#9|Analisis Data
+Fakta atau nilai yang menjadi bahan analisis|data
+Hasil pengolahan data yang bermakna|informasi
+Kumpulan data yang dianalisis|dataset
+Karakteristik yang nilainya dapat berbeda|variabel
+Ciri yang menjelaskan suatu data|atribut
+Satu baris data yang mewakili objek|record
+Penyajian data dalam baris dan kolom|tabel
+Penyaringan data berdasarkan kriteria|filter
+Pengurutan data|sortir
+Proses menemukan data tertentu|pencarian
+Penyajian data secara visual|visualisasi
+Representasi data menggunakan bentuk visual|grafik
+Gambaran hubungan atau nilai secara visual|diagram
+Arah perubahan data|tren
+Keteraturan dalam data|pola
+Jumlah nilai dibagi banyak data|rata rata
+Nilai tengah data terurut|median
+Nilai yang paling sering muncul|modus
+Selisih nilai terbesar dan terkecil|rentang
+Jumlah kemunculan suatu nilai|frekuensi
+Perbandingan per seratus|persentase
+Penyebaran nilai data|distribusi
+Hubungan antara dua variabel|korelasi
+Penggabungan data menjadi ringkasan|agregasi
+Penyajian inti data|ringkasan
+Pemeriksaan kesesuaian data|validasi
+Perbaikan data yang tidak sesuai|pembersihan
+Data yang tercatat lebih dari satu kali|duplikat
+Data yang menyimpang dari pola umum|anomali
+Tingkat ketepatan data|akurasi
+Keselarasan data|konsistensi
+Asal data diperoleh|sumber
+Penafsiran hasil analisis|interpretasi
+Pernyataan berdasarkan hasil analisis|kesimpulan
+Perkiraan berdasarkan data|prediksi
+Tampilan ringkas data dan visualisasi|dashboard
+Informasi yang disajikan dengan visual dan teks|infografis
+Grafik distribusi berbentuk batang berdekatan|histogram
+Grafik titik untuk melihat hubungan dua variabel|scatterplot
+Grafik garis untuk melihat perubahan|diagramgaris
+Grafik batang untuk membandingkan nilai|diagrambatang
+Grafik lingkaran untuk menunjukkan proporsi|diagramlingkaran
+Nilai terbesar|maksimum
+Nilai terkecil|minimum
+Nilai yang membagi data menjadi empat bagian|kuartil
+Nilai yang jauh berbeda dari sebagian besar data|outlier
+Proses mengambil sebagian data sebagai sampel|sampling
+Sebagian anggota populasi yang diteliti|sampel
+Seluruh objek yang menjadi sasaran penelitian|populasi
+Pemahaman penting yang diperoleh dari data|insight
+
+#9|Algoritma dan Pemrograman
+Urutan langkah logis untuk menyelesaikan masalah|algoritma
+Kumpulan instruksi yang dapat dijalankan komputer|program
+Instruksi yang ditulis dalam bahasa pemrograman|kode
+Proses membuat program|pemrograman
+Tempat menyimpan nilai yang dapat berubah|variabel
+Nilai yang tetap|konstanta
+Jenis nilai yang digunakan program|tipe data
+Tipe data bilangan bulat|integer
+Tipe data bilangan pecahan|float
+Tipe data teks|string
+Tipe data benar atau salah|boolean
+Simbol untuk melakukan operasi|operator
+Operasi matematika dalam program|aritmatika
+Operasi yang berkaitan dengan benar dan salah|logika
+Operasi membandingkan dua nilai|perbandingan
+Data yang dimasukkan ke program|input
+Hasil yang dikeluarkan program|output
+Struktur pemilihan berdasarkan kondisi|percabangan
+Kata kunci untuk memeriksa kondisi|if
+Bagian yang dijalankan ketika kondisi tidak terpenuhi|else
+Kata kunci untuk kondisi alternatif dalam Python|elif
+Struktur untuk mengulang instruksi|perulangan
+Perulangan yang biasa digunakan untuk setiap elemen atau rentang|for
+Perulangan selama kondisi bernilai benar|while
+Blok kode untuk melakukan tugas tertentu|fungsi
+Variabel yang menerima masukan fungsi|parameter
+Nilai yang diberikan kepada parameter|argumen
+Perintah mengembalikan nilai dari fungsi|return
+Kumpulan elemen dalam satu struktur|array
+Kumpulan elemen yang dapat diubah|list
+Posisi elemen dalam struktur data|indeks
+Catatan pada kode yang tidak dieksekusi|komentar
+Aturan penulisan bahasa pemrograman|sintaks
+Kesalahan yang menyebabkan program bermasalah|error
+Kesalahan pada program|bug
+Proses mencari dan memperbaiki bug|debugging
+Program yang menerjemahkan kode menjadi bentuk yang dapat dijalankan|compiler
+Program yang menerjemahkan kode sambil menjalankannya|interpreter
+Kode sumber yang ditulis programmer|sourcecode
+Diagram alur algoritma|flowchart
+Algoritma yang ditulis dalam bentuk bahasa sederhana|pseudocode
+Bagian program yang dapat digunakan kembali|modul
+Kumpulan kode siap pakai|library
+Fungsi yang memanggil dirinya sendiri|rekursi
+Pengulangan proses|iterasi
+Proses menjalankan program|eksekusi
+Penjorokan spasi untuk menunjukkan struktur kode|indentasi
+Alat untuk membantu menemukan kesalahan program|debugger
+Sekumpulan langkah untuk menjalankan tugas|prosedur
+Logika yang menggunakan nilai benar dan salah|logikaboolean
+
+#9|Dampak Sosial Informatika
+Pengaruh yang ditimbulkan oleh suatu hal|dampak
+Berkaitan dengan kehidupan masyarakat|sosial
+Berkaitan dengan teknologi berbasis data digital|digital
+Hak untuk menjaga informasi pribadi|privasi
+Upaya melindungi data dan sistem|keamanan
+Informasi palsu yang dibuat atau disebarkan seolah benar|hoaks
+Informasi salah yang dibagikan tanpa sengaja menipu|misinformasi
+Informasi salah yang sengaja disebarkan|disinformasi
+Perundungan menggunakan teknologi digital|cyberbullying
+Etika dalam berkomunikasi di internet|netiket
+Rekaman aktivitas seseorang di dunia digital|jejakdigital
+Pandangan orang lain berdasarkan tindakan atau informasi|reputasi
+Hak hukum atas karya seseorang|hakcipta
+Menggunakan karya orang lain tanpa pengakuan|plagiarisme
+Izin atau aturan penggunaan suatu karya|lisensi
+Pencantuman pembuat atau sumber karya|atribusi
+Perbedaan akses atau kemampuan antar kelompok|kesenjangan
+Kesenjangan akses terhadap teknologi digital|digitaldivide
+Penggunaan teknologi untuk menjalankan pekerjaan secara otomatis|otomatisasi
+Mesin yang dapat menjalankan tugas secara otomatis|robot
+Teknologi yang memungkinkan mesin melakukan tugas yang membutuhkan kecerdasan|kecerdasanbuatan
+Langkah terstruktur yang digunakan sistem untuk memproses masalah|algoritma
+Kecenderungan yang dapat menyebabkan hasil tidak adil|bias
+Prinsip tentang perilaku yang baik dan bertanggung jawab|etika
+Kewajiban menanggung akibat tindakan|tanggungjawab
+Bidang yang berkaitan dengan produksi, distribusi, dan konsumsi|ekonomi
+Aktivitas yang dilakukan untuk menghasilkan nilai atau pendapatan|pekerjaan
+Kemampuan menghasilkan keluaran secara efektif|produktifitas
+Proses penyampaian pesan|komunikasi
+Sarana penyebaran informasi|media
+Platform digital untuk berinteraksi dan berbagi|media sosial
+Isi yang dipublikasikan melalui media|konten
+Konten yang menyebar sangat cepat|viral
+Keadaan terlalu bergantung pada sesuatu|ketergantungan
+Kebiasaan berlebihan yang sulit dikendalikan|kecanduan
+Keadaan baik secara fisik atau mental|kesehatan
+Penyesuaian aktivitas dan alat dengan kondisi tubuh|ergonomi
+Sistem kehidupan masyarakat yang melibatkan partisipasi warga|demokrasi
+Keterlibatan dalam suatu kegiatan|partisipasi
+Upaya melibatkan semua kelompok|inklusi
+Kemudahan teknologi digunakan oleh berbagai pengguna|aksesibilitas
+Kondisi yang dapat memengaruhi kemampuan tertentu|disabilitas
+Perubahan besar dari bentuk atau cara lama|transformasi
+Penerapan gagasan baru|inovasi
+Proses meningkatnya keterhubungan antarwilayah|globalisasi
+Kegiatan ekonomi yang memanfaatkan teknologi digital|ekonomidigital
+Sikap bertanggung jawab sebagai warga di ruang digital|kewargaandigital
+Kemampuan menggunakan teknologi digital secara kritis dan bijak|literasidigital
+Prinsip perilaku bertanggung jawab dalam penggunaan teknologi|etikateknologi
+Penggunaan teknologi untuk membantu atau menggantikan tugas yang berulang|otomatisasikerja
+
+#9|Praktik Lintas Bidang Informatika
+Kegiatan terencana untuk menghasilkan karya atau solusi|proyek
+Kerja sama beberapa orang untuk mencapai tujuan|kolaborasi
+Tahap menentukan tujuan dan langkah kegiatan|perencanaan
+Proses memahami masalah dan kebutuhan|analisis
+Hal yang membutuhkan solusi|masalah
+Cara yang digunakan untuk menyelesaikan masalah|solusi
+Rancangan sebelum produk dibuat|desain
+Model awal suatu produk untuk diuji|prototipe
+Penerapan rancangan menjadi sesuatu yang nyata|implementasi
+Proses memeriksa apakah produk bekerja sesuai tujuan|pengujian
+Penilaian terhadap hasil atau proses|evaluasi
+Pengulangan proses untuk memperbaiki hasil|iterasi
+Pencatatan proses dan hasil kegiatan|dokumentasi
+Kegiatan menyampaikan hasil kepada orang lain|presentasi
+Dokumen yang berisi proses dan hasil kegiatan|laporan
+Hasil yang dibuat dalam suatu proyek|produk
+Orang yang menggunakan produk atau sistem|pengguna
+Hal yang diperlukan pengguna atau sistem|kebutuhan
+Rincian kebutuhan atau karakteristik produk|spesifikasi
+Langkah sistematis untuk menyelesaikan masalah|algoritma
+Kumpulan instruksi komputer|program
+Instruksi dalam bahasa pemrograman|kode
+Proses mencari dan memperbaiki kesalahan|debugging
+Bahan informasi yang digunakan dalam proyek|data
+Data yang telah diolah menjadi bermakna|informasi
+Penyajian informasi secara visual|visualisasi
+Perangkat yang mendeteksi kondisi lingkungan|sensor
+Pengendali kecil yang dapat diprogram|mikrokontroler
+Bidang yang mempelajari perancangan dan pemrograman robot|robotika
+Penggunaan sistem untuk menjalankan tugas secara otomatis|otomatisasi
+Peniruan sistem atau proses menggunakan model|simulasi
+Diagram yang menunjukkan alur proses|flowchart
+Penulisan algoritma dengan bahasa sederhana|pseudocode
+Gambaran visual suatu struktur atau proses|diagram
+Bagian yang menjadi penghubung pengguna dan sistem|antarmuka
+Kemudahan suatu produk digunakan|usability
+Kemudahan produk digunakan oleh berbagai pengguna|aksesibilitas
+Kemampuan menghasilkan gagasan baru|kreativitas
+Penerapan gagasan baru menjadi solusi|inovasi
+Proses menyampaikan informasi kepada pihak lain|komunikasi
+Kewajiban melaksanakan tugas dan menanggung hasil|tanggungjawab
+Pengaturan pekerjaan kepada anggota tim|pembagiantugas
+Pengaturan waktu pelaksanaan kegiatan|jadwal
+Rencana kebutuhan biaya|anggaran
+Segala sesuatu yang digunakan untuk menjalankan proyek|sumberdaya
+Kemungkinan terjadinya hal yang menghambat proyek|risiko
+Proses menemukan solusi terhadap suatu masalah|pemecahanmasalah
+Kegiatan meninjau pengalaman untuk perbaikan|refleksi
+Masukan untuk memperbaiki hasil atau proses|umpanbalik
+Kegiatan memantau proses atau kondisi proyek|monitoring
+`;
+
+        let EMBEDDED_QUESTIONS = [];
+        let currentK = 7, currentM = "";
+        let qCounter = 1;
+        
+        RAW_Q.trim().split('\n').forEach(line => {
+            line = line.trim();
+            if (!line) return;
+            if (line.startsWith('#')) {
+                let parts = line.substring(1).split('|');
+                currentK = parseInt(parts[0]);
+                currentM = parts[1];
+            } else {
+                let p = line.split('|');
+                if (p.length >= 2) {
+                   let jawabanBersih = p[1].replace(/[^A-Za-z]/g, '').toUpperCase();
+                   EMBEDDED_QUESTIONS.push({
+                       id: 'IF' + currentK + '-' + String(qCounter++).padStart(4, '0'),
+                       kelas: currentK,
+                       bab: 2,
+                       materi: currentM,
+                       pertanyaan: p[0].trim(),
+                       jawaban: jawabanBersih,
+                       penjelasan: "Materi " + currentM + " (Kelas " + currentK + "). Jawaban yang tepat berkaitan dengan: " + p[1].trim().toUpperCase() + ".",
+                       kesulitan: (qCounter % 3 === 0) ? "Sulit" : (qCounter % 2 === 0 ? "Sedang" : "Mudah"),
+                       arah: (qCounter % 2 === 0) ? "menurun" : "mendatar"
+                   });
+                }
+            }
+        });
 
         const State = {
             currentView: 'home',
@@ -171,7 +1161,7 @@
             startTime: null,
             endTime: null,
             currentUser: null,
-            cloudQuestions: JSON.parse(localStorage.getItem('tts_questions') || JSON.stringify(EMBEDDED_QUESTIONS)),
+            cloudQuestions: JSON.parse(localStorage.getItem('tts_questions_v2') || JSON.stringify(EMBEDDED_QUESTIONS)),
             cloudResults: JSON.parse(localStorage.getItem('tts_results') || '[]'),
             cloudTokens: JSON.parse(localStorage.getItem('tts_tokens') || JSON.stringify([
                 { token: 'IFMT7B2A', kelas: 7, materi: 'Semua Materi', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 7 A' },
@@ -188,13 +1178,12 @@
                 9: ['IX-A', 'IX-B', 'IX-C', 'IX-D', 'IX-E']
             }
         };
-
         // Offline-first robust persistence engine preventing any cloud backoff warnings
         async function syncSave(collectionName, docId, data) {
             if (collectionName === 'questions') {
                 let idx = State.cloudQuestions.findIndex(q => q.id === docId);
                 if (idx >= 0) State.cloudQuestions[idx] = data; else State.cloudQuestions.push(data);
-                localStorage.setItem('tts_questions', JSON.stringify(State.cloudQuestions));
+                localStorage.setItem('tts_questions_v2', JSON.stringify(State.cloudQuestions));
             } else if (collectionName === 'results') {
                 let idx = State.cloudResults.findIndex(r => r.id === docId);
                 if (idx >= 0) State.cloudResults[idx] = data; else State.cloudResults.push(data);
@@ -213,7 +1202,7 @@
         async function syncDelete(collectionName, docId) {
             if (collectionName === 'questions') {
                 State.cloudQuestions = State.cloudQuestions.filter(q => q.id !== docId);
-                localStorage.setItem('tts_questions', JSON.stringify(State.cloudQuestions));
+                localStorage.setItem('tts_questions_v2', JSON.stringify(State.cloudQuestions));
             } else if (collectionName === 'results') {
                 State.cloudResults = State.cloudResults.filter(r => r.id !== docId);
                 localStorage.setItem('tts_results', JSON.stringify(State.cloudResults));
@@ -274,13 +1263,13 @@
                         </div>
                         <div class="relative z-10 max-w-2xl space-y-6">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-semibold backdrop-blur border border-emerald-400/30">
-                                <i class="fa-solid fa-seedling"></i> Kurikulum Merdeka & KBC (Bank Soal Resmi MTs)
+                                <i class="fa-solid fa-seedling"></i> Kurikulum Merdeka & KBC (Kelas 7, 8, & 9)
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
                                 INFORMATIKA <span class="text-brand-300">TTS CHALLENGE</span>
                             </h1>
                             <p class="text-lg text-brand-100 font-medium">
-                                "Uji Pengetahuanmu. Pecahkan Kata. Kuasai Informatika." Media pembelajaran interaktif berbasis gamifikasi untuk siswa MTs kelas 7, 8, dan 9.
+                                "Uji Pengetahuanmu. Pecahkan Kata. Kuasai Informatika." Media pembelajaran interaktif berbasis gamifikasi untuk siswa MTs lengkap 1 tahun ajaran.
                             </p>
                             <div class="flex flex-wrap gap-4 pt-4">
                                 <button onclick="router.navigate('setup')" class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-500/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 text-lg">
@@ -298,22 +1287,22 @@
                             <div class="w-12 h-12 rounded-xl bg-blue-100 text-brand-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-brain"></i>
                             </div>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">Bank Soal Eksklusif MTs</h3>
-                            <p class="text-sm text-slate-600">Materi komprehensif lengkap untuk Kelas 7, 8, dan 9 MTs sesuai standar Kurikulum Merdeka & KBC.</p>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">950+ Soal Resmi MTs</h3>
+                            <p class="text-sm text-slate-600">Bank soal komprehensif lengkap untuk Kelas 7, 8, dan 9 MTs sesuai Kurikulum Merdeka.</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                             <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-shuffle"></i>
                             </div>
                             <h3 class="font-bold text-lg text-slate-900 mb-2">TTS Normal & Tanpa Ganda</h3>
-                            <p class="text-sm text-slate-600">Susunan grid menyilang secara presisi menyesuaikan jumlah soal tanpa tumpang tindih kata ganda.</p>
+                            <p class="text-sm text-slate-600">Susunan grid menyilang secara presisi menyesuaikan jumlah soal secara otomatis tanpa tumpang tindih.</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                             <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
                             <h3 class="font-bold text-lg text-slate-900 mb-2">AI Generator & Token Kelas</h3>
-                            <p class="text-sm text-slate-600">Guru dapat membuat soal otomatis dengan Gemini AI dan menghasilkan token kelas dengan kustomisasi materi.</p>
+                            <p class="text-sm text-slate-600">Guru dapat membuat soal otomatis dengan AI dan menghasilkan token kustomisasi materi.</p>
                         </div>
                     </div>
                 </div>
@@ -340,7 +1329,7 @@
                                 <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">
                                     <i class="fa-solid fa-trophy text-amber-500"></i> KLASEMEN SISWA INFORMATIKA
                                 </h2>
-                                <p class="text-sm text-slate-500">Peringkat pencapaian skor tertinggi peserta didik MTs Kurikulum Merdeka & KBC.</p>
+                                <p class="text-sm text-slate-500">Peringkat pencapaian skor tertinggi peserta didik MTs Kurikulum Merdeka.</p>
                             </div>
                             <div class="flex items-center gap-3">
                                 <select id="leaderboardFilter" onchange="filterLeaderboard(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border">
@@ -440,7 +1429,7 @@
                                 <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">2</span>
                                 <div>
                                     <h3 class="font-bold text-slate-900">Isi Identitas Siswa</h3>
-                                    <p class="text-xs text-slate-500 mt-0.5">Ketik Nama Lengkap, pilih Kelas, dan Nomor Absen.</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketik Nama Lengkap, pilih Kelas (7, 8, atau 9), dan Nomor Absen.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border">
@@ -1100,8 +2089,8 @@
                             <i class="fa-solid fa-trophy"></i>
                         </div>
                         <div>
-                            <h2 class="text-3xl font-black text-slate-900">HASIL PERMAINAN & KLASEMEN CLOUD</h2>
-                            <p class="text-sm text-slate-500 mt-1">Skormu telah berhasil disimpan ke database lokal!</p>
+                            <h2 class="text-3xl font-black text-slate-900">HASIL PERMAINAN & KLASEMEN</h2>
+                            <p class="text-sm text-slate-500 mt-1">Skormu telah berhasil disimpan ke database!</p>
                         </div>
 
                         <div class="inline-block bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-md">
@@ -1156,7 +2145,7 @@
                                     </div>
                                     <p class="text-sm font-semibold text-slate-900">${idx+1}. ${d.question}</p>
                                     <p class="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200">
-                                        💡 <strong>Penjelasan Kumer & KBC:</strong> ${d.explanation}
+                                        💡 <strong>Penjelasan Kurikulum Merdeka:</strong> ${d.explanation}
                                     </p>
                                 </div>
                             `).join('')}
@@ -1283,7 +2272,7 @@
                                 </div>
                                 <div class="flex flex-wrap gap-2 items-center">
                                     <select id="adminQuestionFilter" onchange="filterAdminQuestions(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border">
-                                        <option value="ALL" ${qFilterGrade === 'ALL' ? 'selected' : ''}>Semua Kelas</option>
+                                        <option value="ALL" ${qFilterGrade === 'ALL' ? 'selected' : ''}>Semua Kelas (7, 8, 9)</option>
                                         <option value="7" ${qFilterGrade === '7' ? 'selected' : ''}>Kelas 7</option>
                                         <option value="8" ${qFilterGrade === '8' ? 'selected' : ''}>Kelas 8</option>
                                         <option value="9" ${qFilterGrade === '9' ? 'selected' : ''}>Kelas 9</option>
@@ -1433,7 +2422,7 @@
                                         </div>
                                     </div>
                                     <div class="bg-slate-50 p-5 rounded-2xl border space-y-3">
-                                        <h4 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-school text-purple-600"></i> Kelas 9</h4>
+                                        <h4 class="font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-school text-purple-600"></i> Kelas 9 (A-E)</h4>
                                         <div class="flex flex-wrap gap-2">
                                             ${State.availableClasses[9].map(c => `
                                                 <span class="px-3 py-1.5 bg-white border rounded-xl font-bold text-xs text-slate-700 shadow-sm flex items-center gap-2">
@@ -1639,8 +2628,8 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block mb-1">Nama Rombel (Contoh: VII-H)</label>
-                            <input type="text" id="newClassName" required placeholder="VII-H" class="w-full p-2.5 rounded-xl border uppercase font-bold">
+                            <label class="block mb-1">Nama Rombel (Contoh: IX-F)</label>
+                            <input type="text" id="newClassName" required placeholder="IX-F" class="w-full p-2.5 rounded-xl border uppercase font-bold">
                         </div>
                         <div class="pt-4 flex gap-3 justify-end">
                             <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
@@ -1753,7 +2742,7 @@
                         </div>
                         <div>
                             <h3 class="font-black text-slate-900 text-lg">AI Question Generator</h3>
-                            <p class="text-xs text-slate-500">Pilih materi standar kurikulum dan buat soal otomatis dengan Gemini AI.</p>
+                            <p class="text-xs text-slate-500">Pilih materi standar kurikulum atau masukkan topik manual untuk generate soal.</p>
                         </div>
                     </div>
                     
@@ -1792,14 +2781,14 @@
                             <div>
                                 <label class="block mb-1">Pilih Materi Kurikulum</label>
                                 <select id="aiKurikulumMateri" onchange="document.getElementById('aiMateri').value = this.value;" class="w-full p-2.5 rounded-xl border bg-white font-bold text-slate-800">
-                                    <option value="">-- Pilih Materi --</option>
+                                    <option value="">-- Pilih Materi Sesuai Kurikulum --</option>
                                     ${initialMats.map(m => `<option value="${m}">${m}</option>`).join('')}
                                 </select>
                             </div>
                         </div>
                         <div>
-                            <label class="block mb-1">Topik Spesifik</label>
-                            <input type="text" id="aiMateri" placeholder="Contoh: Berpikir Komputasional" class="w-full p-3 rounded-xl border text-sm font-bold">
+                            <label class="block mb-1 font-bold text-slate-800">Materi / Topik (Isi Manual atau Pilih di Atas)</label>
+                            <input type="text" id="aiMateri" placeholder="Contoh: Berpikir Komputasional atau Ketik Topik Sendiri..." class="w-full p-3 rounded-xl border text-sm font-bold">
                         </div>
                         <div id="aiLoading" class="hidden text-center py-4 text-purple-600 font-bold flex items-center justify-center gap-2">
                             <i class="fa-solid fa-spinner fa-spin text-lg"></i> AI sedang merancang soal...
@@ -1819,7 +2808,7 @@
         window.updateAIClassMaterials = function(grade) {
             let mats = GRADE_MATERIALS[grade].filter(m => m !== "Semua Materi") || [];
             let selectEl = document.getElementById('aiKurikulumMateri');
-            if (selectEl) selectEl.innerHTML = `<option value="">-- Pilih Materi --</option>` + mats.map(m => `<option value="${m}">${m}</option>`).join('');
+            if (selectEl) selectEl.innerHTML = `<option value="">-- Pilih Materi Sesuai Kurikulum --</option>` + mats.map(m => `<option value="${m}">${m}</option>`).join('');
         };
 
         window.generateAIQuestionsBatch = async function() {
@@ -1830,7 +2819,7 @@
             let jumlah = parseInt(document.getElementById('aiJumlahSoal').value) || 5;
 
             if (!materi) {
-                alertBox("Materi Kosong", "Silakan pilih atau ketik materi terlebih dahulu.");
+                alertBox("Materi Kosong", "Silakan pilih atau ketik topik materi terlebih dahulu.");
                 return;
             }
 
@@ -1988,8 +2977,8 @@
             }
             document.querySelector('.fixed').remove();
             State.cloudQuestions = EMBEDDED_QUESTIONS;
-            localStorage.setItem('tts_questions', JSON.stringify(EMBEDDED_QUESTIONS));
-            alertBox("Berhasil", "Bank soal berhasil di-reset ke set default.");
+            localStorage.setItem('tts_questions_v2', JSON.stringify(EMBEDDED_QUESTIONS));
+            alertBox("Berhasil", "Bank soal berhasil di-reset ke 950 soal default.");
             router.navigate('teacherDashboard');
         };
 
@@ -2003,7 +2992,7 @@
                     <form onsubmit="saveGameToken(event)" class="space-y-4 text-xs font-semibold text-slate-600">
                         <div>
                             <label class="block mb-1">Judul Challenge</label>
-                            <input type="text" id="tTitle" required placeholder="Uji Kompetensi Kumer 7" class="w-full p-2.5 rounded-xl border">
+                            <input type="text" id="tTitle" required placeholder="Uji Kompetensi Kumer" class="w-full p-2.5 rounded-xl border">
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
