@@ -1301,8 +1301,8 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                             <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">AI Generator & Token Kelas</h3>
-                            <p class="text-sm text-slate-600">Guru dapat membuat soal otomatis dengan AI dan menghasilkan token kustomisasi materi.</p>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">Manajemen Token Kelas</h3>
+                            <p class="text-sm text-slate-600">Guru dapat mengelola bank soal dan menghasilkan token kustomisasi materi untuk siswa.</p>
                         </div>
                     </div>
                 </div>
@@ -1449,7 +1449,6 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             const tokens = getActiveTokens();
             let defaultToken = tokens[0] || { token: 'IFMT7B2A', kelas: 7, soalCount: 15, timer: 10, materi: 'Semua Materi' };
             let classList = State.availableClasses[defaultToken.kelas] || ['VII-A', 'VII-B', 'VII-C', 'VII-D', 'VII-E', 'VII-F', 'VII-G'];
-            let mats = GRADE_MATERIALS[defaultToken.kelas] || [];
 
             return `
                 <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-lg border border-slate-200 space-y-6 my-auto w-full">
@@ -1468,23 +1467,15 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                                 ${tokens.map(t => `<option value="${t.token}">[${t.token}] ${t.title} (${t.soalCount} Soal)</option>`).join('')}
                             </select>
                         </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 mb-1">Jumlah Soal</label>
-                                <select id="setupSoalCount" class="w-full px-4 py-3 rounded-xl border text-sm font-bold bg-white">
-                                    <option value="5">5 Soal</option>
-                                    <option value="10">10 Soal</option>
-                                    <option value="15" selected>15 Soal (Default)</option>
-                                    <option value="20">20 Soal</option>
-                                    <option value="25">25 Soal</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Materi</label>
-                                <select id="setupMateriSelect" class="w-full px-4 py-3 rounded-xl border text-xs font-bold bg-white">
-                                    ${mats.map(m => `<option value="${m}">${m}</option>`).join('')}
-                                </select>
-                            </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Jumlah Soal</label>
+                            <select id="setupSoalCount" class="w-full px-4 py-3 rounded-xl border text-sm font-bold bg-white">
+                                <option value="5">5 Soal</option>
+                                <option value="10">10 Soal</option>
+                                <option value="15" selected>15 Soal (Default)</option>
+                                <option value="20">20 Soal</option>
+                                <option value="25">25 Soal</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Lengkap Siswa</label>
@@ -1518,10 +1509,6 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 let classSel = document.getElementById('setupStudentClass');
                 if (classSel) classSel.innerHTML = classList.map(c => `<option value="${c}">${c}</option>`).join('');
 
-                let mats = GRADE_MATERIALS[found.kelas] || [];
-                let matSel = document.getElementById('setupMateriSelect');
-                if (matSel) matSel.innerHTML = mats.map(m => `<option value="${m}">${m}</option>`).join('');
-
                 let soalSel = document.getElementById('setupSoalCount');
                 if (soalSel && found.soalCount) soalSel.value = found.soalCount;
             }
@@ -1539,7 +1526,7 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             let found = tokens.find(t => t.token === tokenVal);
             let grade = found ? found.kelas : 7;
             let timerMin = found ? found.timer : 10;
-            let materiFilter = document.getElementById('setupMateriSelect')?.value || (found ? found.materi : 'Semua Materi');
+            let materiFilter = found ? found.materi : 'Semua Materi';
             let specificQuestionIds = found ? found.questionIds : null;
 
             buildNormalTTSPuzzle(grade, State.gameConfig.selectedSoalCount, timerMin, materiFilter, specificQuestionIds);
@@ -2291,9 +2278,6 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                                             <i class="fa-solid fa-rotate-left mr-1"></i> Reset DB
                                         </button>
                                     ` : ''}
-                                    <button onclick="openAIQuizModal()" class="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
-                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Generator
-                                    </button>
                                     <button onclick="openQuestionModal()" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
                                         <i class="fa-solid fa-plus"></i> Tambah Soal
                                     </button>
@@ -2730,178 +2714,6 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             if (selectEl) selectEl.innerHTML = mats.map(m => `<option value="${m}">${m}</option>`).join('');
         };
 
-        window.openAIQuizModal = function() {
-            let initialMats = GRADE_MATERIALS[7].filter(m => m !== "Semua Materi") || [];
-            let modal = document.createElement('div');
-            modal.className = "fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4";
-            modal.innerHTML = `
-                <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-lg w-full space-y-6 border">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-black text-slate-900 text-lg">AI Question Generator</h3>
-                            <p class="text-xs text-slate-500">Pilih materi standar kurikulum atau masukkan topik manual untuk generate soal.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-4 text-xs font-semibold text-slate-600">
-                        <div>
-                            <label class="block mb-1 font-bold text-slate-700">Gemini API Key</label>
-                            <input type="password" id="aiApiKeyInput" value="AIzaSyA3v19W60OQ5qfKYELEvmmkKaO-Gf6zHgs" class="w-full p-2.5 rounded-xl border text-xs font-mono font-bold text-purple-700 bg-slate-50">
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block mb-1">Pilih Kelas</label>
-                                <select id="aiKelas" onchange="updateAIClassMaterials(this.value)" class="w-full p-2.5 rounded-xl border bg-white font-bold">
-                                    <option value="7" selected>Kelas 7</option>
-                                    <option value="8">Kelas 8</option>
-                                    <option value="9">Kelas 9</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block mb-1">Tingkat Kesulitan</label>
-                                <select id="aiSulit" class="w-full p-2.5 rounded-xl border bg-white font-bold">
-                                    <option value="Mudah">Mudah</option>
-                                    <option value="Sedang" selected>Sedang</option>
-                                    <option value="Sulit">Sulit</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block mb-1">Jumlah Soal</label>
-                                <select id="aiJumlahSoal" class="w-full p-2.5 rounded-xl border bg-white font-bold text-purple-700">
-                                    <option value="3">3 Soal</option>
-                                    <option value="5" selected>5 Soal</option>
-                                    <option value="10">10 Soal</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block mb-1">Pilih Materi Kurikulum</label>
-                                <select id="aiKurikulumMateri" onchange="document.getElementById('aiMateri').value = this.value;" class="w-full p-2.5 rounded-xl border bg-white font-bold text-slate-800">
-                                    <option value="">-- Pilih Materi Sesuai Kurikulum --</option>
-                                    ${initialMats.map(m => `<option value="${m}">${m}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block mb-1 font-bold text-slate-800">Materi / Topik (Isi Manual atau Pilih di Atas)</label>
-                            <input type="text" id="aiMateri" placeholder="Contoh: Berpikir Komputasional atau Ketik Topik Sendiri..." class="w-full p-3 rounded-xl border text-sm font-bold">
-                        </div>
-                        <div id="aiLoading" class="hidden text-center py-4 text-purple-600 font-bold flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-spinner fa-spin text-lg"></i> AI sedang merancang soal...
-                        </div>
-                        <div class="pt-4 flex gap-3 justify-end">
-                            <button type="button" onclick="this.closest('.fixed').remove()" class="px-4 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-xl">Batal</button>
-                            <button type="button" onclick="generateAIQuestionsBatch()" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow flex items-center gap-2">
-                                <i class="fa-solid fa-bolt"></i> Generate Soal AI
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-        };
-
-        window.updateAIClassMaterials = function(grade) {
-            let mats = GRADE_MATERIALS[grade].filter(m => m !== "Semua Materi") || [];
-            let selectEl = document.getElementById('aiKurikulumMateri');
-            if (selectEl) selectEl.innerHTML = `<option value="">-- Pilih Materi Sesuai Kurikulum --</option>` + mats.map(m => `<option value="${m}">${m}</option>`).join('');
-        };
-
-        window.generateAIQuestionsBatch = async function() {
-            let apiKey = document.getElementById('aiApiKeyInput')?.value.trim() || "AIzaSyA3v19W60OQ5qfKYELEvmmkKaO-Gf6zHgs";
-            let kelas = document.getElementById('aiKelas').value;
-            let kesulitan = document.getElementById('aiSulit').value;
-            let materi = document.getElementById('aiMateri').value.trim();
-            let jumlah = parseInt(document.getElementById('aiJumlahSoal').value) || 5;
-
-            if (!materi) {
-                alertBox("Materi Kosong", "Silakan pilih atau ketik topik materi terlebih dahulu.");
-                return;
-            }
-
-            document.getElementById('aiLoading').classList.remove('hidden');
-
-            const systemPrompt = `Act as an expert Informatics educator for MTs students. Generate exactly ${jumlah} distinct crossword puzzle questions in Indonesian based on "${materi}" for Grade ${kelas}. Each answer must be a single uppercase word without spaces (max 12 chars). Return ONLY a JSON array with keys: pertanyaan, jawaban, penjelasan.`;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [{ parts: [{ text: `Topic: ${materi}, Grade: ${kelas}, Count: ${jumlah}` }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "ARRAY",
-                        items: {
-                            type: "OBJECT",
-                            properties: {
-                                pertanyaan: { type: "STRING" },
-                                jawaban: { type: "STRING" },
-                                penjelasan: { type: "STRING" }
-                            },
-                            propertyOrdering: ["pertanyaan", "jawaban", "penjelasan"]
-                        }
-                    }
-                }
-            };
-
-            let questionsArray = [];
-            let success = false;
-
-            try {
-                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                const result = await response.json();
-                const candidate = result.candidates?.[0];
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    let rawText = candidate.content.parts[0].text.trim().replace(/^```json\s*/, "").replace(/^```\s*/, "").replace(/\s*```$/, "");
-                    const parsed = JSON.parse(rawText);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        questionsArray = parsed;
-                        success = true;
-                    }
-                }
-            } catch (err) {
-                // Fallback simulation
-            }
-
-            if (!success || questionsArray.length === 0) {
-                for (let i = 0; i < jumlah; i++) {
-                    questionsArray.push({
-                        pertanyaan: `Perangkat atau konsep utama yang berkaitan dengan ${materi} nomor ${i+1} adalah ...`,
-                        jawaban: "DIGITAL" + (i > 0 ? i : ''),
-                        penjelasan: `Penjelasan mengenai ${materi}.`
-                    });
-                }
-                success = true;
-            }
-
-            document.getElementById('aiLoading').classList.add('hidden');
-
-            if (success && questionsArray.length > 0) {
-                let countSaved = 0;
-                for (let qData of questionsArray) {
-                    let id = 'IF' + kelas + '-AI-' + Math.floor(Math.random() * 9000 + 1000);
-                    let newQuestion = {
-                        id: id, kelas: parseInt(kelas), bab: 2, materi: materi,
-                        pertanyaan: qData.pertanyaan, jawaban: (qData.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase(),
-                        kesulitan: kesulitan, penjelasan: qData.penjelasan || `Penjelasan materi ${materi}.`, arah: "mendatar"
-                    };
-                    if (newQuestion.jawaban.length >= 2) {
-                        await syncSave('questions', id, newQuestion);
-                        countSaved++;
-                    }
-                }
-                document.querySelector('.fixed').remove();
-                router.navigate('teacherDashboard');
-                alertBox("Berhasil!", `${countSaved} soal TTS baru tentang "${materi}" berhasil ditambahkan.`);
-            } else {
-                alertBox("Gagal", "Gagal menghasilkan soal dari AI. Silakan coba lagi.");
-            }
-        };
-
         window.saveQuestionData = async function(e, editId) {
             e.preventDefault();
             let id = editId || ('IF' + document.getElementById('qKelas').value + '-02-' + Math.floor(Math.random()*900+100));
@@ -3257,7 +3069,6 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
         window.useHint = useHint;
         window.finishGameConfirm = finishGameConfirm;
         window.handleTeacherLogin = handleTeacherLogin;
-        window.updateAIClassMaterials = updateAIClassMaterials;
         window.updateTokenMaterialsAndPreview = updateTokenMaterialsAndPreview;
         window.updateTokenQuestionPreview = updateTokenQuestionPreview;
         window.previewTokenQuestions = previewTokenQuestions;
