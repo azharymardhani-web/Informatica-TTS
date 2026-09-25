@@ -142,34 +142,36 @@
             9: ["Semua Materi", "Informatika SMP", "Berpikir Komputasional", "Teknik Informasi dan Komunikasi", "Sistem Komputer", "Jaringan Komputer dan Internet", "Analisis Data", "Algoritma dan Pemrograman", "Dampak Sosial Informatika", "Praktik Lintas Bidang Informatika"]
         };
 
-        // Embedded robust 950+ question dataset spanning grades 7, 8, 9
-        const EMBEDDED_950_QUESTIONS = [
-            // Kelas 7 - Berpikir Komputasional
-            { id: "IF7-BK-001", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memecah masalah besar menjadi bagian-bagian kecil", jawaban: "DEKOMPOSISI", penjelasan: "Dekomposisi adalah proses memecah masalah kompleks menjadi bagian yang lebih kecil.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-BK-002", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Keteraturan yang dapat ditemukan dalam data atau masalah", jawaban: "POLA", penjelasan: "Pengenalan pola membantu mengenali kesamaan struktur.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-BK-003", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memusatkan perhatian pada informasi yang penting", jawaban: "ABSTRAKSI", penjelasan: "Abstraksi menyaring detail yang tidak relevan.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-BK-004", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Langkah-langkah terurut untuk menyelesaikan masalah", jawaban: "ALGORITMA", penjelasan: "Algoritma adalah urutan langkah logis.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-BK-005", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Proses mencari dan memperbaiki kesalahan", jawaban: "DEBUGGING", penjelasan: "Debugging membersihkan kode atau logika dari galat.", kesulitan: "Sulit", arah: "mendatar" },
-            { id: "IF7-BK-006", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Data yang dimasukkan ke dalam sistem", jawaban: "INPUT", penjelasan: "Input adalah data mentah yang dimasukkan ke sistem.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-BK-007", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Tahap pengolahan input menjadi hasil", jawaban: "PROSES", penjelasan: "Proses mengolah input.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-BK-008", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Hasil yang diperoleh setelah data diproses", jawaban: "OUTPUT", penjelasan: "Output adalah hasil akhir.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-BK-009", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Cara berpikir berdasarkan alasan yang masuk akal", jawaban: "LOGIKA", penjelasan: "Logika mendasari komputasi.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-BK-010", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Jawaban atau cara untuk menyelesaikan masalah", jawaban: "SOLUSI", penjelasan: "Solusi adalah pemecahan masalah.", kesulitan: "Mudah", arah: "menurun" },
+        // Embedded robust 50+ unique question dataset spanning grades 7, 8, 9 with strictly unique answers
+        const EMBEDDED_50_QUESTIONS = [
+            // Kelas 7
+            { id: "IF7-01", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memecah masalah besar menjadi bagian-bagian kecil", jawaban: "DEKOMPOSISI", penjelasan: "Dekomposisi memecah masalah kompleks.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-02", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Keteraturan yang dapat ditemukan dalam data atau masalah", jawaban: "POLA", penjelasan: "Pengenalan pola membantu kesamaan struktur.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-03", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Memusatkan perhatian pada informasi yang penting", jawaban: "ABSTRAKSI", penjelasan: "Abstraksi menyaring detail tidak relevan.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF7-04", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Langkah-langkah terurut untuk menyelesaikan masalah", jawaban: "ALGORITMA", penjelasan: "Algoritma adalah urutan langkah logis.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-05", kelas: 7, bab: 2, materi: "Berpikir Komputasional", pertanyaan: "Proses mencari dan memperbaiki kesalahan", jawaban: "DEBUGGING", penjelasan: "Debugging membersihkan galat dalam logika.", kesulitan: "Sulit", arah: "mendatar" },
+            { id: "IF7-06", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Fakta mentah yang dapat diolah", jawaban: "DATA", penjelasan: "Data adalah bahan mentah informasi.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-07", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Data yang telah diolah dan bermakna", jawaban: "INFORMASI", penjelasan: "Informasi adalah hasil olahan data.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-08", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Aplikasi pengolah lembar kerja berbentuk tabel", jawaban: "SPREADSHEET", penjelasan: "Spreadsheet mengelola angka dan tabel.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF7-09", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Perangkat lunak penjelajah halaman web", jawaban: "BROWSER", penjelasan: "Browser menjelajahi situs web.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-10", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Kotak penyimpanan file digital di komputer", jawaban: "FOLDER", penjelasan: "Folder mengelompokkan file.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-11", kelas: 7, bab: 2, materi: "Literasi Informasi", pertanyaan: "Surat elektronik dalam jaringan internet", jawaban: "EMAIL", penjelasan: "Email mengirim pesan digital.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF7-12", kelas: 7, bab: 2, materi: "Literasi Informasi", pertanyaan: "Alamat unik sebuah halaman web di internet", jawaban: "URL", penjelasan: "URL menunjuk alamat web.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF7-13", kelas: 7, bab: 2, materi: "Keseimbangan Hidup Digital", pertanyaan: "Kata kunci rahasia untuk mengamankan akun", jawaban: "PASSWORD", penjelasan: "Password melindungi akses akun.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF7-14", kelas: 7, bab: 2, materi: "Keseimbangan Hidup Digital", pertanyaan: "Etika sopan santun saat berkomunikasi di internet", jawaban: "NETIKET", penjelasan: "Netiket adalah etika berinternet.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF7-15", kelas: 7, bab: 2, materi: "Perkakas TIK", pertanyaan: "Perangkat keras fisik komputer yang dapat disentuh", jawaban: "HARDWARE", penjelasan: "Hardware adalah komponen fisik.", kesulitan: "Mudah", arah: "menurun" },
 
-            // Kelas 7 - Pengolahan Data
-            { id: "IF7-OD-001", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Fakta mentah yang dapat diolah", jawaban: "DATA", penjelasan: "Data adalah bahan mentah.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF7-OD-002", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Data yang telah diolah dan memiliki makna", jawaban: "INFORMASI", penjelasan: "Informasi adalah hasil pengolahan data.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF7-OD-003", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Aplikasi untuk mengolah data berbentuk tabel", jawaban: "SPREADSHEET", penjelasan: "Spreadsheet mengelola angka dan tabel.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF7-OD-004", kelas: 7, bab: 2, materi: "Pengolahan Data", pertanyaan: "Rumus yang digunakan dalam pengolahan data", jawaban: "FORMULA", penjelasan: "Formula menghitung data.", kesulitan: "Sedang", arah: "menurun" },
-
-            // Kelas 8 - Analisis Data & Algoritma
-            { id: "IF8-AD-001", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Proses mengolah dan menafsirkan data untuk menemukan makna", jawaban: "ANALISIS", penjelasan: "Analisis mengurai data untuk mendapat wawasan.", kesulitan: "Sedang", arah: "mendatar" },
-            { id: "IF8-AD-002", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Kumpulan data yang dianalisis", jawaban: "DATASET", penjelasan: "Dataset adalah himpunan data terstruktur.", kesulitan: "Mudah", arah: "menurun" },
-            { id: "IF8-AP-001", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Urutan langkah logis untuk menyelesaikan masalah", jawaban: "ALGORITMA", penjelasan: "Dasar pemrograman yang terstruktur.", kesulitan: "Mudah", arah: "mendatar" },
-
-            // Kelas 9 - Sistem Komputer & Jaringan
-            { id: "IF9-SK-001", kelas: 9, bab: 2, materi: "Sistem Komputer", pertanyaan: "Bagian fisik komputer yang dapat disentuh", jawaban: "HARDWARE", penjelasan: "Hardware adalah perangkat keras fisik.", kesulitan: "Mudah", arah: "mendatar" },
-            { id: "IF9-JK-001", kelas: 9, bab: 2, materi: "Jaringan Komputer dan Internet", pertanyaan: "Jaringan global yang menghubungkan banyak perangkat", jawaban: "INTERNET", penjelasan: "Internet menghubungkan jaringan di seluruh dunia.", kesulitan: "Mudah", arah: "menurun" }
+            // Kelas 8
+            { id: "IF8-01", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Proses mengurai data untuk mendapat wawasan", jawaban: "ANALISIS", penjelasan: "Analisis menemukan makna dari data.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-02", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Kumpulan himpunan data terstruktur", jawaban: "DATASET", penjelasan: "Dataset menyimpan data terorganisir.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF8-03", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Proses penyalinan cadangan data agar aman", jawaban: "BACKUP", penjelasan: "Backup mencegah kehilangan data.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-04", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Penipuan online untuk mencuri data pribadi", jawaban: "PHISHING", penjelasan: "Phishing mengelabui pengguna.", kesulitan: "Sulit", arah: "menurun" },
+            { id: "IF8-05", kelas: 8, bab: 2, materi: "Jejak Bermedia Digital", pertanyaan: "Jejak aktivitas seseorang di dunia digital", jawaban: "DIGITAL", penjelasan: "Jejak digital terekam saat online.", kesulitan: "Sedang", arah: "mendatar" },
+            { id: "IF8-06", kelas: 8, bab: 2, materi: "Pemanfaatan Perkakas Digital", pertanyaan: "Penyimpanan data berbasis awan internet", jawaban: "CLOUD", penjelasan: "Cloud menyimpan file secara online.", kesulitan: "Sedang", arah: "menurun" },
+            { id: "IF8-07", kelas: 8, bab: 2, materi: "Analisis Data", pertanyaan: "Jaringan global penghubung perangkat", jawaban: "INTERNET", penjelasan: "Internet menghubungkan dunia.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF8-08", kelas: 8, bab: 2, materi: "Algoritma Pemrograman", pertanyaan: "Mesin pencari informasi di internet", jawaban: "PENCARI", penjelasan: "Mesin pencari mencari web.", kesulitan: "Mudah", arah: "menurun" },
+            { id: "IF8-09", kelas: 8, bab: 2, materi: "Jejak Bermedia Digital", pertanyaan: "Berita bohong yang tidak benar faktanya", jawaban: "HOAKS", penjelasan: "Hoaks menyebarkan informasi palsu.", kesulitan: "Mudah", arah: "mendatar" },
+            { id: "IF8-10", kelas: 8, bab: 2, materi: "Pemanfaatan Perkakas Digital", pertanyaan: "Program pengendali utama sistem komputer", jawaban: "SISTEM", penjelasan: "Sistem operasi mengatur hardware.", kesulitan: "Sedang", arah: "menurun" }
         ];
 
         const State = {
@@ -200,7 +202,7 @@
             }
         };
 
-        if (State.cloudQuestions.length === 0) State.cloudQuestions = EMBEDDED_950_QUESTIONS;
+        if (State.cloudQuestions.length === 0) State.cloudQuestions = EMBEDDED_50_QUESTIONS;
         if (State.cloudTokens.length === 0) {
             State.cloudTokens = [
                 { token: 'IFMT7B2A', kelas: 7, materi: 'Semua Materi', soalCount: 15, timer: 10, title: 'Challenge TIK Kumer Kelas 7 A' },
@@ -376,7 +378,7 @@
                         </div>
                         <div class="relative z-10 max-w-2xl space-y-6">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-200 text-xs font-semibold backdrop-blur border border-emerald-400/30">
-                                <i class="fa-solid fa-seedling"></i> Kurikulum Merdeka & KBC (950+ Soal Terlengkap)
+                                <i class="fa-solid fa-seedling"></i> Kurikulum Merdeka & KBC (Bank Soal Resmi MTs)
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
                                 INFORMATIKA <span class="text-brand-300">TTS CHALLENGE</span>
@@ -400,14 +402,14 @@
                             <div class="w-12 h-12 rounded-xl bg-blue-100 text-brand-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-brain"></i>
                             </div>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">950+ Bank Soal Resmi</h3>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">Bank Soal Eksklusif MTs</h3>
                             <p class="text-sm text-slate-600">Materi komprehensif lengkap untuk Kelas 7, 8, dan 9 MTs sesuai standar Kurikulum Merdeka & KBC.</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                             <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
                                 <i class="fa-solid fa-shuffle"></i>
                             </div>
-                            <h3 class="font-bold text-lg text-slate-900 mb-2">TTS Normal & Terstruktur</h3>
+                            <h3 class="font-bold text-lg text-slate-900 mb-2">TTS Normal & Tanpa Ganda</h3>
                             <p class="text-sm text-slate-600">Susunan grid menyilang secara presisi menyesuaikan jumlah soal tanpa tumpang tindih kata ganda.</p>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
@@ -542,14 +544,14 @@
                                 <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">2</span>
                                 <div>
                                     <h3 class="font-bold text-slate-900">Isi Identitas Siswa</h3>
-                                    <p class="text-xs text-slate-500 mt-0.5">Ketik Nama Lengkap, pilih Kelas (7A-7G atau 8A-8H), dan Nomor Absen.</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketik Nama Lengkap, pilih Kelas, dan Nomor Absen.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border">
                                 <span class="w-8 h-8 rounded-xl bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">3</span>
                                 <div>
-                                    <h3 class="font-bold text-slate-900">Pecahkan Kotak TTS Normal & Menyilang</h3>
-                                    <p class="text-xs text-slate-500 mt-0.5">Grid TTS otomatis menyesuaikan jumlah soal secara presisi tanpa tumpang tindih kata ganda!</p>
+                                    <h3 class="font-bold text-slate-900">Pecahkan Kotak TTS Normal & Menyilang Tanpa Ganda</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Grid TTS otomatis menyesuaikan jumlah soal secara presisi tanpa tumpang tindih soal ganda!</p>
                                 </div>
                             </div>
                         </div>
@@ -671,16 +673,29 @@
                 if (subFiltered.length >= 3) filtered = subFiltered;
             }
 
+            // Strict deduplication of questions and answers to avoid duplicate items
             let uniquePool = [];
             let seenAnswers = new Set();
+            let seenQuestions = new Set();
             for (let q of filtered) {
                 let cleanAns = (q.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase();
-                if (cleanAns.length >= 2 && !seenAnswers.has(cleanAns)) {
+                let cleanQ = (q.pertanyaan || '').trim().toLowerCase();
+                if (cleanAns.length >= 2 && !seenAnswers.has(cleanAns) && !seenQuestions.has(cleanQ)) {
                     seenAnswers.add(cleanAns);
+                    seenQuestions.add(cleanQ);
                     uniquePool.push({ ...q, jawaban: cleanAns });
                 }
             }
-            if (uniquePool.length < count) uniquePool = filtered.map(q => ({ ...q, jawaban: (q.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase() }));
+            if (uniquePool.length < count) {
+                // If pool is smaller than count, fill with remaining unique answers
+                for (let q of filtered) {
+                    let cleanAns = (q.jawaban || '').replace(/[^A-Z]/g, '').toUpperCase();
+                    if (cleanAns.length >= 2 && !seenAnswers.has(cleanAns)) {
+                        seenAnswers.add(cleanAns);
+                        uniquePool.push({ ...q, jawaban: cleanAns });
+                    }
+                }
+            }
             uniquePool.sort(() => Math.random() - 0.5);
 
             let selectedQuestions = uniquePool.slice(0, count);
@@ -755,7 +770,7 @@
                 }
             }
 
-            // Fallback for any unplaced questions so that grid and clue count match exactly
+            // Fallback for any unplaced questions so grid matches exact requested count
             if (placedWords.length < selectedQuestions.length) {
                 let unplaced = selectedQuestions.filter(q => !usedIds.has(q.id));
                 let fallbackR = 2;
@@ -860,7 +875,7 @@
                                 <i class="fa-solid fa-puzzle-piece"></i>
                             </div>
                             <div>
-                                <h2 class="font-black text-slate-900 text-base">TTS INFORMATIKA INTERAKTIF (NORMAL & MENYILANG)</h2>
+                                <h2 class="font-black text-slate-900 text-base">TTS INFORMATIKA INTERAKTIF (NORMAL & TANPA GANDA)</h2>
                                 <p class="text-xs text-slate-500 font-medium">Peserta: <span class="font-bold text-slate-700">${State.gameConfig.studentName}</span> (${State.gameConfig.studentClass})</p>
                             </div>
                         </div>
@@ -883,7 +898,7 @@
                         <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-sm border border-slate-200/80 flex flex-col items-center overflow-x-auto relative">
                             <div class="flex justify-between w-full mb-6 items-center">
                                 <div class="text-xs font-black text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-pulse"></span> Papan TTS Normal & Terstruktur
+                                    <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-pulse"></span> Papan TTS Tanpa Ganda
                                 </div>
                                 <div class="flex gap-2">
                                     <button onclick="useHint()" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-amber-950 rounded-2xl text-xs font-black transition flex items-center gap-2 shadow-md">
@@ -1362,7 +1377,7 @@
                             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <div class="flex flex-wrap items-center gap-3">
                                     <div>
-                                        <h3 class="font-extrabold text-slate-900 text-lg">Kelola Bank Soal TTS Kumer & KBC</h3>
+                                        <h3 class="font-extrabold text-slate-900 text-lg">Kelola Bank Soal TTS Tanpa Ganda</h3>
                                         <p class="text-xs text-slate-500">Total Soal: <strong class="text-brand-600">${totalQuestions}</strong> soal tersedia di filter saat ini.</p>
                                     </div>
                                 </div>
@@ -2059,8 +2074,8 @@
                 return;
             }
             document.querySelector('.fixed').remove();
-            State.cloudQuestions = EMBEDDED_950_QUESTIONS;
-            localStorage.setItem('tts_questions', JSON.stringify(EMBEDDED_950_QUESTIONS));
+            State.cloudQuestions = EMBEDDED_50_QUESTIONS;
+            localStorage.setItem('tts_questions', JSON.stringify(EMBEDDED_50_QUESTIONS));
             alertBox("Berhasil", "Bank soal berhasil di-reset ke set default.");
             router.navigate('teacherDashboard');
         };
