@@ -116,7 +116,31 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration (informatica-class)
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3v19W60OQ5qfKYELEvmmkKaO-Gf6zHgs",
+            authDomain: "informatica-class.firebaseapp.com",
+            projectId: "informatica-class",
+            storageBucket: "informatica-class.firebasestorage.app",
+            messagingSenderId: "352869091816",
+            appId: "1:352869091816:web:e7af4d6c3bd798332bbc5d",
+            measurementId: "G-XKCH0CZZFZ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        window.auth = auth;
+        window.db = db;
+        const APP_ID = 'informatika-tts';
+        window.isFirebaseInitialized = false;
+
         const GRADE_MATERIALS = {
             7: ["Semua Materi", "Berpikir Komputasional", "Pengolahan Data", "Literasi Informasi", "Keseimbangan Hidup Digital", "Perkakas TIK"],
             8: ["Semua Materi", "Analisis Data", "Berpikir Komputasional", "Algoritma Pemrograman", "Jejak Bermedia Digital", "Pemanfaatan Perkakas Digital"],
@@ -1178,8 +1202,10 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 9: ['IX-A', 'IX-B', 'IX-C', 'IX-D', 'IX-E']
             }
         };
-        // Offline-first robust persistence engine preventing any cloud backoff warnings
+        
+        // Hybrid Offline-First robust persistence engine
         async function syncSave(collectionName, docId, data) {
+            // Update UI/Local Storage instantly
             if (collectionName === 'questions') {
                 let idx = State.cloudQuestions.findIndex(q => q.id === docId);
                 if (idx >= 0) State.cloudQuestions[idx] = data; else State.cloudQuestions.push(data);
@@ -1197,9 +1223,17 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 if (idx >= 0) State.cloudUsers[idx] = data; else State.cloudUsers.push(data);
                 localStorage.setItem('tts_users', JSON.stringify(State.cloudUsers));
             }
+
+            // Sync to Firebase Cloud
+            if (window.db && window.auth && window.auth.currentUser) {
+                try {
+                    await setDoc(doc(window.db, 'artifacts', APP_ID, 'public', 'data', collectionName, docId), data);
+                } catch(e) { console.warn('Firebase save error:', e); }
+            }
         }
 
         async function syncDelete(collectionName, docId) {
+            // Delete from Local Storage instantly
             if (collectionName === 'questions') {
                 State.cloudQuestions = State.cloudQuestions.filter(q => q.id !== docId);
                 localStorage.setItem('tts_questions_v2', JSON.stringify(State.cloudQuestions));
@@ -1212,6 +1246,18 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             } else if (collectionName === 'users') {
                 State.cloudUsers = State.cloudUsers.filter(u => u.username !== docId);
                 localStorage.setItem('tts_users', JSON.stringify(State.cloudUsers));
+            }
+
+            // Delete from Firebase Cloud
+            if (window.db && window.auth && window.auth.currentUser) {
+                try {
+                    if (collectionName === 'questions') {
+                        // Mark as deleted in Cloud to prevent it returning on next load
+                        await setDoc(doc(window.db, 'artifacts', APP_ID, 'public', 'data', collectionName, docId), { id: docId, _deleted: true });
+                    } else {
+                        await deleteDoc(doc(window.db, 'artifacts', APP_ID, 'public', 'data', collectionName, docId));
+                    }
+                } catch(e) { console.warn('Firebase delete error:', e); }
             }
         }
 
@@ -1235,6 +1281,12 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
 
         function renderApp() {
             const appEl = document.getElementById('app');
+            
+            if (!window.isFirebaseInitialized) {
+                appEl.innerHTML = `<div class="flex flex-col items-center justify-center h-64 text-brand-600"><i class="fa-solid fa-circle-notch fa-spin text-4xl mb-4"></i><p class="font-bold">Menghubungkan ke Database Firebase...</p></div>`;
+                return;
+            }
+
             document.getElementById('headerSchoolSub').innerText = `${State.settings.schoolName} • ${State.settings.teacherName}`;
             document.getElementById('footerSchoolIdent').innerText = `${State.settings.schoolName} • Guru: ${State.settings.teacherName}`;
 
@@ -3129,7 +3181,55 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
         window.onTokenSelectChange = onTokenSelectChange;
         window.filterAdminResults = filterAdminResults;
 
-        window.onload = function() { renderApp(); };
+        // Initialize Cloud Data safely
+        async function initFirebaseData() {
+            try {
+                await signInAnonymously(window.auth);
+                
+                const fetchCollection = async (colName) => {
+                    const snap = await getDocs(collection(window.db, 'artifacts', APP_ID, 'public', 'data', colName));
+                    return snap.docs.map(d => d.data());
+                };
+                
+                const [cloudTokens, cloudUsers, cloudResults, cloudQs] = await Promise.all([
+                    fetchCollection('tokens'),
+                    fetchCollection('users'),
+                    fetchCollection('results'),
+                    fetchCollection('questions')
+                ]);
+
+                if (cloudTokens.length > 0) State.cloudTokens = cloudTokens;
+                if (cloudUsers.length > 0) State.cloudUsers = cloudUsers;
+                if (cloudResults.length > 0) State.cloudResults = cloudResults;
+
+                if (cloudQs.length > 0) {
+                    let qMap = new Map();
+                    // Load the 950 base questions first
+                    EMBEDDED_QUESTIONS.forEach(q => qMap.set(q.id, q));
+                    // Overwrite with any updates or deletions from Firebase
+                    cloudQs.forEach(q => {
+                        if (q._deleted) qMap.delete(q.id);
+                        else qMap.set(q.id, q);
+                    });
+                    State.cloudQuestions = Array.from(qMap.values());
+                } else {
+                    State.cloudQuestions = [...EMBEDDED_QUESTIONS];
+                }
+
+                // Cache synchronized data locally
+                localStorage.setItem('tts_tokens', JSON.stringify(State.cloudTokens));
+                localStorage.setItem('tts_users', JSON.stringify(State.cloudUsers));
+                localStorage.setItem('tts_results', JSON.stringify(State.cloudResults));
+                localStorage.setItem('tts_questions_v2', JSON.stringify(State.cloudQuestions));
+            } catch(e) {
+                console.warn("Firebase load failed, using local offline cache", e);
+            } finally {
+                window.isFirebaseInitialized = true;
+                renderApp();
+            }
+        }
+
+        window.onload = function() { initFirebaseData(); };
     </script>
 </body>
 </html>
