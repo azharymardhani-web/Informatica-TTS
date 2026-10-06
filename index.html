@@ -1261,6 +1261,24 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             }
         }
 
+        // Fitur Auto-Save Progress (Sistem Resume)
+        function saveActiveSession() {
+            if (State.currentView !== 'game' || !State.activeGame) return;
+            const sessionData = {
+                activeGame: State.activeGame,
+                answersState: State.answersState,
+                gameConfig: State.gameConfig,
+                remainingSeconds: State.remainingSeconds,
+                score: State.score,
+                hintsUsed: State.hintsUsed
+            };
+            localStorage.setItem('tts_active_session', JSON.stringify(sessionData));
+        }
+
+        function clearActiveSession() {
+            localStorage.removeItem('tts_active_session');
+        }
+
         function getActiveQuestions() { return State.cloudQuestions; }
         function getActiveResults() { return State.cloudResults; }
         function getActiveTokens() { return State.cloudTokens; }
@@ -1752,12 +1770,13 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 w.number = cellToNumberMap[startKey];
             });
 
-            State.activeGame = { grid: croppedGrid, gridRows: croppedRows, gridCols: croppedCols, words: placedWords };
+            State.activeGame = { grid: croppedGrid, gridRows: croppedRows, gridCols: croppedCols, words: placedWords, timerMin: timerMin };
             State.answersState = {};
             State.score = 0;
             State.hintsUsed = 0;
             State.remainingSeconds = timerMin * 60;
             State.startTime = new Date();
+            saveActiveSession();
         }
 
         function canPlaceWordNormal(grid, word, startR, startC, direction, size) {
@@ -2036,6 +2055,7 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             updateGameUI();
 
             if (val && c + 1 < State.activeGame.gridCols && State.activeGame.grid[r][c+1] !== '') selectCell(r, c + 1);
+            saveActiveSession();
         }
 
         function focusWord(num) {
@@ -2066,6 +2086,7 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             document.getElementById('hintCount').innerText = 3 - State.hintsUsed;
             
             updateGameUI();
+            saveActiveSession();
             
             alertBox("💡 Bantuan Hint", `Huruf pertama untuk pertanyaan nomor ${targetWord.number} adalah "${targetWord.word[0]}". (-25 Poin)`);
         }
@@ -2079,6 +2100,9 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 let display = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
                 let timerEl = document.getElementById('timerDisplay');
                 if (timerEl) timerEl.innerText = display;
+                
+                // Save progress periodically via interval tick
+                if (State.remainingSeconds % 2 === 0) saveActiveSession(); 
 
                 if (State.remainingSeconds <= 0) {
                     clearInterval(State.timerInterval);
@@ -2146,6 +2170,10 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             let finalScore = (correct * 100) - (State.hintsUsed * 25);
             if (finalScore < 0) finalScore = 0;
 
+            // Pastikan perhitungan waktu sisa tidak cacat jika timer disingkat reload page
+            let timeSpent = (State.activeGame.timerMin * 60) - State.remainingSeconds;
+            if (timeSpent < 0) timeSpent = 0;
+
             let badge = "🥉 PEMULA DIGITAL";
             if (finalScore >= 1200) badge = "🏆 MASTER INFORMATIKA";
             else if (finalScore >= 950) badge = "🥇 AHLI DIGITAL";
@@ -2161,13 +2189,14 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
                 total: totalWords,
                 accuracy: accuracy,
                 badge: badge,
-                timeSpent: Math.floor((State.endTime - State.startTime) / 1000),
+                timeSpent: timeSpent,
                 date: new Date().toLocaleDateString('id-ID'),
                 details: details
             };
 
             await syncSave('results', resultRecord.id, resultRecord);
             State.lastResult = resultRecord;
+            clearActiveSession(); // Hapus sesi jika game sudah berstatus selesai!
             router.navigate('result');
         }
 
@@ -3224,8 +3253,32 @@ Kegiatan memantau proses atau kondisi proyek|monitoring
             } catch(e) {
                 console.warn("Firebase load failed, using local offline cache", e);
             } finally {
+                // Pengecekan status Game tertunda sebelum render
+                let savedSession = localStorage.getItem('tts_active_session');
+                if (savedSession) {
+                    try {
+                        let parsed = JSON.parse(savedSession);
+                        State.activeGame = parsed.activeGame;
+                        State.answersState = parsed.answersState;
+                        State.gameConfig = parsed.gameConfig;
+                        State.remainingSeconds = parsed.remainingSeconds;
+                        State.score = parsed.score;
+                        State.hintsUsed = parsed.hintsUsed;
+                        State.currentView = 'game'; // Force switch to game screen
+                    } catch(err) {
+                        localStorage.removeItem('tts_active_session');
+                    }
+                }
+                
                 window.isFirebaseInitialized = true;
                 renderApp();
+                
+                if (State.currentView === 'game') {
+                    // Beritahu siswa mereka sedang melanjutkan
+                    let m = Math.floor(State.remainingSeconds / 60);
+                    let s = State.remainingSeconds % 60;
+                    alertBox("Sesi Dilanjutkan", `Halaman dimuat ulang. Kamu otomatis kembali ke game dengan sisa waktu ${m} menit ${s} detik.`);
+                }
             }
         }
 
