@@ -2385,8 +2385,30 @@ Tombol pembatalan|escape
             const isAdmin = State.currentUser && State.currentUser.role === 'admin';
             const activeTab = State.activeAdminTab || 'soal';
 
-            let qFilterGrade = document.getElementById('adminQuestionFilter')?.value || 'ALL';
-            let filteredQuestions = qFilterGrade === 'ALL' ? questions : questions.filter(q => Number(q.kelas) === Number(qFilterGrade));
+            State.adminQuestionClassFilter = State.adminQuestionClassFilter || 'ALL';
+            State.adminQuestionMateriFilter = State.adminQuestionMateriFilter || 'ALL';
+
+            let qFilterGrade = State.adminQuestionClassFilter;
+            let qFilterMateri = State.adminQuestionMateriFilter;
+
+            let filteredQuestions = questions;
+            if (qFilterGrade !== 'ALL') {
+                filteredQuestions = filteredQuestions.filter(q => Number(q.kelas) === Number(qFilterGrade));
+            }
+            if (qFilterMateri !== 'ALL') {
+                filteredQuestions = filteredQuestions.filter(q => q.materi === qFilterMateri);
+            }
+
+            let availableMateris = [];
+            if (qFilterGrade === 'ALL') {
+                let mats7 = getMaterials(7).filter(m => m !== 'Semua Materi');
+                let mats8 = getMaterials(8).filter(m => m !== 'Semua Materi');
+                let mats9 = getMaterials(9).filter(m => m !== 'Semua Materi');
+                availableMateris = [...new Set([...mats7, ...mats8, ...mats9])];
+            } else {
+                availableMateris = getMaterials(Number(qFilterGrade)).filter(m => m !== 'Semua Materi');
+            }
+
             let totalQuestions = filteredQuestions.length;
             let rowsPerPage = State.adminRowsPerPage || 10;
             let totalPages = Math.ceil(totalQuestions / rowsPerPage) || 1;
@@ -2456,6 +2478,10 @@ Tombol pembatalan|escape
                                         <option value="7" ${qFilterGrade === '7' ? 'selected' : ''}>Kelas 7</option>
                                         <option value="8" ${qFilterGrade === '8' ? 'selected' : ''}>Kelas 8</option>
                                         <option value="9" ${qFilterGrade === '9' ? 'selected' : ''}>Kelas 9</option>
+                                    </select>
+                                    <select id="adminQuestionMateriFilter" onchange="filterAdminQuestionsByMateri(this.value)" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border max-w-[150px] truncate">
+                                        <option value="ALL" ${qFilterMateri === 'ALL' ? 'selected' : ''}>Semua Materi</option>
+                                        ${availableMateris.map(m => `<option value="${m}" ${qFilterMateri === m ? 'selected' : ''}>${m}</option>`).join('')}
                                     </select>
                                     ${isAdmin ? `
                                         <select id="deleteQuestionClassSelect" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-xl text-xs border">
@@ -2761,6 +2787,14 @@ Tombol pembatalan|escape
         }
 
         window.filterAdminQuestions = function(gradeVal) {
+            State.adminQuestionClassFilter = gradeVal;
+            State.adminQuestionMateriFilter = 'ALL'; // Reset materi saat kelas diubah
+            State.adminQuestionPage = 1;
+            renderApp();
+        };
+
+        window.filterAdminQuestionsByMateri = function(materiVal) {
+            State.adminQuestionMateriFilter = materiVal;
             State.adminQuestionPage = 1;
             renderApp();
         };
