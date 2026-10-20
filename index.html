@@ -1487,6 +1487,7 @@ Tombol pembatalan|escape
                                         <th class="p-3.5 text-center">Waktu Pengerjaan</th>
                                         <th class="p-3.5 text-center">Akurasi</th>
                                         <th class="p-3.5">Badge Prestasi</th>
+                                        <th class="p-3.5">Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody id="leaderboardTableBody" class="divide-y divide-slate-100 font-medium">
@@ -1515,7 +1516,7 @@ Tombol pembatalan|escape
         };
 
         function renderLeaderboardRows(results) {
-            if (!results.length) return `<tr><td colspan="7" class="p-8 text-center text-slate-400 italic">Belum ada data skor siswa yang sesuai filter.</td></tr>`;
+            if (!results.length) return `<tr><td colspan="8" class="p-8 text-center text-slate-400 italic">Belum ada data skor siswa yang sesuai filter.</td></tr>`;
             return results.map((r, i) => {
                 let m = Math.floor((r.timeSpent || 0) / 60);
                 let s = (r.timeSpent || 0) % 60;
@@ -1531,6 +1532,7 @@ Tombol pembatalan|escape
                     <td class="p-3.5 text-center font-mono font-bold text-slate-600">${timeStr}</td>
                     <td class="p-3.5 text-center font-bold text-emerald-600">${r.accuracy}%</td>
                     <td class="p-3.5 font-semibold text-slate-800">${r.badge}</td>
+                    <td class="p-3.5 text-slate-500 text-xs">${r.date || '-'}</td>
                 </tr>
             `;
             }).join('');
