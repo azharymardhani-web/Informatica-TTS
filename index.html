@@ -1697,14 +1697,14 @@ Tombol pembatalan|escape
             }
             uniquePool.sort(() => Math.random() - 0.5);
 
-            let selectedQuestions = uniquePool.slice(0, count);
+            let targetCount = Math.min(count, uniquePool.length);
             const MAX_GRID = 70;
             let grid = Array(MAX_GRID).fill(0).map(() => Array(MAX_GRID).fill(''));
             let placedWords = [];
             let usedIds = new Set();
 
-            if (selectedQuestions.length > 0) {
-                let q0 = selectedQuestions[0];
+            if (uniquePool.length > 0) {
+                let q0 = uniquePool[0];
                 let word0 = q0.jawaban;
                 let startR = Math.floor(MAX_GRID / 2);
                 let startC = Math.floor(MAX_GRID / 2) - Math.floor(word0.length / 2);
@@ -1722,11 +1722,11 @@ Tombol pembatalan|escape
             let questionNumberCounter = 2;
             let attempts = 0;
 
-            while (placedWords.length < selectedQuestions.length && attempts < 1200) {
+            while (placedWords.length < targetCount && attempts < 2500) {
                 attempts++;
                 let bestFit = null;
 
-                for (let q of selectedQuestions) {
+                for (let q of uniquePool) {
                     if (usedIds.has(q.id)) continue;
                     let word = q.jawaban;
 
@@ -1767,25 +1767,6 @@ Tombol pembatalan|escape
                 } else {
                     break;
                 }
-            }
-
-            if (placedWords.length < selectedQuestions.length) {
-                let unplaced = selectedQuestions.filter(q => !usedIds.has(q.id));
-                let fallbackR = 2;
-                unplaced.forEach(q => {
-                    let word = q.jawaban;
-                    let coords = [];
-                    for (let k = 0; k < word.length; k++) {
-                        if (fallbackR < MAX_GRID && k < MAX_GRID) {
-                            grid[fallbackR][k] = word[k];
-                            coords.push({r: fallbackR, c: k});
-                        }
-                    }
-                    if (coords.length > 0) {
-                        placedWords.push({ ...q, word: word, direction: 'mendatar', coords: coords, number: questionNumberCounter++ });
-                        fallbackR += 3;
-                    }
-                });
             }
 
             let minR = MAX_GRID, maxR = 0, minC = MAX_GRID, maxC = 0;
@@ -2000,7 +1981,7 @@ Tombol pembatalan|escape
                 let isComplete = formed === w.word;
                 let letterCount = w.word.length;
 
-                let text = `<div id="clue_${w.number}" class="p-3 rounded-2xl transition border ${isComplete ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900 font-bold shadow-sm' : 'bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-brand-50 hover:border-brand-200 cursor-pointer shadow-sm'}" onclick="focusWord(${w.number})">
+                let text = `<div id="clue_${w.direction}_${w.number}" class="p-3 rounded-2xl transition border ${isComplete ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900 font-bold shadow-sm' : 'bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-brand-50 hover:border-brand-200 cursor-pointer shadow-sm'}" onclick="focusWord(${w.number})">
                     <div class="flex items-center justify-between">
                         <span class="font-black text-brand-600">${w.number}. <span class="text-[11px] font-semibold text-slate-500">(${letterCount} huruf)</span></span>
                         ${isComplete ? '<span class="text-[10px] bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-bold shadow-xs">✓ Selesai</span>' : ''}
@@ -2029,7 +2010,7 @@ Tombol pembatalan|escape
                     w.coords.forEach(coord => correctCells.add(`${coord.r}_${coord.c}`));
                 }
 
-                let clueEl = document.getElementById(`clue_${w.number}`);
+                let clueEl = document.getElementById(`clue_${w.direction}_${w.number}`);
                 if (clueEl) {
                     clueEl.className = `p-3 rounded-2xl transition border ${isComplete ? 'bg-emerald-50/80 border-emerald-300 text-emerald-900 font-bold shadow-sm' : 'bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-brand-50 hover:border-brand-200 cursor-pointer shadow-sm'}`;
                     let headerEl = clueEl.querySelector('.flex.items-center.justify-between');
