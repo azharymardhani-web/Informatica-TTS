@@ -1483,6 +1483,7 @@ Tombol pembatalan|escape
                                         <th class="p-3.5 text-center w-16">Rank</th>
                                         <th class="p-3.5">Nama Siswa</th>
                                         <th class="p-3.5">Kelas</th>
+                                        <th class="p-3.5 text-center">Token</th>
                                         <th class="p-3.5 text-center">Skor</th>
                                         <th class="p-3.5 text-center">Waktu Pengerjaan</th>
                                         <th class="p-3.5 text-center">Akurasi</th>
@@ -1528,6 +1529,7 @@ Tombol pembatalan|escape
                     </td>
                     <td class="p-3.5 font-bold text-slate-900">${r.name}</td>
                     <td class="p-3.5"><span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-bold text-xs">${r.class}</span></td>
+                    <td class="p-3.5 text-center"><span class="font-mono text-[11px] font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded shadow-sm">${r.token || '-'}</span></td>
                     <td class="p-3.5 text-center font-black text-brand-600 text-base">${r.score}</td>
                     <td class="p-3.5 text-center font-mono font-bold text-slate-600">${timeStr}</td>
                     <td class="p-3.5 text-center font-bold text-emerald-600">${r.accuracy}%</td>
@@ -1653,6 +1655,7 @@ Tombol pembatalan|escape
             State.gameConfig.selectedSoalCount = parseInt(document.getElementById('setupSoalCount').value) || 15;
 
             let tokenVal = document.getElementById('setupTokenSelect')?.value;
+            State.gameConfig.token = tokenVal || 'KUSTOM';
             let tokens = getActiveTokens();
             let found = tokens.find(t => t.token === tokenVal);
             let grade = found ? found.kelas : 7;
@@ -2225,6 +2228,7 @@ Tombol pembatalan|escape
                 id: 'RES-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
                 name: State.gameConfig.studentName || 'Siswa Mandiri',
                 class: State.gameConfig.studentClass || 'VII-A',
+                token: State.gameConfig.token || '-',
                 score: finalScore,
                 correct: correct,
                 wrong: wrong,
@@ -2695,6 +2699,7 @@ Tombol pembatalan|escape
                                             <tr>
                                                 <th class="p-3">Nama Siswa</th>
                                                 <th class="p-3">Kelas</th>
+                                                <th class="p-3 text-center">Token</th>
                                                 <th class="p-3 text-center">Skor</th>
                                                 <th class="p-3 text-center">Akurasi</th>
                                                 <th class="p-3">Badge Pencapaian</th>
@@ -2707,6 +2712,7 @@ Tombol pembatalan|escape
                                                 <tr class="hover:bg-slate-50 transition">
                                                     <td class="p-3 font-bold text-slate-900">${r.name}</td>
                                                     <td class="p-3"><span class="px-2 py-0.5 rounded bg-slate-100 font-bold">${r.class}</span></td>
+                                                    <td class="p-3 text-center"><span class="font-mono text-[11px] font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded shadow-sm">${r.token || '-'}</span></td>
                                                     <td class="p-3 text-center font-black text-brand-600 text-sm">${r.score}</td>
                                                     <td class="p-3 text-center font-bold text-emerald-600">${r.accuracy}%</td>
                                                     <td class="p-3">${r.badge}</td>
